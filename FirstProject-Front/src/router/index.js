@@ -17,8 +17,10 @@ import BoardList from "@/components/board/BoardList.vue";
 import BoardModify from "@/components/board/BoardModify.vue";
 import BoardWrite from "@/components/board/BoardWrite.vue";
 import BoardDetail from "@/components/board/BoardDetail.vue";
-import contact from "@/components/common/contact.vue";
-import about from "@/components/common/about.vue";
+import Contact from "@/components/common/contact.vue";
+import About from "@/components/common/about.vue";
+import ServiceForm from "@/components/service/ServiceForm.vue"
+import Service from "@/views/ServiceView.vue"
 
 const routes = [
   {
@@ -29,17 +31,28 @@ const routes = [
   {
     path: "/contact",
     name: "contact",
-    component: contact,
+    component: Contact,
   },
   {
     path: "/about",
     name: "about",
-    component: about,
+    component: About,
   },
   {
     path: "/login",
     name: "Login",
     component: LoginForm,
+  },
+  {
+    path: "/service",
+    component: Service,
+    children: [
+      {
+        path: "form",
+        name: "ServiceForm",
+        component: ServiceForm,
+      },
+    ],
   },
   {
     path: "/users",
@@ -55,6 +68,11 @@ const routes = [
         name: "UserList",
         component: UserList,
       },
+      {
+        path: ":id",
+        name: "UserDetail",
+        component: UserDetail,
+      },
     ],
   },
   {
@@ -66,11 +84,11 @@ const routes = [
         name: "UserInfo",
         component: UserInfo,
       },
-      {
-        path: "detail",
-        name: "UserDetail",
-        component: UserDetail,
-      },
+      // {
+      //   path: "detail",
+      //   name: "UserDetail",
+      //   component: UserDetail,
+      // },
     ]
   },
   {

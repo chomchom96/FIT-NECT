@@ -27,7 +27,6 @@ import com.ssafy.board.util.JwtUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
@@ -75,17 +74,14 @@ public class UserRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK); 
 	}
 	
-	
-	
-	
 	@GetMapping("users/{userId}")
 	@ApiOperation(value="userId에 해당하는 user 조회")
 	public ResponseEntity<?> getUser(@PathVariable String userId){
 
 		System.out.println(userId);
 		User user = userService.selectUser(userId);
-		if (user != null) return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		if (user != null) return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
 	
 	

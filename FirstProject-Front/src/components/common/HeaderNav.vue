@@ -14,9 +14,9 @@
       </div>
 
       <div class="dropdown">
-        <a href="#"> SERVICE </a>
+        <RouterLink to="/service/"> SERVICE </RouterLink>
         <div class="dropdown-content">
-          <a href="#">START FI-NECT</a>
+          <RouterLink to="/service/form"> START SERVICE </RouterLink>
           <a href="#">MY PLAN</a>
         </div>
       </div>
