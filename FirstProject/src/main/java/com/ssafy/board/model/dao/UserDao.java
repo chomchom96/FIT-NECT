@@ -13,6 +13,12 @@ public interface UserDao {
 	//회원 등록
 	void insertUser(User user);
 	
+	//회원기본정보 수정	
+	void updateUser(User user);
+	
+	//회원 삭제
+	void deleteUser(String userId);
+	
 	//회원 1명 선택해서 보기
 	User selectOne(String userId);
 	

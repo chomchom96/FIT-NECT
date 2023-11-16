@@ -9,6 +9,10 @@ public interface TrainerService {
 	List<Trainer> getTrainerList();
 
 	void signup(Trainer trainer);
+	
+	void updateTrainer(Trainer trainer);
+	
+	void deleteTrainer(String trainerId); 
 
 	Trainer login(Trainer trainer);
 		

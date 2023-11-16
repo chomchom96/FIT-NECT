@@ -22,6 +22,17 @@
 	    VALUES ( #{trainerId}, #{trainerPassword}, #{trainerEmail}, #{trainerNickname});
 	</insert>
 	
+	<delete id="deleteTrainer" parameterType="String">
+		DELETE FROM trainer
+		WHERE trainer_id = #{trainerId};
+	</delete>
+	
+	<update id="updateTrainer" parameterType="Trainer">
+		UPDATE trainer
+		SET trainer_password = #{trainerPassword}, trainer_email = #{trainerEmail}, trainer_nickname = #{trainerNickname}
+		WHERE trainer_id = #{trainerId};
+	</update>
+	
 	<select id="selectOne" resultMap="trainerMap" resultType="Trainer">
 	    SELECT *
 	    FROM trainer

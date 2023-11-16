@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ import com.ssafy.board.util.JwtUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
@@ -54,6 +56,27 @@ public class UserRestController {
 		userService.signup(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
+	
+	
+	@DeleteMapping("/users/{userId}")
+	@ApiOperation(value="회원삭제")
+	public ResponseEntity<Void> delete(@PathVariable String userId) {
+		userService.deleteUser(userId);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK); 
+	}
+	
+	
+	@PutMapping("/users")
+	@ApiOperation(value="회원 기본정보 수정")
+	public ResponseEntity<Void> update(@RequestBody User user){
+		userService.updateUser(user);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK); 
+	}
+	
+	
+	
 	
 	@GetMapping("users/{userId}")
 	@ApiOperation(value="userId에 해당하는 user 조회")

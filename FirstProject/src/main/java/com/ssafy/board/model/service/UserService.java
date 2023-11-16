@@ -10,6 +10,10 @@ public interface UserService {
 	List<User> getUserList();
 
 	void signup(User user);
+	
+	void updateUser(User user);
+	
+	void deleteUser(String userId); 
 
 	User login(User user);
 		

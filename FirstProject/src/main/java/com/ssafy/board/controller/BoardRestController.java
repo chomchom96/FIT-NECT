@@ -50,6 +50,7 @@ public class BoardRestController {
 //		}
 
 		@GetMapping("/board/{boardId}")
+		@ApiOperation(value="게시글 상세조회")
 		public ResponseEntity<Board> detail(@PathVariable int boardId){
 			Board board = boardService.getBoard(boardId);
 			
@@ -57,6 +58,7 @@ public class BoardRestController {
 		}
 
 		@PostMapping("/board")
+		@ApiOperation(value="게시글 작성")
 		public ResponseEntity<Board> write(@RequestBody Board board){
 			boardService.writeBoard(board);
 	
@@ -64,14 +66,16 @@ public class BoardRestController {
 		}
 
 		@DeleteMapping("/board/{boardId}")
+		@ApiOperation(value="게시글 삭제")
 		public ResponseEntity<Void> delete(@PathVariable int boardId){
 			boardService.removeBoard(boardId);
 			
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 
-		@ApiIgnore
+	
 		@PutMapping("/board")
+		@ApiOperation(value="게시글 수정")
 		public ResponseEntity<Void> update(@RequestBody Board board){
 			boardService.modifyBoard(board);
 			

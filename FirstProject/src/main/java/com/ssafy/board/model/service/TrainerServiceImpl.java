@@ -41,4 +41,18 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerDao.selectTrainer(trainerId);
 	}
 
+
+	@Override
+	public void updateTrainer(Trainer trainer) {
+		trainerDao.updateTrainer(trainer);
+		
+	}
+
+
+	@Override
+	public void deleteTrainer(String trainerId) {
+		trainerDao.deleteTrainer(trainerId);
+		
+	}
+
 }

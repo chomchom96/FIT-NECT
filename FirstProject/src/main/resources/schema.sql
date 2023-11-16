@@ -19,9 +19,6 @@ CREATE TABLE trainer(
     trainer_nickname VARCHAR(20) UNIQUE
 )ENGINE = InnoDB;
 
-insert into trainer (trainer_id, trainer_password) values ("trainer@naver.com", "trainer");
-select * from trainer;
-
 CREATE TABLE user_detail(
 	user_seq INT NOT NULL PRIMARY KEY ,
 	user_profile_pic VARCHAR(2000),
@@ -127,7 +124,11 @@ insert into followings values ("samsung", "baek");
 select following_id followId from followings where user_id= "admin";
 
 -- user_detail
-insert into user_detail values (1, null, 0, 28, 178, 78, "student", 5, "home", "시간이 없어용");
+insert into user_detail values (1, null, 0, 28, 178, 78, "실내", "홈트레이닝 선호합니다", "아직없음");
+
+-- trainer
+insert into trainer (trainer_id, trainer_password) values ("trainer@naver.com", "trainer");
+select * from trainer;
 
 -- video
 insert into video (video_title, video_url, video_part) values ("집에서 칼로리 불태우는 최고의 유산소운동 [칼소폭 매운맛]", "https://www.youtube.com/watch?v=lKwZ2DU4P-A", "유산소"); 

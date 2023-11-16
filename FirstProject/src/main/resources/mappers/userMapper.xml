@@ -24,6 +24,18 @@
 	    VALUES ( #{userId}, #{userPassword}, #{userEmail}, #{userNickname}, #{isKakao} );
 	</insert>
 	
+	<delete id="deleteUser" parameterType="String">
+		DELETE FROM user
+		WHERE user_id = #{userId};
+	</delete>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET user_password = #{userPassword}, user_email = #{userEmail}, user_nickname = #{userNickname}
+		WHERE user_id = #{userId};
+	</update>
+	
+	
 	<select id="selectOne" resultMap="userMap" resultType="User">
 	    SELECT *
 	    FROM user

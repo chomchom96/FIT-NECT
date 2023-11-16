@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Trainer;
+import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.service.TrainerService;
 import com.ssafy.board.util.JwtUtil;
 
@@ -47,11 +50,30 @@ public class TrainerRestController {
 	}
 	
 	@PostMapping("trainers/signup")
-	@ApiOperation(value="회원가입")
+	@ApiOperation(value="트레이너 회원가입")
 	public ResponseEntity<Trainer> signup(@RequestBody Trainer trainer) {
 		trainerService.signup(trainer);
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
 	}
+	
+	@DeleteMapping("/trainers/{trainerId}")
+	@ApiOperation(value="트레이너 삭제")
+	public ResponseEntity<Void> delete(@PathVariable String trainerId) {
+		trainerService.deleteTrainer(trainerId);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK); 
+	}
+	
+	
+	@PutMapping("/trainers")
+	@ApiOperation(value="트레이너 기본정보 수정")
+	public ResponseEntity<Void> update(@RequestBody Trainer trainer){
+		trainerService.updateTrainer(trainer);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK); 
+	}
+	
+	
 	
 	@GetMapping("trainers/{trainerId}")
 	@ApiOperation(value="trainerId에 해당하는 trainer 조회")
@@ -65,7 +87,7 @@ public class TrainerRestController {
 	
 	
 	@PostMapping("trainers/login")
-	@ApiOperation(value="로그인")
+	@ApiOperation(value="트레이너 로그인")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Trainer trainer) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		HttpStatus status = null;
@@ -90,7 +112,7 @@ public class TrainerRestController {
 	}
 	
 	@GetMapping("trainers/logout")
-	@ApiOperation(value="로그아웃")
+	@ApiOperation(value="트레이너 로그아웃")
 	public ResponseEntity<Void> logout(HttpSession session) {
 		session.invalidate();
 		return new ResponseEntity<Void>(HttpStatus.OK);
