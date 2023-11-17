@@ -19,7 +19,7 @@
       <input readonly type="text" id="name" v-model="board.boardContent" class="view" /><br />
       
       <br>
-      <button class="btn" @click="GoModify">수정</button>
+      <button class="btn" @click="updateBoard">수정</button>
       <button class="btn" @click="call_confirm()">삭제</button>
     </fieldset>
   </div>
@@ -29,15 +29,10 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { useUserStore } from "../../stores/user";
 
-const router = useRouter(); 
+const store = useUserStore()
 const emit = defineEmits();
-
-const GoModify = () => {
-  const pathName = new URL(document.location).pathname.split("/");
-  const id = pathName[pathName.length - 1];
-  router.push( { name:"BoardModify", params:{id:id}})
-}
 
 const board = ref({
   boardId: "",
@@ -47,26 +42,31 @@ const board = ref({
 });
 
 const updateBoard = () => {
-  emit("update-board", board.value);
+  if (board.userId === store.idValue || store.idValue === "admin")
+    emit("update-board", board.value);
+  else alert("권한이 없습니다")
 };
 
 const deleteBoard = () => {
-  emit("delete-board", board.value);
+  if (board.userId === store.idValue || store.idValue === "admin")
+    emit("delete-board", board.value);
+  else alert("권한이 없습니다")
 };
 
 const call_confirm = function(){
   if(confirm("정말로 삭제하시겠습니까?")){
     deleteBoard();
-  }else{
+  }
+  else {
+    return
   }
 }
-
-
 
 onMounted(() => {
   const pathName = new URL(document.location).pathname.split("/");
   const id = pathName[pathName.length - 1];
   const API_URL = `http://localhost:8080/api/board/${id}`;
+  
   axios({
     url: API_URL,
     method: "GET",
