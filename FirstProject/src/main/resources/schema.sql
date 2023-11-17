@@ -205,7 +205,7 @@ INSERT INTO video (video_title, video_part, video_url, video_channel_name)
 VALUES ('[ENG] (층간소음 X) 진짜 역대급 20분 루틴ㅣ전신올인원 I 힙으뜸 유산소 운동', '유산소 운동', 'https://www.youtube.com/watch?v=46vQnzaZ6aU', '힙으뜸');
   
 INSERT INTO video (video_title, video_part, video_url, video_channel_name)
-VALUES ("가슴근육을 키우려면 당신은 '이 운동'을 해야합니다!', '가슴 운동(대흉근)", 'https://www.youtube.com/watch?v=_is-VfJW44Y', '보통사람을 위한 운동채널');
+VALUES ("가슴근육을 키우려면 당신은 '이 운동'을 해야합니다!", '가슴 운동(대흉근)', 'https://www.youtube.com/watch?v=_is-VfJW44Y', '보통사람을 위한 운동채널');
 
 INSERT INTO video (video_title, video_part, video_url, video_channel_name)
 VALUES ('제발 상체운동좀 하세요!! ’여자 상체운동 5가지‘ | 윗가슴,중간가슴,안쪽가슴', '가슴 운동(대흉근)', 'https://www.youtube.com/watch?v=MVEHN4MIOA4', '핏블리 FITVELY');
