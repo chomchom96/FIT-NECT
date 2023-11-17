@@ -41,13 +41,13 @@ const board = ref({
 });
 
 const updateBoard = () => {
-  if (board.userId === store.idValue || store.idValue === "admin")
+  if (board.value.userId === store.idValue || store.idValue === "admin")
     emit("update-board", board.value);
   else alert("권한이 없습니다")
 };
 
 const deleteBoard = () => {
-  if (board.userId === store.idValue || store.idValue === "admin")
+  if (board.value.userId === store.idValue || store.idValue === "admin")
     emit("delete-board", board.value);
   else alert("권한이 없습니다")
 };
