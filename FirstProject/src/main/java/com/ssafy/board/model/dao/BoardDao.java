@@ -27,4 +27,6 @@ public interface BoardDao {
 	// 검색 기능
 	public List<Board> search(SearchCondition condition);
 
+	public void increaseViewCnt(int id);
+
 }

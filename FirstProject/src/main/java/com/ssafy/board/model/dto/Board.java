@@ -9,6 +9,8 @@ public class Board {
 	private String userId;
 	private String boardContent;
 	private String boardFile;
+	private String boardCreatedAt; 
+	private int boardViewCnt; 
 	
 	public Board() {}
 	
@@ -44,10 +46,31 @@ public class Board {
 		this.boardFile = boardFile;
 	}
 
+
+	public String getBoardCreatedAt() {
+		return boardCreatedAt;
+	}
+
+	public void setBoardCreatedAt(String boardCreatedAt) {
+		this.boardCreatedAt = boardCreatedAt;
+	}
+
+	public int getBoardViewCnt() {
+		return boardViewCnt;
+	}
+
+	public void setBoardViewCnt(int boardViewCnt) {
+		this.boardViewCnt = boardViewCnt;
+	}
+
 	@Override
 	public String toString() {
-		return "Board [boardId=" + boardId + ", boardTitle=" + boardTitle + ", userId=" + userId + ", boardContent=" + boardContent + ", boardFile=" + boardFile + "]";
+		return "Board [boardId=" + boardId + ", boardTitle=" + boardTitle + ", userId=" + userId + ", boardContent="
+				+ boardContent + ", boardFile=" + boardFile + ", boardCreatedAt=" + boardCreatedAt + ", boardViewCnt="
+				+ boardViewCnt + "]";
 	}
+
+	
 	
 	
 }

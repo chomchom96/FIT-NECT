@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', ()=>{
   const idValue = ref("");
   const getUser = ref(false)
   const user = ref({});
+  const userEmail = ref('');
 
   const getUserList = () => {
     axios({
@@ -30,6 +31,7 @@ export const useUserStore = defineStore('user', ()=>{
     })
     .then((res) => {
       user.value = res.data;
+      userEmail.value = res.data.userEmail;
     })
     .catch((err) => {
       console.log(err);
@@ -39,7 +41,7 @@ export const useUserStore = defineStore('user', ()=>{
   const updateUser = (user) => {
     axios({
       url: `http://localhost:8080/api/users/${user.id}`,
-      method: "PUT", // Use PUT for updating existing data
+      method: "PUT", 
       data: user.value
     })
       .then(() => {
@@ -55,8 +57,7 @@ export const useUserStore = defineStore('user', ()=>{
   const deleteUser = () => {
     axios({
       url: `http://localhost:8080/api/users/${idValue.value}`,
-      method: "DELETE", // Use PUT for updating existing data
-      data: user.value
+      method: "DELETE", 
     })
       .then(() => {
         alert("계정 삭제 완료")
@@ -116,7 +117,6 @@ export const useUserStore = defineStore('user', ()=>{
     });
   };
 
-
   const logout = () => {
     idValue.value = '';
     alert("로그아웃 하셨습니다")
@@ -128,6 +128,6 @@ export const useUserStore = defineStore('user', ()=>{
     getUserList()
   )
 
-  return { router, idValue, userList, getUserList, signup, onMounted, loginUser, logout, getUser, getUserDetail, user, updateUser, deleteUser}
+  return { router, idValue, userList, getUserList, signup, onMounted, loginUser, logout, getUser, getUserDetail, user, updateUser, deleteUser, userEmail}
 
 })

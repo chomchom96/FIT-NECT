@@ -26,7 +26,7 @@
             <option value="집">집</option>
         </select>
 
-        <button @click="submitForm" class="btn btn-primary">서비스 시작</button>
+        <button @click="submitForm" class="btn btn-primary">START MATCHING</button>
     </div>
 </template>
   

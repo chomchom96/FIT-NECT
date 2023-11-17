@@ -25,9 +25,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board getBoard(int boardId) {
-		return boardDao.selectOne(boardId);
-	}
+    public Board getBoard(int boardId) {
+        boardDao.updateViewCnt(boardId);
+        return boardDao.selectOne(boardId);
+    }
 
 	@Override
 	public void modifyBoard(Board board) {
@@ -37,6 +38,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void removeBoard(int boardId) {
 		boardDao.deleteBoard(boardId); 
+	}
+
+	@Override
+	public void increaseViewCnt(int id) {
+		boardDao.increaseViewCnt(id);
+		
 	}
 
 

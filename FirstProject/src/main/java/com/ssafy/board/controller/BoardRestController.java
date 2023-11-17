@@ -53,7 +53,6 @@ public class BoardRestController {
 		@ApiOperation(value="게시글 상세조회")
 		public ResponseEntity<Board> detail(@PathVariable int boardId){
 			Board board = boardService.getBoard(boardId);
-			
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
 		}
 

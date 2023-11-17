@@ -31,11 +31,9 @@ export const useBoardStore = defineStore('board', ()=>{
       url: API_URL,
       method: "POST",
       data: {
-        boardId: board.boardId,
         boardTitle: board.boardTitle,
         userId: board.userId,
         boardContent: board.boardContent,
-        boardFile: board.boardFile,
       },
     })
       .then(() => {
@@ -61,6 +59,8 @@ export const useBoardStore = defineStore('board', ()=>{
         userId: board.userId,
         boardContent: board.boardContent,
         boardFile: board.boardFile,
+        boardCreatedAt : board.boardCreatedAt,
+        boardViewCnt : board.boardViewCnt
       }
     })
       .then(() => {

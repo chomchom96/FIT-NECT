@@ -21,6 +21,11 @@ import Contact from "@/components/common/contact.vue";
 import About from "@/components/common/about.vue";
 import ServiceForm from "@/components/service/ServiceForm.vue"
 import Service from "@/views/ServiceView.vue"
+import Trainer from "../views/TrainerView.vue"
+import TrainerList from "@/components/trainer/TrainerList.vue"
+import TrainerDetail from "@/components/trainer/TrainerDetail.vue"
+import TrainerShow from "@/components/trainer/TrainerShow.vue"
+import TrainerLoginForm from "@/components/TrainerLoginForm.vue"
 
 const routes = [
   {
@@ -52,6 +57,11 @@ const routes = [
         name: "ServiceForm",
         component: ServiceForm,
       },
+      {
+        path: "trainers",
+        name: "trainerShow",
+        component: TrainerShow,
+      }
     ],
   },
   {
@@ -72,6 +82,27 @@ const routes = [
         path: ":id",
         name: "UserDetail",
         component: UserDetail,
+      },
+    ],
+  },
+  {
+    path: "/trainers",
+    component: Trainer,
+    children: [
+      {
+        path: "list",
+        name: "TrainerList",
+        component: TrainerList,
+      },
+      {
+        path: ":id",
+        name: "TrainerDetail",
+        component: TrainerDetail,
+      },
+      {
+        path: "login",
+        name: "TrainerLogin",
+        component: TrainerLoginForm,
       },
     ],
   },

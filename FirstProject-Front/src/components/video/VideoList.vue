@@ -8,6 +8,9 @@
             <th>제목</th>
             <th>URL</th>
             <th>부위</th>
+            <th>조회수</th>
+            <th>채널명</th>
+            <th>등록일</th>
           </tr>
         </thead>
         <tbody>
@@ -17,6 +20,9 @@
             </td>
             <td>{{ video.videoUrl }}</td>
             <td>{{ video.videoPart }}</td>
+            <td>{{ video.videoViewCnt }}</td>
+            <td>{{ video.videoChannelName }}</td>
+            <td>{{ video.videoCreatedAt }}</td>
           </tr>
         </tbody>
       </table>

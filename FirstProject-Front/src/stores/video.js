@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import axios from 'axios'
 
-
 export const useVideoStore = defineStore('video', ()=> {
   const videoList = ref([])
   
@@ -22,11 +21,12 @@ export const useVideoStore = defineStore('video', ()=> {
     })
   }
 
-  const registVideo = function (part, title, url) {
+  const registVideo = function (part, title, url, channelName) {
     video.value.videoPart = part.value;
     video.value.videoTitle = title.value;
     video.value.videoUrl = url.value;
-  
+    video.value.videoChannelName = channelName.value;
+
     axios({
       url: 'http://localhost:8080/api/video',
       method: 'POST',
@@ -37,6 +37,7 @@ export const useVideoStore = defineStore('video', ()=> {
     })
     .then(() => {
       alert('등록 성공!')
+      router.push("/video")
     })
     .catch((err) => {
       console.log(err)
