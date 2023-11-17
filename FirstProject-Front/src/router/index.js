@@ -25,6 +25,7 @@ import Trainer from "../views/TrainerView.vue"
 import TrainerList from "@/components/trainer/TrainerList.vue"
 import TrainerDetail from "@/components/trainer/TrainerDetail.vue"
 import TrainerShow from "@/components/trainer/TrainerShow.vue"
+import TrainerLoginForm from "@/components/TrainerLoginForm.vue"
 
 const routes = [
   {
@@ -89,7 +90,7 @@ const routes = [
     component: Trainer,
     children: [
       {
-        path: "",
+        path: "list",
         name: "TrainerList",
         component: TrainerList,
       },
@@ -97,6 +98,11 @@ const routes = [
         path: ":id",
         name: "TrainerDetail",
         component: TrainerDetail,
+      },
+      {
+        path: "login",
+        name: "TrainerLogin",
+        component: TrainerLoginForm,
       },
     ],
   },

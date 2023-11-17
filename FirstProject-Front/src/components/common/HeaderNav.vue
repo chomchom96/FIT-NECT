@@ -25,7 +25,7 @@
       <div class="dropdown">
         <a href="#"> COMMUNITY</a>
         <div class="dropdown-content">
-          <RouterLink to="/board">자게</RouterLink>
+          <RouterLink to="/board">자유게시판</RouterLink>
           <a href="#">HOW TO FI-NECT</a>
         </div>
       </div>
@@ -33,11 +33,22 @@
       <div class="dropdown">
         <RouterLink to="/contact">CONTACT</RouterLink>
       </div>
-
+      <div class="dropdown">
+        <a>TRAINER</a>
+        <div class="dropdown-content">
+          <div v-if="!trainerStore.getTrainer && userStore.idValue != 'admin'">
+            <RouterLink to="/trainers/login">LOGIN</RouterLink>
+          </div>
+          <div v-else>
+            <RouterLink to="/trainers/list">LIST</RouterLink>
+            <RouterLink v-if="trainerStore.getTrainer" to="/" @click="trainerStore.trainerLogout">로그아웃</RouterLink>
+          </div>
+        </div>
+      </div>
       <div>
-        <a href="#" v-if="store.getUser">
+        <a href="#" v-if="userStore.getUser">
           <div class="dropdown">
-            <div>{{ store.idValue }}님, 환영합니다.</div>
+            <div>{{ userStore.idValue }}님, 환영합니다.</div>
             <div class="dropdown-content">
               <RouterLink to="/mypage">MyPage</RouterLink>
               <a href="#">내 스케줄</a>
@@ -49,10 +60,9 @@
         <p to="/login" v-else>
           <RouterLink to="/login">LOGIN</RouterLink>
           <RouterLink :to="{ name: 'UserSignup' }">SIGN UP</RouterLink>
-          <RouterLink to="/users">USER</RouterLink>
-          <RouterLink to="/trainers">TRAINER</RouterLink>
           <RouterLink to="/video">VIDEO</RouterLink>
         </p>
+        <RouterLink v-show="userStore.idValue =='admin'"  to="/users">USER</RouterLink>
       </div>
 
     </nav>
@@ -63,12 +73,13 @@
 import { useUserStore } from "@/stores/user";
 import { RouterLink } from "vue-router"
 import { computed } from "vue";
+import { useTrainerStore } from "../../stores/trainer";
 
-const store = useUserStore();
-let userId = computed(() => store.idValue)
+const userStore = useUserStore();
+const trainerStore = useTrainerStore();
 
 const logout = () => {
-  store.logout();
+  userStore.logout();
 };
 
 </script>

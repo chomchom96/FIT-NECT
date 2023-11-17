@@ -21,5 +21,7 @@ public interface BoardService {
 		// 게시글 삭제
 		public void removeBoard(int boardId);
 
+		public void increaseViewCnt(int id);
+
 
 }

@@ -60,7 +60,7 @@ public class VideoRestController {
 	}
 	
 	@PostMapping("/view/{id}")
-	@ApiOperation(value="Deatil 방문시 조회수 증가")
+	@ApiOperation(value="Detail 방문시 조회수 증가")
 	public ResponseEntity<?> increaseViewCnt(@PathVariable int id){
 		try {
 			videoService.increaseViewCnt(id);

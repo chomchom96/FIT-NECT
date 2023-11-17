@@ -3,14 +3,14 @@
     <h2>영상 등록</h2>
     <form @submit.prevent="registVideo">
 
-      <label for="part">파트:</label>
+      <label for="part">부위 </label>
       <select v-model="part" id="part" required>
         <option v-for="partOption in partOptions" :key="partOption" :value="partOption">
           {{ partOption }}
         </option>
       </select>
 
-      <label>URL:</label>
+      <label>URL </label>
       <input v-model="url" type="url" id="url" required>
 
       <button type="submit">등록</button>
