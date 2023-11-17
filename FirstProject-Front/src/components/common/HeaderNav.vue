@@ -49,6 +49,7 @@
           <RouterLink to="/login">LOGIN</RouterLink>
           <RouterLink :to="{ name: 'UserSignup' }">SIGN UP</RouterLink>
           <RouterLink to="/users">USER</RouterLink>
+          <RouterLink to="/trainers">TRAINER</RouterLink>
           <RouterLink to="/video">VIDEO</RouterLink>
         </p>
       </div>

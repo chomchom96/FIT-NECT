@@ -33,16 +33,12 @@
 		WHERE trainer_id = #{trainerId};
 	</update>
 	
-	<select id="selectOne" resultMap="trainerMap" resultType="Trainer">
-	    SELECT *
-	    FROM trainer
-	    WHERE trainer_id = #{trainerId};
-	</select>
-	
 	<select id="selectTrainer" resultMap="trainerMap" resultType="Trainer">
 	    SELECT *
 	    FROM trainer
 	    WHERE trainer_id = #{trainerId};
 	</select>
+	
+	
 	
 </mapper>

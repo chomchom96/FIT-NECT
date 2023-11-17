@@ -8,6 +8,7 @@
             <th>제목</th>
             <th>URL</th>
             <th>부위</th>
+            <th>조회수</th>
           </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
             </td>
             <td>{{ video.videoUrl }}</td>
             <td>{{ video.videoPart }}</td>
+            <td>{{ video.videoViewCnt }}</td>
           </tr>
         </tbody>
       </table>

@@ -99,7 +99,7 @@ const deleteVideo = async function() {
   try {
     await axios.delete(`http://localhost:8080/api/video/${store.video.videoId}`);
     console.log('삭제 완료!')
-    router.push({ name: 'Video' });
+    router.push("/video");
   } catch (error) {
     console.log(error);
   }

@@ -3,11 +3,12 @@
     <h2>영상 등록</h2>
     <form @submit.prevent="registVideo">
 
-      <label>제목:</label>
-      <input v-model="title" type="text" id="title" required>
-
-      <label>파트:</label>
-      <input v-model="part" type="text" id="part" required>
+      <label for="part">파트:</label>
+      <select v-model="selectedPart" id="part" required>
+        <option v-for="partOption in partOptions" :key="partOption" :value="partOption">
+          {{ partOption }}
+        </option>
+      </select>
 
       <label>URL:</label>
       <input v-model="url" type="url" id="url" required>
@@ -21,6 +22,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useVideoStore } from '@/stores/video'
+import router from '../../router';
 
 const store = useVideoStore();
 
@@ -28,7 +30,19 @@ const part = ref('')
 const url = ref('')
 const title = ref('')
 
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
+const partOptions = [
+  '가슴 운동(대흉근)',
+  '어깨 운동(삼각근)',
+  '복부 운동(복직근, 내복사근, 외복사근)',
+  '등 운동(광배근, 승모근, 능형근)',
+  '윗팔 운동/상완운동(상완이두근,상완삼두근)',
+  '아랫팔 운동/전완운동(전완 굴곡근, 전완 신전근)',
+  '허벅지 운동(대퇴부,슬굴곡근)',
+  '종아리 운동(비복근, 가자미근)'
+];
+
+// const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
+const API_KEY = "AIzaSyClZuKzJiSnKF_ELcnzct9im-pDerHLjAo"
 
 const getVideoTitle = async () => {
   const keyValuePairs = url.value.split('=');
@@ -48,27 +62,5 @@ const getVideoTitle = async () => {
 const registVideo = async function () {
   await getVideoTitle();
   await store.registVideo(part, title, url);
-
-  video.value.videoPart = part.value;
-  video.value.videoTitle = title.value;
-  video.value.videoUrl = url.value;
-
-  console.log(video.value);
-
-  axios({
-    url: 'http://localhost:8080/api/video',
-    method: 'POST',
-    headers: {
-        "Content-Type": "application/json"
-    },
-    data: video.value
-  })
-  .then(() => {
-    alert('등록 성공!')
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
 }
 </script>

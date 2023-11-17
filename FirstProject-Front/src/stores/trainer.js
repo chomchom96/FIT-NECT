@@ -3,44 +3,46 @@ import { useRouter } from "vue-router";
 import { defineStore } from 'pinia'
 import axios from "axios";
 
-export const useUserStore = defineStore('user', ()=>{
+export const useTrainerStore = defineStore('trainer', ()=>{
   const router = useRouter();
-  const userList = ref([]);
-  const idValue = ref("");
-  const getUser = ref(false)
-  const user = ref({});
+  const trainerList = ref([]);
+  const getTrainer = ref(false)
+  const trainer = ref({});
+  const idValue = ref('')
 
-  const getUserList = () => {
+  const getTrainerList = () => {
     axios({
-      url: "http://localhost:8080/api/users" ,
+      url: "http://localhost:8080/api/trainers" ,
       method: "GET",
     })
     .then((res) => {
-      userList.value = res.data;
+      trainerList.value = res.data;
     })
     .catch((err) => {
       console.log(err);
     });
   };
 
-  const getUserDetail = (id) => {
-    axios({
-      url: "http://localhost:8080/api/users/" +id,
+  const getTrainerDetail = (id) => {
+    return axios({
+      url: `http://localhost:8080/api/trainers/${id}`,
       method: "GET",
     })
     .then((res) => {
-      user.value = res.data;
+      trainer.value = res.data;
+      return trainer.value;
     })
     .catch((err) => {
       console.log(err);
+      throw err;
     });
   };
 
-  const updateUser = (user) => {
+  const updateTrainer = (trainer) => {
     axios({
-      url: `http://localhost:8080/api/users/${user.id}`,
+      url: `http://localhost:8080/api/trainers/${trainer.id}`,
       method: "PUT", 
-      data: user.value
+      data: trainer.value
     })
       .then(() => {
         alert("계정 정보 업데이트!")
@@ -52,11 +54,11 @@ export const useUserStore = defineStore('user', ()=>{
       });
   };
 
-  const deleteUser = () => {
+  const deleteTrainer = () => {
     axios({
-      url: `http://localhost:8080/api/users/${idValue.value}`,
+      url: `http://localhost:8080/api/trainers/${idValue.value}`,
       method: "DELETE", 
-      data: user.value
+      data: trainer.value
     })
       .then(() => {
         alert("계정 삭제 완료")
@@ -67,19 +69,19 @@ export const useUserStore = defineStore('user', ()=>{
       });
   }
 
-  const signup = (user) => {
+  const trainerSignup = (trainer) => {
     axios({
-      url: 'http://localhost:8080/api/users/signup',
+      url: 'http://localhost:8080/api/trainers/signup',
       method: "POST",
       data: {
-        userId: user.id,
-        userPassword: user.password,
+        trainerId: trainer.id,
+        trainerPassword: trainer.password,
       },
     })
       .then(() => {
         alert("회원가입 성공!");
-        getUserList();
-        router.push("/users");
+        getTrainerList();
+        router.push("/Trainers");
       })
       .catch((err) => {
         alert("중복된 아이디입니다")
@@ -87,13 +89,13 @@ export const useUserStore = defineStore('user', ()=>{
       });
   };
 
-  const loginUser = (user) => {
+  const loginTrainer = (trainer) => {
     axios({
       url: 'http://localhost:8080/api/login',
       method: "POST",
       data: {
-        userId: user.id,
-        userPassword: user.password,
+        trainerId: trainer.id,
+        trainerPassword: trainer.password,
       },
     })
     .then((res) => {
@@ -104,9 +106,9 @@ export const useUserStore = defineStore('user', ()=>{
       id = JSON.parse(id)
       console.log(id.id)
       idValue.value = id.id
-      getUser.value = true
+      getTrainer.value = true
       console.log(idValue.value)
-      console.log(getUser.value)
+      console.log(getTrainer.value)
       alert("로그인 성공!")
       router.push("/");
     })
@@ -117,17 +119,17 @@ export const useUserStore = defineStore('user', ()=>{
   };
 
 
-  const logout = () => {
+  const trainerLogout = () => {
     idValue.value = '';
     alert("로그아웃 하셨습니다")
-    getUser.value = false
+    getTrainer.value = false
     router.push("/")
   };
 
   onMounted(() =>
-    getUserList()
+    getTrainerList()
   )
 
-  return { router, idValue, userList, getUserList, signup, onMounted, loginUser, logout, getUser, getUserDetail, user, updateUser, deleteUser}
+  return { router, idValue, trainerList, getTrainerList, trainerSignup, onMounted, loginTrainer, trainerLogout, getTrainer, getTrainerDetail, Trainer: trainer, updateTrainer, deleteTrainer}
 
 })

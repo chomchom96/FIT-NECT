@@ -37,6 +37,7 @@ export const useVideoStore = defineStore('video', ()=> {
     })
     .then(() => {
       alert('등록 성공!')
+      router.push("/video")
     })
     .catch((err) => {
       console.log(err)

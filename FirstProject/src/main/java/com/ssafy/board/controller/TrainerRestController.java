@@ -74,15 +74,14 @@ public class TrainerRestController {
 	}
 	
 	
-	
 	@GetMapping("trainers/{trainerId}")
 	@ApiOperation(value="trainerId에 해당하는 trainer 조회")
 	public ResponseEntity<?> getTrainer(@PathVariable String trainerId){
 
 		System.out.println(trainerId);
 		Trainer trainer = trainerService.selectTrainer(trainerId);
-		if (trainer != null) return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		if (trainer != null) return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
 	
