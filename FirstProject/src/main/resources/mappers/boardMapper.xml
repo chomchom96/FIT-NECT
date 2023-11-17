@@ -9,6 +9,8 @@
 		<result column="board_user_id" property="userId"/>
 		<result column="board_content" property="boardContent"/>
 		<result column="board_file" property="boardFile"/>
+		<result column="board_created_at" property="boardCreatedAt"/>
+		<result column="board_view_cnt" property="boardViewCnt"/>
 	</resultMap>
 	
 	<select id="selectAll" resultMap="boardMap" resultType="Board">
@@ -21,9 +23,15 @@
         FROM board
         WHERE board_id = #{boardId};
     </select>
+    
+    <update id="updateViewCnt" parameterType="int">
+    	UPDATE board
+    	SET board_view_cnt = board_view_cnt + 1
+    	WHERE board_id = #{boardId}
+    </update>
 
 	<insert id="insertBoard" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
-		INSERT INTO board (board_title, board_user_id, board_content, board_file)
+		INSERT INTO board (board_title, board_user_id, board_content, board_file )
 		VALUES (#{boardTitle}, #{userId}, #{boardContent}, #{boardFile});
 	</insert>
 	

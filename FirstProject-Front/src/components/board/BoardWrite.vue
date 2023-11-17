@@ -3,7 +3,7 @@
     <div>
       <div v-if="store.getUser">
         <label for="userId">아이디:</label>
-        <input readonly v-model="store.user.userId" type="text" id="userId">
+        <input readonly v-model="store.idValue" type="text" id="userId">
       <!-- <input readonly v-model="userId.value" type="text" id="userId" class="view"> -->
       
       <label>제목:</label>
@@ -53,7 +53,7 @@ const registBoard = function(){
   },
   data: {
       boardTitle : boardTitle.value,
-      userId : store.user.userId,
+      userId : store.idValue,
       boardContent : boardText.value,
     }
   })

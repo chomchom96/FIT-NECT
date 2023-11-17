@@ -7,6 +7,7 @@
         <result column="video_title" property="videoTitle"/>
         <result column="video_part" property="videoPart"/>
         <result column="video_created_at" property="videoCreatedAt"/>
+        <result column="video_channel_name" property="videoChannelName"/>
     	<result column="video_url" property="videoUrl"/>
     	<result column="video_view_cnt" property="videoViewCnt"/>
     </resultMap>
@@ -29,8 +30,8 @@
     </select>
 
     <insert id="insertVideo" parameterType="Video">
-        INSERT INTO video (video_title, video_url, video_part)
-        VALUES (#{videoTitle}, #{videoUrl}, #{videoPart});
+        INSERT INTO video (video_title, video_url, video_part, video_channel_name)
+        VALUES (#{videoTitle}, #{videoUrl}, #{videoPart}, #{videoChannelName});
     </insert>
     
     <delete id="deleteVideo" parameterType="int">

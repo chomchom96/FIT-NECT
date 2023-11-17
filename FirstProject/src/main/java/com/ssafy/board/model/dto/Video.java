@@ -10,9 +10,20 @@ public class Video {
     private String videoUrl;
     private String videoCreatedAt;
     private int videoViewCnt;
+    private String videoChannelName;
 
     public Video() {
     }
+
+
+	public String getVideoChannelName() {
+		return videoChannelName;
+	}
+
+	public void setVideoChannelName(String videoChannelName) {
+		this.videoChannelName = videoChannelName;
+	}
+
 
 	public int getVideoId() {
 		return videoId;
