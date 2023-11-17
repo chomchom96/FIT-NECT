@@ -17,6 +17,7 @@
         <RouterLink to="/service/"> SERVICE </RouterLink>
         <div class="dropdown-content">
           <RouterLink to="/service/form"> START SERVICE </RouterLink>
+          <RouterLink to="/service/trainers"> OUR TRIAINERS </RouterLink>
           <a href="#">MY PLAN</a>
         </div>
       </div>

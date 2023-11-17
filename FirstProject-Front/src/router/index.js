@@ -24,7 +24,7 @@ import Service from "@/views/ServiceView.vue"
 import Trainer from "../views/TrainerView.vue"
 import TrainerList from "@/components/trainer/TrainerList.vue"
 import TrainerDetail from "@/components/trainer/TrainerDetail.vue"
-
+import TrainerShow from "@/components/trainer/TrainerShow.vue"
 
 const routes = [
   {
@@ -56,6 +56,11 @@ const routes = [
         name: "ServiceForm",
         component: ServiceForm,
       },
+      {
+        path: "trainers",
+        name: "trainerShow",
+        component: TrainerShow,
+      }
     ],
   },
   {
