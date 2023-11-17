@@ -10,3 +10,12 @@
 백 - user update, user delete, trainer update, trainer delete 기능 추가
 >>>>>>> origin/feature/Backend-user+trainer-del+update
 
+1116 업데이트
+- 트레이너 프론트 구현
+- video, board 조회수 및 작성일 구현 위해 백엔드 및 프론트 수정
+- db 더미 데이터 대폭 추가
+- video regist 기능 수정 (운동부위 체크리스트)
+
+
+- issue
+- boardDetail -> boardModify
