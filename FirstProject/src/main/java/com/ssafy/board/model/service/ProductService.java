@@ -10,7 +10,7 @@ public interface ProductService {
 
 	public void registDetail(UserDetail userDetail);
 
-	public Trainer matchTrainer(List<Trainer> trainerList, UserDetail userDetail);
+	public void matchTrainer(String trainerId, String userId);
 
 	public String getTrainerId(String userId);
 

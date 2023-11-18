@@ -3,12 +3,14 @@ package com.ssafy.board.model.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.board.model.dao.ProductDao;
-import com.ssafy.board.model.dto.UserSchedule;
 import com.ssafy.board.model.dto.Trainer;
 import com.ssafy.board.model.dto.UserDetail;
+import com.ssafy.board.model.dto.UserSchedule;
 
+@Service
 public class ProductServiceImpl implements ProductService{
 
 	@Autowired
@@ -17,11 +19,6 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public void registDetail(UserDetail userDetail) {
 		productDao.registDetail(userDetail);
-	}
-
-	@Override
-	public Trainer matchTrainer(List<Trainer> trainerList, UserDetail userDetail) {
-		return null;
 	}
 
 	@Override
@@ -38,7 +35,12 @@ public class ProductServiceImpl implements ProductService{
 	public void updateSchedule(UserSchedule schedule) {
 		productDao.updateSchedule(schedule);
 	}
-	
+
+
+	@Override
+	public void matchTrainer(String trainerId, String userId) {
+		productDao.matchTrainer(userId, trainerId);
+	}
 	
 	
 }
