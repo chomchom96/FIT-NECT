@@ -8,6 +8,11 @@
     VALUES (#{userSeq}, #{userProfilePic}, #{userGender}, #{userAge}, #{userCurrentWeight}, #{userTargetWeight}, #{userHeight}, #{userPreferredPlace}, #{userExtra})
 	</insert>
 	
+	<insert id="matchTrainer" parameterType="String">
+	INSERT INTO matched (user_id, trainer_id)
+	VALUES (#{userId}, #{trainerId});
+	</insert>
+	
 	<select id="getTrainerId" parameterType="String" resultType="String">
 	SELECT trainer_id FROM matched
 	WHERE user_id = ${userId};

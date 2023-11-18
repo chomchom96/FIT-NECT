@@ -2,9 +2,10 @@ package com.ssafy.board.model.dto;
 
 public class UserSchedule {
 	private String userId;
-	private String jsonSchedule;
-	
-	public UserSchedule() {}
+	private String userSchedule;
+
+	public UserSchedule() {
+	}
 
 	public String getUserId() {
 		return userId;
@@ -14,19 +15,12 @@ public class UserSchedule {
 		this.userId = userId;
 	}
 
-	public String getJsonSchedule() {
-		return jsonSchedule;
+	public String getUserSchedule() {
+		return userSchedule;
 	}
 
-	public void setJsonSchedule(String jsonSchedule) {
-		this.jsonSchedule = jsonSchedule;
+	public void setUserSchedule(String userSchedule) {
+		this.userSchedule = userSchedule;
 	}
 
-	@Override
-	public String toString() {
-		return "Schedule [userId=" + userId + ", jsonSchedule=" + jsonSchedule + "]";
-	};
-	
-	
-	
 }

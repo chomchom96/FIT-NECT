@@ -12,4 +12,14 @@
 
 
 - issue
-- boardDetail -> boardModify
+- boardDetail -> boardModify (pending)
+
+1117 업데이트
+- 서비스 프론트 일부 구현
+- 트레이너 백엔드 구현
+- 더미 데이티 추가, userDetail, trainerDetail 생성
+
+
+1118 업데이트
+- 서비스 백엔드 구현
+- 
