@@ -2,8 +2,8 @@
     <div class="form-container">
         <label for="gender">성별:</label>
         <select id="gender" v-model="gender" class="form-control">
-            <option value="남성">남성</option>
-            <option value="여성">여성</option>
+            <option value="0">남성</option>
+            <option value="1">여성</option>
         </select>
         <label for="age">나이:</label>
         <input type="number" id="age" v-model="age" class="form-control" />
@@ -36,7 +36,7 @@ import { useServiceStore } from '@/stores/service';
 
 const store = useServiceStore();
 
-const gender = ref('');
+const gender = ref(0);
 const age = ref(0);
 const height = ref(0);
 const currentWeight = ref(0);

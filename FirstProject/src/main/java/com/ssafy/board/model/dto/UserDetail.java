@@ -1,24 +1,25 @@
 package com.ssafy.board.model.dto;
 
 public class UserDetail {
-	private int userSeq;
+	private String userId;
 	private String userProfilePic;
 	private boolean userGender;
 	private int userAge;
 	private int userHeight;
-	private int userWeight;
+	private int userCurrentWeight;
+	private int userTargetWeight;
 	private String userPreferredPlace;
 	private String userExtra;
 	private String trainerId; 
 	
 	private UserDetail() {}
 
-	public int getUserSeq() {
-		return userSeq;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserSeq(int userSeq) {
-		this.userSeq = userSeq;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserProfilePic() {
@@ -53,12 +54,22 @@ public class UserDetail {
 		this.userHeight = userHeight;
 	}
 
-	public int getUserWeight() {
-		return userWeight;
+	
+
+	public int getUserCurrentWeight() {
+		return userCurrentWeight;
 	}
 
-	public void setUserWeight(int userWeight) {
-		this.userWeight = userWeight;
+	public void setUserCurrentWeight(int userCurrentWeight) {
+		this.userCurrentWeight = userCurrentWeight;
+	}
+
+	public int getUserTargetWeight() {
+		return userTargetWeight;
+	}
+
+	public void setUserTargetWeight(int userTargetWeight) {
+		this.userTargetWeight = userTargetWeight;
 	}
 
 	public String getUserPreferredPlace() {
@@ -84,17 +95,5 @@ public class UserDetail {
 	public void setTrainerId(String trainerId) {
 		this.trainerId = trainerId;
 	}
-
-	@Override
-	public String toString() {
-		return "UserDetail [userSeq=" + userSeq + ", userProfilePic=" + userProfilePic + ", userGender=" + userGender
-				+ ", userAge=" + userAge + ", userHeight=" + userHeight + ", userWeight=" + userWeight
-				+ ", userPreferredPlace=" + userPreferredPlace + ", userExtra=" + userExtra + ", trainerId=" + trainerId
-				+ "]";
-	}
-	
-	
-
-	
 	
 }

@@ -1,7 +1,7 @@
 package com.ssafy.board.model.dto;
 
 public class TrainerDetail {
-	private int trainerSeq;
+	private String trainerId;
 	private String trainerProfilePic;
 	private String trainerExperience; 
 	private String trainerExtra;
@@ -9,12 +9,12 @@ public class TrainerDetail {
 	
 	private TrainerDetail() {}
 
-	public int getTrainerSeq() {
-		return trainerSeq;
+	public String getTrainerId() {
+		return trainerId;
 	}
 
-	public void setTrainerSeq(int trainerSeq) {
-		this.trainerSeq = trainerSeq;
+	public void setTrainerId(String trainerId) {
+		this.trainerId = trainerId;
 	}
 
 	public String getTrainerProfilePic() {
@@ -51,13 +51,9 @@ public class TrainerDetail {
 
 	@Override
 	public String toString() {
-		return "TrainerDetail [trainerSeq=" + trainerSeq + ", trainerProfilePic=" + trainerProfilePic
+		return "TrainerDetail [trainerSeq=" + trainerId + ", trainerProfilePic=" + trainerProfilePic
 				+ ", trainerExperience=" + trainerExperience + ", trainerExtra=" + trainerExtra + ", userId=" + userId
 				+ "]";
 	}
-
-	
-	
-
 	
 }

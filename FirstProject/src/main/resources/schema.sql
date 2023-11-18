@@ -26,11 +26,13 @@ CREATE TABLE user_detail(
 	user_gender TINYINT, # 0 : 남
 	user_age INT,
 	user_height NUMERIC,
-	user_weight NUMERIC,
+	user_current_weight NUMERIC,
+    user_target_weight NUMERIC,
 	user_preferred_place VARCHAR(10),
 	user_extra VARCHAR(50),
     trainer_id VARCHAR(20),
-	FOREIGN KEY (user_seq) REFERENCES user (user_seq)
+	FOREIGN KEY (user_seq) REFERENCES user (user_seq),
+    FOREIGN KEY (trainer_id) REFERENCES trainer (trainer_id)
 )ENGINE = InnoDB;
 
 CREATE TABLE trainer_detail(
@@ -39,19 +41,19 @@ CREATE TABLE trainer_detail(
 	# trainer detail
     trainer_experience VARCHAR(30), 
 	trainer_extra VARCHAR(50),
-    user_id VARCHAR(20),
 	FOREIGN KEY (trainer_seq) REFERENCES trainer (trainer_seq)
 )ENGINE = InnoDB;
 
+CREATE TABLE matched(
+	trainer_id VARCHAR(20) NOT NULL,
+    user_id VARCHAR(20) NOT NULL,
+	PRIMARY KEY(user_id, trainer_id)
+)ENGINE = InnoDB;
 
 CREATE TABLE user_schedule(
-	user_seq INT NOT NULL PRIMARY KEY,
+	user_id VARCHAR(20) NOT NULL PRIMARY KEY,
 	user_schedule TEXT NOT NULL,
-	CONSTRAINT fk_user_seq_schedule
-		FOREIGN KEY (user_seq) 
-		REFERENCES User (user_seq)
-		ON DELETE NO ACTION
-		ON UPDATE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user (user_id)
 )ENGINE = InnoDB;
 
 CREATE TABLE video (
@@ -111,7 +113,33 @@ CREATE TABLE bookmarks (
 	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
+-- trainer
+insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
+  ("trainer_1", "1234", "trainer1@naver.com", "체대생");
+insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
+  ("trainer_2", "1234", "trainer2@example.com", "싸피헬스");
+insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
+  ("trainer_3", "1234", "trainer3@example.com", "이지트레이닝");
+insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
+  ("trainer_4", "1234", "trainer4@example.com", "완벽한몸");
+insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
+  ("trainer_5", "1234", "trainer5@example.com", "요가의신");
+  
+select * from trainer;
 
+-- trainer_detail 
+insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra) values 
+  (1, "트레이너_프로필이미지_링크", "ㅇㅇ대학교 체육학과 졸업", "건강관리운동 전문");
+insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra) values 
+  (2, "트레이너_프로필이미지_링크", "역삼 싸피피트니스 수석 트레이너", "원하는 몸, 만들어드립니다");
+insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra) values 
+  (3, "트레이너_프로필이미지_링크", "생활체육관리사 자격증 유", "실생활운동을 가르쳐드립니다");
+insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra) values 
+  (4, "트레이너_프로필이미지_링크", "강남 자바짐 5년 경력 트레이너", "바디 프로필 전문");
+insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra) values 
+  (5, "트레이너_프로필이미지_링크", "요가/필라테스 강사 2년 경력", "요가/필라테스 전문");
+  
+select * from trainer_detail; 
 
 -- user
 select * from user;
@@ -131,16 +159,16 @@ select * from user;
 
 
 -- user_detail
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (1, null, 1, 28, 180, 75, "헬스장", "운동을 즐겨합니다!", "trainer_1");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (2, "프로필_사진_링크", 2, 25, 162, 48, "집", "홈트레이닝 선호", "trainer_2");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (3, "프로필_사진_링크", 2, 38, 177, 65, "실외", "런데이 같은 유산소운동 선호", "trainer_3");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (4, "프로필_사진_링크", 1, 32, 173, 70, "실외", "운동 동호회를 하고 있음", "trainer_4");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (5, "프로필_사진_링크", 1, 29, 198, 102, "헬스장", "싸피의 대표헬창", "trainer_5");
+insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_current_weight, user_target_weight, user_preferred_place, user_extra, trainer_id) values 
+  (1, null, 1, 28, 180, 75, 65, "헬스장", "운동을 즐겨합니다!", "trainer_1");
+insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_current_weight, user_target_weight, user_preferred_place, user_extra, trainer_id) values 
+  (2, "프로필_사진_링크", 2, 25, 162, 58, 45, "집", "홈트레이닝 선호", "trainer_2");
+insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_current_weight, user_target_weight, user_preferred_place, user_extra, trainer_id) values 
+  (3, "프로필_사진_링크", 2, 38, 177, 85, 60, "실외", "런데이 같은 유산소운동 선호", "trainer_3");
+insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_current_weight, user_target_weight, user_preferred_place, user_extra, trainer_id) values 
+  (4, "프로필_사진_링크", 1, 32, 173, 70, 68, "실외", "운동 동호회를 하고 있음", "trainer_4");
+insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_current_weight, user_target_weight, user_preferred_place, user_extra, trainer_id) values 
+  (5, "프로필_사진_링크", 1, 29, 198, 102, 95, "헬스장", "싸피의 대표헬창", "trainer_5");
 
 select * from user_detail;
 
@@ -165,33 +193,7 @@ insert into followings values ("samsung", "baek");
 -- select * from followings;
 select following_id followId from followings where user_id= "admin";
 
--- trainer
-insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
-  ("trainer_1", "1234", "trainer1@naver.com", "체대생");
-insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
-  ("trainer_2", "1234", "trainer2@example.com", "싸피헬스");
-insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
-  ("trainer_3", "1234", "trainer3@example.com", "이지트레이닝");
-insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
-  ("trainer_4", "1234", "trainer4@example.com", "완벽한몸");
-insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickname) values 
-  ("trainer_5", "1234", "trainer5@example.com", "요가의신");
-  
-select * from trainer;
 
--- trainer_detail 
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (1, "트레이너_프로필이미지_링크", "ㅇㅇ대학교 체육학과 졸업", "건강관리운동 전문", "admin");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (2, "트레이너_프로필이미지_링크", "역삼 싸피피트니스 수석 트레이너", "원하는 몸, 만들어드립니다", "ssafy");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (3, "트레이너_프로필이미지_링크", "생활체육관리사 자격증 유", "실생활운동을 가르쳐드립니다", "baek");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (4, "트레이너_프로필이미지_링크", "강남 자바짐 5년 경력 트레이너", "바디 프로필 전문", "samsung");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (5, "트레이너_프로필이미지_링크", "요가/필라테스 강사 2년 경력", "요가/필라테스 전문", "kakao");
-  
-select * from trainer_detail; 
 
 -- video
 
