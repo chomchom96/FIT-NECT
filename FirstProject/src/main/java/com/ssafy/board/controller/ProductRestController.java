@@ -1,30 +1,19 @@
 package com.ssafy.board.controller;
 
-<<<<<<< HEAD
 import java.util.List;
-=======
 import java.sql.SQLException;
->>>>>>> origin/feature/productBackend
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
-=======
->>>>>>> origin/feature/productBackend
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-<<<<<<< HEAD
-import com.ssafy.board.model.dto.Trainer;
-=======
->>>>>>> origin/feature/productBackend
 import com.ssafy.board.model.dto.UserDetail;
 import com.ssafy.board.model.dto.UserSchedule;
 import com.ssafy.board.model.service.ProductService;
