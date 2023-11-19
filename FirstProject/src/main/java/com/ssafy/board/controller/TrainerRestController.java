@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Trainer;
-import com.ssafy.board.model.dto.User;
+import com.ssafy.board.model.dto.TrainerDetail;
 import com.ssafy.board.model.service.TrainerService;
 import com.ssafy.board.util.JwtUtil;
 
@@ -47,6 +47,15 @@ public class TrainerRestController {
 		if(list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Trainer>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("trainers/detail")
+	@ApiOperation(value="트레이너 세부정보 목록 조회")
+	public ResponseEntity<?> detailLIst() {
+		List<TrainerDetail> list = trainerService.getTrainerDetailList();
+		if(list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<TrainerDetail>>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("trainers/signup")
@@ -91,11 +100,11 @@ public class TrainerRestController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		HttpStatus status = null;
 		
-		Trainer loginTrainer = trainerService.login(trainer);
+		Trainer tmp = trainerService.login(trainer);
 		
 		try {
-			if (loginTrainer != null) {
-				result.put("access-token", jwtUtil.createToken("id", trainer.getTrainerId()));
+			if (tmp != null) {
+				result.put("access-token", jwtUtil.createToken("id", tmp.getTrainerId()));
 				result.put("message", "LOGIN SUCCESS");
 				status = HttpStatus.ACCEPTED;
 			}else {
@@ -117,6 +126,13 @@ public class TrainerRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("trainers/userlist/{trainerId}")
+	@ApiOperation(value="트레이너 할당된 사용자 확인")
+	public ResponseEntity<?> trainerUserCheck(@PathVariable String trainerId){
+		List<String> list = trainerService.getUserList(trainerId);
+		if (list != null) 
+			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 	
 }

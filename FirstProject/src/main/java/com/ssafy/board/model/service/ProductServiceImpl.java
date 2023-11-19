@@ -41,4 +41,9 @@ public class ProductServiceImpl implements ProductService {
 		productDao.matchTrainer(userId, trainerId);
 	}
 
+	@Override
+	public UserSchedule getSchedule(String userId) {
+		return productDao.getSchedule(userId);
+	}
+
 }

@@ -1,8 +1,5 @@
 package com.ssafy.board.controller;
 
-import java.util.List;
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.ssafy.board.model.dto.UserDetail;
 import com.ssafy.board.model.dto.UserSchedule;
 import com.ssafy.board.model.service.ProductService;
-import com.ssafy.board.model.service.TrainerService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +32,6 @@ public class ProductRestController {
 	@PostMapping("/product")
 	@ApiOperation(value="사용자 정보 입력받음")
 	public ResponseEntity<?> startService(@RequestBody UserDetail userDetail){
-		productService.registDetail(userDetail);
 		try {
 			productService.registDetail(userDetail);
 			return new ResponseEntity<Void>(HttpStatus.OK);
@@ -62,8 +58,10 @@ public class ProductRestController {
 	
 	@PostMapping("/product/schedule/{userId}")
 	@ApiOperation(value="유저에 스케줄 등록")
-	public ResponseEntity<?> writeSchedule(@RequestBody UserSchedule schedule, @PathVariable String userId){
+	public ResponseEntity<?> writeSchedule(@RequestBody String jsonSchedule, @PathVariable String userId){
+		UserSchedule schedule = new UserSchedule();
 		schedule.setUserId(userId);
+		schedule.setUserSchedule(jsonSchedule);
 		try 
 		{
 			productService.writeSchedule(schedule);
@@ -75,7 +73,20 @@ public class ProductRestController {
 		}
 	}
 	
-	@PutMapping("/product/update/{userId}")
+	@GetMapping("/product/schedule/{userId}")
+	public ResponseEntity<?> getSchedule(@PathVariable String userId){
+		System.out.println(userId);
+		UserSchedule schedule = productService.getSchedule(userId);
+		try {
+			if (schedule != null) return new ResponseEntity<UserSchedule>(schedule, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	@PutMapping("/product/schedule/{userId}")
 	@ApiOperation(value="유저 스케줄 업데이트")
 	public ResponseEntity<?> updateSchedule(@RequestBody UserSchedule schedule){
 		try 

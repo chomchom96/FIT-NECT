@@ -49,20 +49,8 @@ const login = async () => {
         id: id.value,
         password: password.value,
     };
-    await store.loginTrainer(trainer);
+    store.loginTrainer(trainer);
 };
-
-const user = ref({
-    id: id,
-    password: password,
-})
-
-const loginUser = () => {
-    console.log(user.value)
-    emit("login-user", user.value)
-}
-
-
 
 </script>
   

@@ -4,56 +4,58 @@ import { defineStore } from 'pinia'
 import axios from "axios";
 
 export const useServiceStore = defineStore('service', () => {
-  const gender = ref('');
-  const age = ref(0);
-  const height = ref(0);
-  const currentWeight = ref(0);
-  const targetWeight = ref(0);
-  const preferredPlace = ref('');
-  const comment = ref('');
+  const router = useRouter();
+  const trainerDetailList = ref([]);
 
-  const updateDetail = (userDetail) => {
-    gender.value = userDetail.gender;
-    age.value = userDetail.age;
-    height.value = userDetail.height;
-    currentWeight.value = userDetail.currentWeight;
-    targetWeight.value = userDetail.targetWeight;
-    preferredPlace.value = userDetail.preferredPlace;
-    comment.value = userDetail.comment;
+  const registDetail = (userDetail) => {
+    console.log(userDetail)
+    console.log(userDetail.userId)
+    axios({
+      url: `http://localhost:8080/api/product`,
+      method: "POST",
+      data: userDetail
+    })
+    .then(() => {
+      router.push('/service/trainers')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
   };
 
-  const submitForm = () => {
-    const formData = {
-      gender: gender.value,
-      age: age.value,
-      height: height.value,
-      currentWeight: currentWeight.value,
-      targetWeight: targetWeight.value,
-      preferredPlace: preferredPlace.value,
-      comment: comment.value,
-    };
+  const getDetails = () => {
+    axios({
+      url: "http://localhost:8080/api/trainers/detail",
+      method: "GET"
+    })
+    .then((res) => {
+      trainerDetailList.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  
+  const selectTrainer = (userId, trainerId) => {
+    console.log(userId + trainerId)
+    axios({
+      url: "http://localhost:8080/api/product/" + userId,
+      method: "POST",
+      data: trainerId
+    })
+    .then(() => {
+      alert("트레이너 신청이 완료되었습니다.")
+      router.push('/')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+  }
 
-    console.log('Submitted form data:', formData);
-
-    gender.value = '';
-    age.value = 0;
-    height.value = 0;
-    currentWeight.value = 0;
-    targetWeight.value = 0;
-    preferredPlace.value = '';
-    comment.value = '';
-
-  };
+  // const writeSchedule
+  // const getSchedule
 
   return {
-    gender,
-    age,
-    height,
-    currentWeight,
-    targetWeight,
-    preferredPlace,
-    comment,
-    updateDetail,
-    submitForm,
+    registDetail, getDetails, trainerDetailList, selectTrainer
   };
 });

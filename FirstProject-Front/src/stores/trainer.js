@@ -3,24 +3,25 @@ import { useRouter } from "vue-router";
 import { defineStore } from 'pinia'
 import axios from "axios";
 
-export const useTrainerStore = defineStore('trainer', ()=>{
+export const useTrainerStore = defineStore('trainer', () => {
   const router = useRouter();
   const trainerList = ref([]);
   const getTrainer = ref(false)
   const trainer = ref({});
   const idValue = ref('')
+  const userManageList = ref([])
 
   const getTrainerList = () => {
     axios({
-      url: "http://localhost:8080/api/trainers" ,
+      url: "http://localhost:8080/api/trainers",
       method: "GET",
     })
-    .then((res) => {
-      trainerList.value = res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        trainerList.value = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const getTrainerDetail = (id) => {
@@ -28,20 +29,20 @@ export const useTrainerStore = defineStore('trainer', ()=>{
       url: `http://localhost:8080/api/trainers/${id}`,
       method: "GET",
     })
-    .then((res) => {
-      trainer.value = res.data;
-      return trainer.value;
-    })
-    .catch((err) => {
-      console.log(err);
-      throw err;
-    });
+      .then((res) => {
+        trainer.value = res.data;
+        return trainer.value;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
   };
 
   const updateTrainer = (trainer) => {
     axios({
       url: `http://localhost:8080/api/trainers/${trainer.id}`,
-      method: "PUT", 
+      method: "PUT",
       data: trainer.value
     })
       .then(() => {
@@ -57,7 +58,7 @@ export const useTrainerStore = defineStore('trainer', ()=>{
   const deleteTrainer = () => {
     axios({
       url: `http://localhost:8080/api/trainers/${idValue.value}`,
-      method: "DELETE", 
+      method: "DELETE",
       data: trainer.value
     })
       .then(() => {
@@ -67,6 +68,24 @@ export const useTrainerStore = defineStore('trainer', ()=>{
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  const registSchedule = (userId, schedule) => {
+    console.log(userId);
+    axios({
+      url: `http://localhost:8080/api/product/schedule/${userId}`,
+      method: "POST",
+      data: {
+        schedule
+      }
+    })
+      .then(() => {
+        alert("스케줄 등록 완료")
+        router.push('/trainers/manage')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   const trainerSignup = (trainer) => {
@@ -91,33 +110,41 @@ export const useTrainerStore = defineStore('trainer', ()=>{
 
   const loginTrainer = (trainer) => {
     axios({
-      url: 'http://localhost:8080/api/login',
+      url: 'http://localhost:8080/api/trainers/login',
       method: "POST",
       data: {
         trainerId: trainer.id,
         trainerPassword: trainer.password,
       },
     })
-    .then((res) => {
-      sessionStorage.setItem('access-token', res.data["access-token"])
-      const token = res.data['access-token'].split('.')
-      let id = token[1]
-      id = atob(id)
-      id = JSON.parse(id)
-      console.log(id.id)
-      idValue.value = id.id
-      getTrainer.value = true
-      console.log(idValue.value)
-      console.log(getTrainer.value)
-      alert("로그인 성공!")
-      router.push("/");
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("로그인 실패");
-    });
+      .then((res) => {
+        console.log(res);
+        sessionStorage.setItem('trainer-access-token', res.data["access-token"])
+        const token = res.data['access-token'].split('.')
+        let id = token[1]
+        id = atob(id)
+        id = JSON.parse(id)
+        console.log(id.id)
+        idValue.value = id.id
+        getTrainer.value = true
+        alert("로그인 성공!")
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("로그인 실패");
+      });
   };
 
+  const checkAuthentication = () => {
+    const token = sessionStorage.getItem('trainer-access-token');
+    if (token) {
+      const decodedToken = atob(token.split('.')[1]);
+      const userData = JSON.parse(decodedToken);
+      idValue.value = userData.id;
+      getTrainer.value = true;
+    }
+  };
 
   const trainerLogout = () => {
     idValue.value = '';
@@ -127,9 +154,31 @@ export const useTrainerStore = defineStore('trainer', ()=>{
   };
 
   onMounted(() =>
-    getTrainerList()
+    getTrainerList(),
+    checkAuthentication()
   )
 
-  return { router, idValue, trainerList, getTrainerList, trainerSignup, onMounted, loginTrainer, trainerLogout, getTrainer, getTrainerDetail, Trainer: trainer, updateTrainer, deleteTrainer}
+  const getUserManageList = () => {
+    console.log(`http://localhost:8080/api/trainers/userlist/${idValue.value}`)
+    axios({
+      url: `http://localhost:8080/api/trainers/userlist/${idValue.value}`,
+      method: "GET"
+    })
+      .then((res) => {
+        userManageList.value = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  return {
+    router, idValue, trainerList, checkAuthentication,
+    getTrainerList, trainerSignup, onMounted,
+    loginTrainer, trainerLogout, getTrainer,
+    getTrainerDetail, Trainer: trainer,
+    updateTrainer, deleteTrainer,
+    getUserManageList, userManageList, registSchedule,
+  }
 
 })

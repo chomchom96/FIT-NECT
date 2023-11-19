@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', ()=>{
   const getUser = ref(false)
   const user = ref({});
   const userEmail = ref('');
+  const userSchedule = ref('');
 
   const getUserList = () => {
     axios({
@@ -37,7 +38,7 @@ export const useUserStore = defineStore('user', ()=>{
       console.log(err);
     });
   };
-
+  
   const updateUser = (user) => {
     axios({
       url: `http://localhost:8080/api/users/${user.id}`,
@@ -88,6 +89,16 @@ export const useUserStore = defineStore('user', ()=>{
       });
   };
 
+  const checkAuthentication = () => {
+    const token = sessionStorage.getItem('access-token');
+    if (token) {
+      const decodedToken = atob(token.split('.')[1]);
+      const userData = JSON.parse(decodedToken);
+      idValue.value = userData.id;
+      getUser.value = true;
+    }
+  };
+
   const loginUser = (user) => {
     axios({
       url: 'http://localhost:8080/api/login',
@@ -106,8 +117,6 @@ export const useUserStore = defineStore('user', ()=>{
       console.log(id.id)
       idValue.value = id.id
       getUser.value = true
-      console.log(idValue.value)
-      console.log(getUser.value)
       alert("로그인 성공!")
       router.push("/");
     })
@@ -124,10 +133,17 @@ export const useUserStore = defineStore('user', ()=>{
     router.push("/")
   };
 
-  onMounted(() =>
-    getUserList()
-  )
+  
 
-  return { router, idValue, userList, getUserList, signup, onMounted, loginUser, logout, getUser, getUserDetail, user, updateUser, deleteUser, userEmail}
+  onMounted(() => {
+    getUserList(); 
+    checkAuthentication();
+  })
+
+  return { router, idValue, userList, 
+    getUserList, signup, onMounted, 
+    loginUser, logout, getUser, 
+    getUserDetail, user, updateUser, deleteUser, 
+    userEmail, checkAuthentication}
 
 })

@@ -33,8 +33,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useServiceStore } from '@/stores/service';
+import { useUserStore } from '@/stores/user';
 
 const store = useServiceStore();
+const userStore = useUserStore();
 
 const gender = ref(0);
 const age = ref(0);
@@ -46,32 +48,31 @@ const preferredPlace = ref('')
 
 const submitForm = () => {
     const userDetail = {
-        gender: gender.value,
-        age: age.value,
-        height: height.value,
-        currentWeight: currentWeight.value,
-        targetWeight: targetWeight.value,
-        comment: comment.value,
-        preferredPlace: preferredPlace.value
+        userId: userStore.idValue,
+        userGender: gender.value,
+        userAge: age.value,
+        userHeight: height.value,
+        userCurrentWeight: currentWeight.value,
+        userTargetWeight: targetWeight.value,
+        userExtra: comment.value,
+        userPreferredPlace: preferredPlace.value
     };
-    store.updateDetail(userDetail);
+    store.registDetail(userDetail);
 };
+
 </script>
   
 <style scoped>
-/* Add any additional styling here */
 .form-container {
     max-width: 400px;
     margin: auto;
     padding: 20px;
 }
 
-/* Adjust Bootstrap form control styles */
 .form-control {
     margin-bottom: 10px;
 }
 
-/* Adjust Bootstrap button styles */
 .btn {
     width: 100%;
 }

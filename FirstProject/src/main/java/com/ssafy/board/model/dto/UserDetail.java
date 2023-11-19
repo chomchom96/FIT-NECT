@@ -10,7 +10,6 @@ public class UserDetail {
 	private int userTargetWeight;
 	private String userPreferredPlace;
 	private String userExtra;
-	private String trainerId; 
 	
 	private UserDetail() {}
 
@@ -88,12 +87,4 @@ public class UserDetail {
 		this.userExtra = userExtra;
 	}
 
-	public String getTrainerId() {
-		return trainerId;
-	}
-
-	public void setTrainerId(String trainerId) {
-		this.trainerId = trainerId;
-	}
-	
 }

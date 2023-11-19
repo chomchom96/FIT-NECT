@@ -1,21 +1,44 @@
 package com.ssafy.board.model.dto;
 
 public class TrainerDetail {
+	private int trainerSeq;
 	private String trainerId;
+	private String trainerName;
 	private String trainerProfilePic;
 	private String trainerExperience; 
 	private String trainerExtra;
-	private String userId; 
 	
 	private TrainerDetail() {}
+
+	
+	public int getTrainerSeq() {
+		return trainerSeq;
+	}
 
 	public String getTrainerId() {
 		return trainerId;
 	}
 
+
 	public void setTrainerId(String trainerId) {
 		this.trainerId = trainerId;
 	}
+
+
+	public String getTrainerName() {
+		return trainerName;
+	}
+
+
+	public void setTrainerName(String trainerName) {
+		this.trainerName = trainerName;
+	}
+
+
+	public void setTrainerSeq(int trainerSeq) {
+		this.trainerSeq = trainerSeq;
+	}
+
 
 	public String getTrainerProfilePic() {
 		return trainerProfilePic;
@@ -41,18 +64,11 @@ public class TrainerDetail {
 		this.trainerExperience = trainerExperience;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 
 	@Override
 	public String toString() {
-		return "TrainerDetail [trainerSeq=" + trainerId + ", trainerProfilePic=" + trainerProfilePic
-				+ ", trainerExperience=" + trainerExperience + ", trainerExtra=" + trainerExtra + ", userId=" + userId
+		return "TrainerDetail [trainerSeq=" + trainerSeq + ", trainerProfilePic=" + trainerProfilePic
+				+ ", trainerExperience=" + trainerExperience + ", trainerExtra=" + trainerExtra
 				+ "]";
 	}
 	

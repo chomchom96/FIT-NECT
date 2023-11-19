@@ -18,4 +18,6 @@ public interface ProductService {
 
 	public void updateSchedule(UserSchedule schedule);
 
+	public UserSchedule getSchedule(String userId);
+
 }

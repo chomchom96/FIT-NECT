@@ -1,26 +1,19 @@
 <template>
-    <div>
-        <h2>Service View</h2>
-        <router-view />
-    </div>
+  <div>
+    <h2>FIT-NECT</h2>
+    <RouterView />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { RouterView } from "vue-router";
+</script>
 
 <style scoped>
-.video-management-page {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #fff;
-}
 
 h1 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
 }
 </style>
-  

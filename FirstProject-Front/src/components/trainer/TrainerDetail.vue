@@ -9,7 +9,7 @@
             <input readonly type="text" id="id" v-model="trainer.trainerId" class="view" /><br />
             <label for="password">비밀번호</label>
             <input type="password" id="password" v-model="trainer.trainerPassword" class="view" /><br />
-            <label for="name">이름</label>
+            <label for="name">사용자 이름</label>
             <input type="text" id="name" v-model="trainer.trainerNickname" class="view" /><br />
             <label for="email">이메일</label>
             <input type="email" id="email" v-model="trainer.trainerEmail" class="view" /><br />

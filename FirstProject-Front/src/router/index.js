@@ -1,31 +1,41 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/HomeView.vue";
+import Contact from "@/components/common/contact.vue";
+import About from "@/components/common/about.vue";
 import LoginForm from "@/components/LoginForm.vue";
+
 import User from "../views/UserView.vue";
 import UserList from "@/components/user/UserList.vue";
 import UserSignup from "@/components/user/UserSignup.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
 import UserInfo from "@/components/user/UserInfo.vue";
+import UserSchedule from "@/components/user/UserSchedule.vue"
+
 import Video from "../views/VideoView.vue"
 import VideoList from "@/components/video/VideoList.vue"
 import VideoRegist from "@/components/video/VideoRegist.vue"
 import VideoDetail from "@/components/video/VideoDetail.vue"
+
 import ReviewList from "@/components/review/ReviewList.vue"
 import Board from "../views/BoardView.vue";
 import BoardList from "@/components/board/BoardList.vue";
 import BoardModify from "@/components/board/BoardModify.vue";
 import BoardWrite from "@/components/board/BoardWrite.vue";
 import BoardDetail from "@/components/board/BoardDetail.vue";
-import Contact from "@/components/common/contact.vue";
-import About from "@/components/common/about.vue";
+
 import ServiceForm from "@/components/service/ServiceForm.vue"
 import Service from "@/views/ServiceView.vue"
+import ChooseTrainer from "@/components/service/ChooseTrainer.vue"
+
 import Trainer from "../views/TrainerView.vue"
 import TrainerList from "@/components/trainer/TrainerList.vue"
 import TrainerDetail from "@/components/trainer/TrainerDetail.vue"
 import TrainerShow from "@/components/trainer/TrainerShow.vue"
 import TrainerLoginForm from "@/components/TrainerLoginForm.vue"
+
+import ManageUser from "@/components/trainer/ManageUser.vue"
+import ManageUserSchedule from "@/components/trainer/ManageUserSchedule.vue"
 
 const routes = [
   {
@@ -59,8 +69,8 @@ const routes = [
       },
       {
         path: "trainers",
-        name: "trainerShow",
-        component: TrainerShow,
+        name: "ChooseTrainer",
+        component: ChooseTrainer,
       }
     ],
   },
@@ -83,6 +93,11 @@ const routes = [
         name: "UserDetail",
         component: UserDetail,
       },
+      {
+        path: "schedule",
+        name: "UserSchedule",
+        component : UserSchedule,
+      }
     ],
   },
   {
@@ -95,6 +110,11 @@ const routes = [
         component: TrainerList,
       },
       {
+        path: "show",
+        name: "TrainerShow",
+        component: TrainerShow,
+      },
+      {
         path: ":id",
         name: "TrainerDetail",
         component: TrainerDetail,
@@ -104,6 +124,16 @@ const routes = [
         name: "TrainerLogin",
         component: TrainerLoginForm,
       },
+      {
+        path: "manage",
+        name: "ManageUser",
+        component: ManageUser, 
+      },
+      {
+        path: "manage/:id",
+        name: "ManageUserSchedule",
+        component: ManageUserSchedule,
+      }
     ],
   },
   {

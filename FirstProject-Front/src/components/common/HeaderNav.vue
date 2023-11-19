@@ -7,25 +7,32 @@
 
       <div class="dropdown">
         <a href="#">ABOUT</a>
+
         <div class="dropdown-content">
           <RouterLink to="/about">ABOUT US</RouterLink>
+
           <a href="#">ABOUT FI-NECT</a>
         </div>
       </div>
 
       <div class="dropdown">
         <RouterLink to="/service/"> SERVICE </RouterLink>
+
         <div class="dropdown-content">
-          <RouterLink to="/service/form"> START SERVICE </RouterLink>
-          <RouterLink to="/service/trainers"> OUR TRIAINERS </RouterLink>
+          <RouterLink :to="{ name: 'ServiceForm' }"> START SERVICE </RouterLink>
+
+          <RouterLink to="/trainers/show"> OUR TRIAINERS </RouterLink>
+
           <a href="#">MY PLAN</a>
         </div>
       </div>
 
       <div class="dropdown">
         <a href="#"> COMMUNITY</a>
+
         <div class="dropdown-content">
           <RouterLink to="/board">자유게시판</RouterLink>
+
           <a href="#">HOW TO FI-NECT</a>
         </div>
       </div>
@@ -33,45 +40,59 @@
       <div class="dropdown">
         <RouterLink to="/contact">CONTACT</RouterLink>
       </div>
-      <div class="dropdown">
+
+      <div class="dropdown" v-if="!userStore.getUser">
         <a>TRAINER</a>
+
         <div class="dropdown-content">
-          <div v-if="!trainerStore.getTrainer && userStore.idValue != 'admin'">
+          <div v-if="!trainerStore.getTrainer & userStore.idValue != 'admin'">
             <RouterLink to="/trainers/login">LOGIN</RouterLink>
           </div>
+
           <div v-else>
             <RouterLink to="/trainers/list">LIST</RouterLink>
-            <RouterLink v-if="trainerStore.getTrainer" to="/" @click="trainerStore.trainerLogout">로그아웃</RouterLink>
+            <RouterLink v-if="trainerStore.getTrainer" to="/trainers/manage"
+              >회원 관리</RouterLink
+            >
+            <RouterLink
+              v-if="trainerStore.getTrainer"
+              to="/"
+              @click="trainerStore.trainerLogout"
+              >로그아웃</RouterLink
+            >
           </div>
         </div>
       </div>
+
       <div>
         <a href="#" v-if="userStore.getUser">
           <div class="dropdown">
             <div>{{ userStore.idValue }}님, 환영합니다.</div>
+
             <div class="dropdown-content">
               <RouterLink to="/mypage">MyPage</RouterLink>
-              <a href="#">내 스케줄</a>
+
+              <RouterLink to="/users/schedule">내 스케줄</RouterLink>
+
               <RouterLink to="/" @click="logout">로그아웃</RouterLink>
             </div>
           </div>
-          <RouterLink to="/video">VIDEO</RouterLink>
         </a>
-        <p to="/login" v-else>
+
+        <div v-if="!userStore.getUser & !trainerStore.getTrainer">
           <RouterLink to="/login">LOGIN</RouterLink>
           <RouterLink :to="{ name: 'UserSignup' }">SIGN UP</RouterLink>
-          <RouterLink to="/video">VIDEO</RouterLink>
-        </p>
-        <RouterLink v-show="userStore.idValue =='admin'"  to="/users">USER</RouterLink>
+        </div>
+        <RouterLink to="/video">VIDEO</RouterLink>
+        <RouterLink v-show="userStore.idValue == 'admin'" to="/users">USER</RouterLink>
       </div>
-
     </nav>
   </header>
 </template>
 
 <script setup>
 import { useUserStore } from "@/stores/user";
-import { RouterLink } from "vue-router"
+import { RouterLink } from "vue-router";
 import { computed } from "vue";
 import { useTrainerStore } from "../../stores/trainer";
 
@@ -82,10 +103,12 @@ const logout = () => {
   userStore.logout();
 };
 
+
 </script>
 
 <style>
 /*드롭다운 메뉴*/
+
 .dropdown {
   position: relative;
   display: inline-block;

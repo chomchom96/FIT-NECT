@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.board.model.dao.TrainerDao;
 import com.ssafy.board.model.dto.Trainer;
+import com.ssafy.board.model.dto.TrainerDetail;
+import com.ssafy.board.model.dto.User;
+import com.ssafy.board.model.dto.UserSchedule;
 
 @Service
 public class TrainerServiceImpl implements TrainerService {
@@ -29,7 +32,7 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	@Override
 	public Trainer login(Trainer trainer) {
-		Trainer tmp = trainerDao.selectOne(trainer.getTrainerId());
+		Trainer tmp = trainerDao.selectTrainer(trainer.getTrainerId());
 		if(tmp != null && tmp.getTrainerPassword().equals(trainer.getTrainerPassword()))
 			return tmp;
 		return null;
@@ -55,4 +58,16 @@ public class TrainerServiceImpl implements TrainerService {
 		
 	}
 
+
+	@Override
+	public List<TrainerDetail> getTrainerDetailList() {
+		return trainerDao.getTrainerDetailList();
+	}
+
+
+	@Override
+	public List<String> getUserList(String trainerId) {
+		return trainerDao.getUserList(trainerId);
+	}
+	
 }

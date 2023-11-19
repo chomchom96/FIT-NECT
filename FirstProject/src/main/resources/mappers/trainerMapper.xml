@@ -39,6 +39,19 @@
 	    WHERE trainer_id = #{trainerId};
 	</select>
 	
+	<select id="getTrainerDetailList" resultType="TrainerDetail">
+    SELECT trainer_seq AS trainerSeq,
+    	   trainer_id AS trainerId,
+    	   trainer_name AS trainerName, 
+           trainer_profile_pic AS trainerProfilePic, 
+           trainer_experience AS trainerExperience, 
+           trainer_extra AS trainerExtra
+	    FROM trainer_detail;
+	</select>
 	
+	<select id="getUserList" parameterType="String" resultType="String">
+    SELECT user_id FROM matched
+    WHERE trainer_id = #{trainerId};
+	</select>
 	
 </mapper>
