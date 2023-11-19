@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.ProductDao">
+	<insert id="registDetail" parameterType="UserDetail">
+    INSERT INTO user_detail (user_seq, user_profile_pic, user_gender, user_age, user_current_weight, user_target_weight, user_height, user_preferred_place, user_extra)
+    VALUES (#{userSeq}, #{userProfilePic}, #{userGender}, #{userAge}, #{userCurrentWeight}, #{userTargetWeight}, #{userHeight}, #{userPreferredPlace}, #{userExtra})
+	</insert>
+	
+	<insert id="matchTrainer" parameterType="String">
+	INSERT INTO matched (user_id, trainer_id)
+	VALUES (#{userId}, #{trainerId});
+	</insert>
+	
+	<select id="getTrainerId" parameterType="String" resultType="String">
+	SELECT trainer_id FROM matched
+	WHERE user_id = ${userId};
+	</select>
+	
+	<insert id="writeSchedule" parameterType="UserSchedule">
+	INSERT INTO user_schedule (user_id, user_schedule)
+	VALUES (#{userId}, #{userSchedule});
+	</insert>
+	
+	<update id="updateSchedule" parameterType="UserSchedule">
+    UPDATE user_schedule
+    SET user_schedule = #{userSchedule}
+    WHERE user_id = #{userId}
+	</update>
+	
+
+</mapper>

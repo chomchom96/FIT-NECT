@@ -1,0 +1,136 @@
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { defineStore } from 'pinia'
+import axios from "axios";
+
+export const useBoardStore = defineStore('board', ()=>{
+    const boardList = ref([]);
+    const router = useRouter();
+    const board = ref([]);
+
+    const searchKey = ref("none");
+    const searchWord = ref("");
+    const searchOrderBy = ref("none");
+    const searchOrderByDir = ref("asc");
+    
+    // 게시판(글목록) 조회
+  const getBoardList = () => {
+    const API_URL = "http://localhost:8080/api/board";
+    axios({
+      url: API_URL,
+      method: "GET",
+    })
+      .then((res) => {
+        board.value = res.data;
+        console.log(board)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //게시판 검색 기능
+  const searchBoardList = (searchParams) => {
+    const API_URL = "http://localhost:8080/api/board";
+    axios({
+      url: API_URL,
+      method: "GET",
+      params: searchParams
+    })
+      .then((res) => {
+        board.value = res.data;
+        console.log(board)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // 글 등록
+  const createBoard = (board) => {
+    const API_URL = `http://localhost:8080/api/board`;
+    axios({
+      url: API_URL,
+      method: "POST",
+      data: {
+        boardTitle: board.boardTitle,
+        userId: board.userId,
+        boardContent: board.boardContent
+        
+      },
+    })
+      .then(() => {
+        alert("등록 완료");
+        getBoardList();
+        router.push("/board");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // 글 수정
+  const updateBoard = (board) => {
+    const API_URL = `http://localhost:8080/api/board`;
+    // axios 요청 (Spring Boot Rest API 참고)
+    axios({
+      url: API_URL,
+      method: "PUT",
+      data: {
+        boardId: board.boardId,
+        boardTitle: board.boardTitle,
+        userId: board.userId,
+        boardContent: board.boardContent,
+        // boardFile: board.boardFile,
+        // boardCreatedAt : board.boardCreatedAt,
+        // boardViewCnt : board.boardViewCnt
+      }
+    })
+      .then(() => {
+        alert("수정 완료");
+        getBoardList();
+        router.push("/board");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
+  // 글 삭제
+  const deleteBoard = (board) => {
+    const API_URL = `http://localhost:8080/api/board/${board.boardId}`;
+    // axios 요청 (Spring Boot Rest API 참고)
+    axios({
+      url: API_URL,
+      method: "DELETE",
+    })
+      .then(() => {
+        alert("삭제 완료");
+        getBoardList();
+        router.push("/board");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  onMounted(() => {
+    getBoardList();
+  });
+  
+  const submitSearchForm = () => {
+    const searchParams = {
+      key: searchKey,
+      word: searchWord,
+      orderBy: searchOrderBy,
+      orderByDir: searchOrderByDir
+    }
+    searchBoardList(searchParams); 
+  }
+
+
+ 
+
+  return { router, boardList, board, submitSearchForm, searchBoardList, getBoardList, createBoard, updateBoard, deleteBoard, onMounted }
+
+})
