@@ -29,4 +29,7 @@ public interface BoardDao {
 
 	public void increaseViewCnt(int id);
 
+
+
+
 }

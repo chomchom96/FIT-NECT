@@ -8,12 +8,34 @@ export const useBoardStore = defineStore('board', ()=>{
     const router = useRouter();
     const board = ref([]);
 
+    const searchKey = ref("none");
+    const searchWord = ref("");
+    const searchOrderBy = ref("none");
+    const searchOrderByDir = ref("asc");
+    
     // 게시판(글목록) 조회
   const getBoardList = () => {
     const API_URL = "http://localhost:8080/api/board";
     axios({
       url: API_URL,
       method: "GET",
+    })
+      .then((res) => {
+        board.value = res.data;
+        console.log(board)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //게시판 검색 기능
+  const searchBoardList = (searchParams) => {
+    const API_URL = "http://localhost:8080/api/board";
+    axios({
+      url: API_URL,
+      method: "GET",
+      params: searchParams
     })
       .then((res) => {
         board.value = res.data;
@@ -33,7 +55,8 @@ export const useBoardStore = defineStore('board', ()=>{
       data: {
         boardTitle: board.boardTitle,
         userId: board.userId,
-        boardContent: board.boardContent,
+        boardContent: board.boardContent
+        
       },
     })
       .then(() => {
@@ -58,9 +81,9 @@ export const useBoardStore = defineStore('board', ()=>{
         boardTitle: board.boardTitle,
         userId: board.userId,
         boardContent: board.boardContent,
-        boardFile: board.boardFile,
-        boardCreatedAt : board.boardCreatedAt,
-        boardViewCnt : board.boardViewCnt
+        // boardFile: board.boardFile,
+        // boardCreatedAt : board.boardCreatedAt,
+        // boardViewCnt : board.boardViewCnt
       }
     })
       .then(() => {
@@ -94,8 +117,20 @@ export const useBoardStore = defineStore('board', ()=>{
   onMounted(() => {
     getBoardList();
   });
+  
+  const submitSearchForm = () => {
+    const searchParams = {
+      key: searchKey,
+      word: searchWord,
+      orderBy: searchOrderBy,
+      orderByDir: searchOrderByDir
+    }
+    searchBoardList(searchParams); 
+  }
 
 
-  return { router, boardList, board, getBoardList, createBoard, updateBoard, deleteBoard, onMounted }
+ 
+
+  return { router, boardList, board, submitSearchForm, searchBoardList, getBoardList, createBoard, updateBoard, deleteBoard, onMounted }
 
 })

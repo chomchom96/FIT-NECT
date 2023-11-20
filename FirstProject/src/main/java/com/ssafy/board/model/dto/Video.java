@@ -2,7 +2,7 @@ package com.ssafy.board.model.dto;
 
 import io.swagger.annotations.ApiModel;
 
-@ApiModel(value="게시판 바구니", description = "게시글 정보")
+@ApiModel(value="영상 관리")
 public class Video {
     private int videoId;
     private String videoTitle;

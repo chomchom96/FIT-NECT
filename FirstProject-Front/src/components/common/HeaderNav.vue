@@ -108,7 +108,6 @@ const logout = () => {
 
 <style>
 /*드롭다운 메뉴*/
-
 .dropdown {
   position: relative;
   display: inline-block;

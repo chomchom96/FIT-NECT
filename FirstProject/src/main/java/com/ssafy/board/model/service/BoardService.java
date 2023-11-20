@@ -3,6 +3,7 @@ package com.ssafy.board.model.service;
 import java.util.List;
 
 import com.ssafy.board.model.dto.Board;
+import com.ssafy.board.model.dto.SearchCondition;
 
 public interface BoardService {
 	
@@ -22,6 +23,9 @@ public interface BoardService {
 		public void removeBoard(int boardId);
 
 		public void increaseViewCnt(int id);
+
+		//게시글 검색 
+		public List<Board> search(SearchCondition condition);
 
 
 }

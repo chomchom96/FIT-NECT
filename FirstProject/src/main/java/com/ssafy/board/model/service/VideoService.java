@@ -27,5 +27,7 @@ public interface VideoService {
     public List<String> findBookmark(String userId);
 
 	void increaseViewCnt(int videoId);
+
+	List<Video> searchVideo(SearchCondition condition);
 	
 }

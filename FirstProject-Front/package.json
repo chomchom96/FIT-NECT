@@ -12,13 +12,19 @@
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
     "pinia": "^2.1.7",
+<<<<<<< HEAD
     "stylus": "^0.62.0",
+=======
+>>>>>>> origin/feature/SearchCondition+boardcss
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
+<<<<<<< HEAD
     "http-proxy-middleware": "^2.0.6",
+=======
+>>>>>>> origin/feature/SearchCondition+boardcss
     "vite": "^4.4.11"
   }
 }

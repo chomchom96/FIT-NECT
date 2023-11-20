@@ -38,7 +38,6 @@ export const useUserStore = defineStore('user', ()=>{
       console.log(err);
     });
   };
-  
   const updateUser = (user) => {
     axios({
       url: `http://localhost:8080/api/users/${user.id}`,

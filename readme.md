@@ -23,3 +23,11 @@
 1118 업데이트
 - 서비스 백엔드 구현
 - 
+<<<<<<< HEAD
+=======
+
+1119 업데이트
+- VideoList 정렬 썸네일 불러오기
+- BoardList, VideoList 검색기능 구현
+- BoardList, BoardWrite, BoardModify 등 Board 관련 디자인/CSS 추가
+>>>>>>> origin/feature/SearchCondition+boardcss

@@ -28,6 +28,10 @@ import ServiceForm from "@/components/service/ServiceForm.vue"
 import Service from "@/views/ServiceView.vue"
 import ChooseTrainer from "@/components/service/ChooseTrainer.vue"
 
+import Contact from "@/components/common/contact.vue";
+import About from "@/components/common/about.vue";
+import ServiceForm from "@/components/service/ServiceForm.vue"
+import Service from "@/views/ServiceView.vue"
 import Trainer from "../views/TrainerView.vue"
 import TrainerList from "@/components/trainer/TrainerList.vue"
 import TrainerDetail from "@/components/trainer/TrainerDetail.vue"

@@ -49,7 +49,6 @@ CREATE TABLE matched(
 	PRIMARY KEY(user_id, trainer_id)
 )ENGINE = InnoDB;
 
-insert into matched values ("trainer_1", "ssafy");
 CREATE TABLE user_schedule(
 	user_id VARCHAR(20) NOT NULL PRIMARY KEY,
 	user_schedule TEXT NOT NULL,

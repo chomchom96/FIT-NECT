@@ -33,16 +33,25 @@ import io.swagger.annotations.ApiOperation;
 public class VideoRestController {
 
 	@Autowired
-	private VideoService videoService;
+	private VideoService videoService; 
 
 	@GetMapping("/video")
-	@ApiOperation(value="전체 영상 조회")
-	public ResponseEntity<?> list(){
-		List<Video> list = videoService.getList();
+	@ApiOperation(value="전체 영상 조회 + 검색조건")
+	public ResponseEntity<?> list(SearchCondition condition){
+		List<Video> list = videoService.search(condition);
 		if(list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
 	}
+	
+//	@GetMapping("/video")
+//	@ApiOperation(value="전체 영상 조회")
+//	public ResponseEntity<?> list(){
+//		List<Video> list = videoService.getList();
+//		if(list == null || list.size() == 0)
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/video/{id}")
 	@ApiOperation(value="id 해당 영상 조회")

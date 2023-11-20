@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Board;
+import com.ssafy.board.model.dto.SearchCondition;
 import com.ssafy.board.model.service.BoardService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
@@ -31,23 +31,23 @@ public class BoardRestController {
 	@Autowired
 	private BoardService boardService;
 
-		@GetMapping("/board")
-		@ApiOperation(value="전체 게시글 조회")
-		public ResponseEntity<?> list(){
-			List<Board> list = boardService.getList(); //전체 조회
-			if(list == null || list.size() == 0)
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
-		}
-
 //		@GetMapping("/board")
-//		@ApiOperation(value="검색조건 게시글 조회")
-//		public ResponseEntity<?> list(SearchCondition condition){
-//			List<Board> list = boardService.search(condition); 
+//		@ApiOperation(value="전체 게시글 조회")
+//		public ResponseEntity<?> list(){
+//			List<Board> list = boardService.getList(); //전체 조회
 //			if(list == null || list.size() == 0)
 //				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 //			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
 //		}
+
+		@GetMapping("/board")
+		@ApiOperation(value="검색조건 게시글 조회")
+		public ResponseEntity<?> list(SearchCondition condition){
+			List<Board> list = boardService.search(condition); 
+			if(list == null || list.size() == 0)
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
+		}
 
 		@GetMapping("/board/{boardId}")
 		@ApiOperation(value="게시글 상세조회")
@@ -81,18 +81,5 @@ public class BoardRestController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		
-		
-		@PostMapping("/viewboard/{id}")
-		@ApiOperation(value="Detail 방문시 조회수 증가")
-		public ResponseEntity<?> increaseViewCnt(@PathVariable int id){
-			try {
-				boardService.increaseViewCnt(id);
-				return new ResponseEntity<Void>(HttpStatus.OK);
-			}
-			catch(Exception e) {
-				System.out.println(e);
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
 	
 }

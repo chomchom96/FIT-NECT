@@ -50,12 +50,6 @@ public class VideoServiceImpl implements VideoService {
     }
 
 
-    @Override
-    public List<Video> search(SearchCondition condition) {
-        return videoDao.search(condition);
-    }
-
-
 	@Override
 	public void bookmark(VideoBookmark bm) {
 		videoDao.bookmark(bm);
@@ -82,5 +76,21 @@ public class VideoServiceImpl implements VideoService {
 	public void increaseViewCnt(int videoId) {
 		videoDao.increaseViewCnt(videoId);
 	}
+
+
+	@Override
+	public List<Video> search(SearchCondition condition) {
+		return videoDao.search(condition); 
+	}
+
+
+	@Override
+	public List<Video> searchVideo(SearchCondition condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 
 }
