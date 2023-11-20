@@ -38,3 +38,7 @@
 
 1120 업데이트(2)
 - comment DB 백 구현 
+
+1121 업데이트(새벽)
+- comment 기능 프론트 구현
+- comment 백엔드 수정 (mapper 등..)

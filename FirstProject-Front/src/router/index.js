@@ -37,6 +37,8 @@ import TrainerLoginForm from "@/components/TrainerLoginForm.vue"
 import ManageUser from "@/components/trainer/ManageUser.vue"
 import ManageUserSchedule from "@/components/trainer/ManageUserSchedule.vue"
 
+import Comment from "@/components/comment/Comment.vue"
+
 const routes = [
   {
     path: "/",
@@ -57,6 +59,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: LoginForm,
+  },
+  {
+    path: "/comment",
+    name: "Comment",
+    component: Comment,
   },
   {
     path: "/service",

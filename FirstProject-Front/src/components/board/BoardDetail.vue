@@ -47,17 +47,7 @@
                   {{ board.boardCreatedAt }}
               </span>
             </td>
-            <!-- <td class="left">
-              <RouterLink class="board-link" :to="`/board/${board.boardId}`">{{     
-                board.boardTitle
-              }}</RouterLink>
-            </td>  -->
-            <!-- <td class="left">{{ board.boardTitle}}</td>
-            <td>{{ board.userId }}</td>
-            <td>{{ board.boardCreatedAt }}</td>
-            <td>{{ board.boardViewCnt }}</td> -->
-            <!-- <td>{{ board.boardContent }}</td> -->
-           
+         
           </tr>
         </tbody>
         <tbody>
@@ -71,6 +61,40 @@
       <button class="btn" @click="call_confirm()">삭제</button>
 
 
+  <div>
+    <br>
+    <h3> comment </h3>
+  
+      <!-- comments 배열을 순회하며 각 comment의 comment 속성을 출력 -->
+      <li v-for="(commentItem, index) in comments" :key="index">
+        <table class="board-list">
+        <colgroup>
+          <col style="width: 100%" />
+        </colgroup>
+        
+        <thead>
+          <tr> 
+            <th style="text-align: left; padding-left: 15px; font-size: 16px;">{{ commentItem.userId }}</th> 
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="text-align: left; padding-left: 5px;">
+                 {{ commentItem.comment }}
+              </span>
+              <span style="text-align: right; padding-right: 5px;">
+                  {{ commentItem.createdAt }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+        
+      </table>
+      </li>
+    
+  </div>
+  <br>
   </div>
 </template>
 
@@ -79,11 +103,23 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useUserStore } from "../../stores/user";
 import { useRouter } from "vue-router";
+import { useCommentStore } from "../../stores/comment";
+
+const commentStore = useCommentStore(); 
 
 const router = useRouter();
 
 const store = useUserStore()
 
+const comments = ref([]);
+
+const comment = ref({
+  commentSeq: "",
+  boardId: "",
+  userId: "",
+  comment: "",
+  createdAt: "",
+});
 
 const emit = defineEmits();
 
@@ -95,6 +131,8 @@ const board = ref({
   boardViewCnt: "",
   boardCreatedAt: "",
 });
+
+console.log(comment.value.comment);
 
 const handleModifyClick = () => {
   if (board.value.userId === store.idValue || store.idValue === "admin"){
@@ -131,6 +169,7 @@ onMounted(() => {
   const id = pathName[pathName.length - 1];
   const API_URL = `http://localhost:8080/api/board/${id}`;
   
+  // const commentAPI_URL = `http://localhost:8080/api/comment/user/${userId}`;
   axios({
     url: API_URL,
     method: "GET",
@@ -142,11 +181,42 @@ onMounted(() => {
       board.value.userId = res.data.userId;
       board.value.boardViewCnt = res.data.boardViewCnt;
       board.value.boardCreatedAt = res.data.boardCreatedAt;
+      const commentAPI_URL = `http://localhost:8080/api/comment/board/${board.value.boardId}`;
+    
+      axios({
+      url: commentAPI_URL,
+      method: "GET",
+      })
+      .then((commentRes) => {
+
+        comments.value = [];
+
+        commentRes.data.forEach((commentData) => {
+            comments.value.push({
+              commentSeq: commentData.commentSeq,
+              boardId: commentData.boardId,
+              userId: commentData.userId,
+              comment: commentData.comment,
+              createdAt: commentData.createdAt,
+            });
+          });
+        // comment.value.commentSeq = commentRes.data.commentSeq;
+        // comment.value.boardId = commentRes.data.boardId;
+        // comment.value.userId = commentRes.data.userId;
+        // comment.value.comment = commentRes.data.comment;
+        // comment.value.createdAt = commentRes.data.createdAt;
+      })
+      .catch((commentErr) => {
+        console.error(commentErr);
+      });
+    
     })
     .catch((err) => {
       console.log(err);
     });
 });
+
+
 </script>
 
 <style scoped>

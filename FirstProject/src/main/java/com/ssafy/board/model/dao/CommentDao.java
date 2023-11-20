@@ -13,7 +13,10 @@ public interface CommentDao {
 	public Comment selectOne(int commentSeq);
 	
 	//한 유저가 쓴 댓글 전부 가져오기
-	public List<Comment> commentByUser(int userId); 
+	public List<Comment> commentByUser(String userId); 
+	
+	//한 게시글에 대한 댓글 전부 가져오기
+	public List<Comment> commentByBoard(int boardId);
 
 	// 게시글 등록
 	public void insertComment(Comment comment);

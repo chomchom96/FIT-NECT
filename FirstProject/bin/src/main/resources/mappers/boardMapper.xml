@@ -18,6 +18,70 @@
 		FROM board;
 	</select>
 	
+	<!-- 
+	<select id="search" resultMap="boardMap" resultType="Board" parameterType="SearchCondition" >
+		SELECT *
+		FROM board
+		<if test="key != 'none'">
+			WHERE ${key} LIKE concat('%', #{word}, '%');
+		</if>
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir};
+		</if>
+	</select> -->
+	
+	<!-- 이하 생략 -->
+
+	<select id="search" resultMap="boardMap" resultType="Board" parameterType="SearchCondition">
+    	SELECT *
+    	FROM board
+    <if test="key != 'none'">
+        WHERE
+        <choose>
+            <when test="key == 'boardId'">
+                board_id
+            </when>
+            <when test="key == 'userId'">
+                board_user_id
+            </when>
+            <when test="key == 'boardTitle'">
+                board_title
+            </when>
+            <when test="key == 'boardContent'">
+                board_content
+            </when>
+            <otherwise>
+                ${key}
+            </otherwise>
+        </choose>
+        LIKE concat('%', #{word}, '%');
+    </if>
+    <if test="orderBy != 'none'">
+        ORDER BY 
+        <choose>
+            <when test="orderBy == 'boardId'">
+                board_id
+            </when>
+            <when test="orderBy == 'userId'">
+                board_user_id
+            </when>
+            <when test="orderBy == 'boardTitle'">
+                board_title
+            </when>
+            <when test="orderBy == 'boardViewCnt'">
+                board_view_cnt
+            </when>
+            <otherwise>
+                ${orderBy}
+            </otherwise>
+        </choose>
+        ${orderByDir};
+    </if>
+</select>
+
+<!-- 이하 생략 -->
+	
+	
 	<select id="selectOne" resultMap="boardMap" parameterType="Board">
         SELECT *
         FROM board
@@ -27,7 +91,7 @@
     <update id="updateViewCnt" parameterType="int">
     	UPDATE board
     	SET board_view_cnt = board_view_cnt + 1
-    	WHERE board_id = #{boardId}
+    	WHERE board_id = #{boardId};
     </update>
 
 	<insert id="insertBoard" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">

@@ -17,6 +17,71 @@
         FROM video;
     </select>
     
+    <select id="search" resultMap="videoMap" resultType="Video" parameterType="SearchCondition">
+    	SELECT *
+    	FROM video
+    <if test="key != 'none'">
+        WHERE
+        <choose>
+            <when test="key == 'videoId'">
+                video_id
+            </when>
+            <when test="key == 'videoTitle'">
+                video_title
+            </when>
+            <when test="key == 'videoPart'">
+                video_part
+            </when>
+            <when test="key == 'videoCreatedAt'">
+                video_created_at
+            </when>
+            <when test="key == 'videoChannelName'">
+                video_channel_name
+            </when>
+            <when test="key == 'videoUrl'">
+                video_url
+            </when>
+            <when test="key == 'videoViewCnt'">
+                video_view_cnt
+            </when>
+            <otherwise>
+                ${key}
+            </otherwise>
+        </choose>
+        LIKE concat('%', #{word}, '%');
+    </if>
+    <if test="orderBy != 'none'">
+        ORDER BY 
+        <choose>
+           <when test="key == 'videoId'">
+                video_id
+            </when>
+            <when test="key == 'videoTitle'">
+                video_title
+            </when>
+            <when test="key == 'videoPart'">
+                video_part
+            </when>
+            <when test="key == 'videoCreatedAt'">
+                video_created_at
+            </when>
+            <when test="key == 'videoChannelName'">
+                video_channel_name
+            </when>
+            <when test="key == 'videoUrl'">
+                video_url
+            </when>
+            <when test="key == 'videoViewCnt'">
+                video_view_cnt
+            </when>
+            <otherwise>
+                ${orderBy}
+            </otherwise>
+        </choose>
+        ${orderByDir};
+    </if>
+</select>
+    
     <update id="increaseViewCnt" parameterType="int">
     	UPDATE video
     	SET video_view_cnt = video_view_cnt+1

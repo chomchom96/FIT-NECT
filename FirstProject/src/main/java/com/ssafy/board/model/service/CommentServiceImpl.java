@@ -48,4 +48,16 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 
+	@Override
+	public List<Comment> getCommentbyUser(String userId) {
+		return commentDao.commentByUser(userId);
+	}
+
+	@Override
+	public List<Comment> getCommentbyBoard(int boardId) {
+		return commentDao.commentByBoard(boardId);
+	}
+
+
+
 }

@@ -30,7 +30,7 @@ CREATE TABLE user_detail(
 	user_preferred_place VARCHAR(10),
 	user_extra VARCHAR(50),
     trainer_id VARCHAR(20),
-	FOREIGN KEY (user_seq) REFERENCES user (user_seq)
+	FOREIGN KEY (user_seq) REFERENCES user (user_seq) ON DELETE CASCADE
 )ENGINE = InnoDB;
 
 CREATE TABLE trainer_detail(
@@ -88,6 +88,26 @@ CREATE TABLE board(
 	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
+CREATE TABLE comment(
+	comment_seq INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	board_id INT NOT NULL,
+    user_id VARCHAR(20) NOT NULL,
+    comment VARCHAR(100) NOT NULL,
+    created_at DATETIME DEFAULT NOW()
+)ENGINE = InnoDB;
+
+
+insert into comment (board_id, user_id, comment) values 
+  (1, "admin", "내가 첫 댓글이다!");
+insert into comment (board_id, user_id, comment) values 
+  (1, "admin", "내가 두번째 댓글이다!");
+insert into comment (board_id, user_id, comment) values 
+  (2, "admin", "내가 두번째 글의 첫번째 댓글이다!");
+  insert into comment (board_id, user_id, comment) values 
+  (2, "ssafy", "내가 두번째 글의 두번째 댓글이다!");
+
+select * from comment;
+
 CREATE TABLE followings (
 	user_id VARCHAR(20) NOT NULL UNIQUE,
 	following_id VARCHAR(20) NOT NULL UNIQUE,
@@ -126,6 +146,9 @@ insert into user (user_id, user_password, user_email, user_nickname, is_kakao) v
   ("baek", "ju", "kakakopachip@gmail.com", "치킨", 0);
 insert into user (user_id, user_email, user_nickname, is_kakao) values 
   ("kakao", "kakao@kakao.com", "카카오연동", 1);
+  
+  insert into user (user_id, user_password, user_email, user_nickname, is_kakao) values 
+  ("java", "1234", "java@naver.com", "자바", 0);
 
 select * from user;
 
@@ -205,7 +228,7 @@ INSERT INTO video (video_title, video_part, video_url, video_channel_name)
 VALUES ('[ENG] (층간소음 X) 진짜 역대급 20분 루틴ㅣ전신올인원 I 힙으뜸 유산소 운동', '유산소 운동', 'https://www.youtube.com/watch?v=46vQnzaZ6aU', '힙으뜸');
   
 INSERT INTO video (video_title, video_part, video_url, video_channel_name)
-VALUES ("가슴근육을 키우려면 당신은 '이 운동'을 해야합니다!', '가슴 운동(대흉근)", 'https://www.youtube.com/watch?v=_is-VfJW44Y', '보통사람을 위한 운동채널');
+VALUES ("가슴근육을 키우려면 당신은 '이 운동'을 해야합니다!", "가슴 운동(대흉근)", 'https://www.youtube.com/watch?v=_is-VfJW44Y', '보통사람을 위한 운동채널');
 
 INSERT INTO video (video_title, video_part, video_url, video_channel_name)
 VALUES ('제발 상체운동좀 하세요!! ’여자 상체운동 5가지‘ | 윗가슴,중간가슴,안쪽가슴', '가슴 운동(대흉근)', 'https://www.youtube.com/watch?v=MVEHN4MIOA4', '핏블리 FITVELY');
@@ -299,6 +322,9 @@ INSERT INTO review (video_id, user_id, review_title, review_content) VALUES (18,
 INSERT INTO review (video_id, user_id, review_title, review_content) VALUES (19, 'baek', '건강을 생각하는', '건강을 생각하며 이 영상을 보면서 운동하고 있어요.');
 INSERT INTO review (video_id, user_id, review_title, review_content) VALUES (20, 'kakao', '계속해서 지켜보겠습니다', '앞으로도 이 영상 계속해서 시청할 예정입니다.');
 
+select * from review;
+
+select * from user;
 
 
 -- bookmarks
@@ -308,3 +334,4 @@ insert into bookmarks (user_id, video_id) values ("ssafy", 1);
 -- delete from bookmarks where (user_id, video_id) = ("admin", 1);
 select * from bookmarks;
 select video_id videoId from bookmarks where user_id="admin";
+

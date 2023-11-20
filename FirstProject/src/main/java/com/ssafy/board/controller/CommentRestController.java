@@ -50,11 +50,27 @@ public class CommentRestController {
 			return new ResponseEntity<List<Comment>>(list, HttpStatus.OK);
 		}
 
-		@GetMapping("/comment/{commentSeq}")
+		@GetMapping("/comment/detail/{commentSeq}")
 		@ApiOperation(value="댓글 상세조회")
 		public ResponseEntity<Comment> detail(@PathVariable int commentSeq){
 			Comment comment = commentService.getComment(commentSeq);
 			return new ResponseEntity<Comment>(comment, HttpStatus.OK);
+		}
+		
+		@GetMapping("/comment/user/{userId}")
+		@ApiOperation(value="한 유저의 댓글 전부 조회")
+		public ResponseEntity<?> userComment(@PathVariable String userId){
+			List<Comment> list = commentService.getCommentbyUser(userId);
+			if(list == null || list.size() == 0)
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Comment>>(list, HttpStatus.OK);
+		}
+		
+		@GetMapping("/comment/board/{boardId}")
+		@ApiOperation(value="한 게시글의 댓글 전부 조회")
+		public ResponseEntity<?> boardComment(@PathVariable int boardId){
+			List<Comment> list = commentService.getCommentbyBoard(boardId);
+			return new ResponseEntity<List<Comment>>(list, HttpStatus.OK);
 		}
 
 		@PostMapping("/comment")

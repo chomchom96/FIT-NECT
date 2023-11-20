@@ -41,23 +41,8 @@
         LIKE concat('%', #{word}, '%');
     	</if>
 	</select>
-	
-	<!-- commentSeq에 해당하는 코멘트 하나 가져오기 -->
-	<select id="selectOne" resultMap="commentMap" parameterType="Comment">
-        SELECT *
-        FROM comment
-        WHERE comment_seq = #{commentSeq};
-    </select>
 
-	<!-- 한 게시글에 해당하는 코멘트 모두 가져오기 -->
-	<select id="commentByBoard" resultMap="commentMap" parameterType="Comment">
-        SELECT *
-        FROM comment
-        WHERE board_id = #{boardId};
-    </select>
-	
-	
-	<!-- 한 명의 유저의 코멘트 모두 가져오기 -->
+
 	<select id="commentByUser" resultMap="commentMap" parameterType="Comment">
         SELECT *
         FROM comment
