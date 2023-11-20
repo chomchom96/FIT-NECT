@@ -81,5 +81,18 @@ public class BoardRestController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		
+		
+		@PostMapping("/viewboard/{id}")
+		@ApiOperation(value="Detail 방문시 조회수 증가")
+		public ResponseEntity<?> increaseViewCnt(@PathVariable int id){
+			try {
+				boardService.increaseViewCnt(id);
+				return new ResponseEntity<Void>(HttpStatus.OK);
+			}
+			catch(Exception e) {
+				System.out.println(e);
+				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	
 }
