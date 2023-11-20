@@ -16,7 +16,6 @@ export const useVideoStore = defineStore('video', ()=> {
     axios.get(`http://localhost:8080/api/video/`)
     .then((res) => {
       videoList.value = res.data
-      console.log(videoList)
     })
   }
 
@@ -83,6 +82,8 @@ export const useVideoStore = defineStore('video', ()=> {
   }
 
 
-  return {getVideo,submitSearchForm, searchVideoList, getVideoList, videoList, video, registVideo}
+  return {getVideo,submitSearchForm, searchVideoList, 
+    getVideoList, videoList, video, registVideo,
+  }
 
 })

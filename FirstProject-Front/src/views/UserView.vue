@@ -1,11 +1,6 @@
 <template>
   <div>
-    <RouterView
-      :user="store.user"
-      :user-list="store.userList"
-      @regist-user="store.registUser"
-      @update-user="store.updateUser"
-    />
+    <router-view></router-view>
   </div>
 </template>
 

@@ -11,6 +11,12 @@
           </div>
           <p class="card-text"><strong>등록일:</strong> {{ store.video.videoCreatedAt }}</p>
           <p class="card-text"><strong>조회수:</strong> {{ store.video.videoViewCnt }}</p>
+          <div v-show="userStore.isBookmark(route.params.id)">
+            <button @click="userStore.unbookmarkVideo(route.params.id)">💔</button>
+          </div>
+          <div v-show="!userStore.isBookmark(route.params.id)">
+            <button @click="userStore.bookmarkVideo(route.params.id)">❤</button>
+          </div>
         </div>
       </div>
       <div>
@@ -40,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUpdated } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useUserStore } from '../../stores/user'
 import { useRoute, useRouter } from 'vue-router'
@@ -67,10 +73,16 @@ const getYouTubeEmbedUrl = (url) => {
 };
 
 onMounted(async () => {
-  await store.getVideo(route.params.id)
-  await increaseViewCnt();
-  await fetchReviews(route.params.id)
-})
+  store.getVideo(route.params.id);
+  increaseViewCnt();
+  fetchReviews(route.params.id);
+  userStore.isBookmark(route.params.id);
+  console.log(userStore.isBookmark(route.params.id));
+});
+
+onUpdated(async () => {
+  userStore.isBookmark(route.params.id);
+});
 
 async function increaseViewCnt() {
   try {
@@ -84,7 +96,7 @@ async function increaseViewCnt() {
 
 async function fetchReviews() {
   try {
-    const response = await axios.get(`http://localhost:8080/api/review?videoId=${store.video.videoId}`)
+    const response = await axios.get(`http://localhost:8080/api/review/${route.params.id}`)
     reviews.value = response.data
   } catch (error) {
     console.log(error)

@@ -31,10 +31,9 @@ public class ReviewRestController {
 	@Autowired
 	private ReviewService reviewService;
 
-	// http://localhost:8080/api-review/review?videoId=3 같이 입력받음
-	@GetMapping("/review")
+	@GetMapping("/review/{videoId}")
 	@ApiOperation(value="videoId에 해당하는 리뷰 조회")
-	public ResponseEntity<?> list(int videoId){
+	public ResponseEntity<?> list(@PathVariable int videoId){
 		List<Review> list = reviewService.selectAll(videoId);
 		if(list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
