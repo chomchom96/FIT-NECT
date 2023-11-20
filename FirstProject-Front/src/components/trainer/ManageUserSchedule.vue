@@ -65,19 +65,14 @@
 import { useUserStore } from "../../stores/user";
 import { useTrainerStore } from "../../stores/trainer";
 import { ref, onMounted } from "vue";
-import { storeToRefs } from "pinia";
+import axios from "axios";
 
+const existSchedule = ref(true);
 const userStore = useUserStore();
 const trainerStore = useTrainerStore();
-const userId = ref('')
-
 
 onMounted(() => {
-  const pathName = new URL(document.location).pathname.split("/");
-  const id = pathName[pathName.length - 1];
-  console.log(id);
-  userId.value = id;
-  userStore.getUserSchedule(id);
+  getUserSchedule();
 });
 
 const newDay = ref("");
@@ -96,6 +91,27 @@ const partOptions = [
   "허벅지 운동(대퇴부,슬굴곡근)",
   "종아리 운동(비복근, 가자미근)",
 ];
+
+const schedule = ref([]);
+
+const getUserSchedule = async () => {
+  try {
+    console.log(userStore.idValue);
+    const response = await axios.get(
+      `http://localhost:8080/api/product/schedule/${userStore.idValue}`
+    );
+    console.log(response)
+    const jsonString = response.data.userSchedule;
+    const parseOnce = JSON.parse(jsonString);
+    const parse1Schedule = parseOnce.schedule;
+    schedule.value = JSON.parse(parse1Schedule);
+    console.log(schedule.value)
+  } catch (error) {
+    existSchedule.value = false;
+    console.error("Error fetching user schedule:", error);
+  }
+};
+
 
 const addNewSchedule = () => {
   if (newDay.value && newTime.value && newTitle.value) {
@@ -145,28 +161,11 @@ const deleteItem = (dayId, itemIndex) => {
 const submitSchedule = () => {
   const jsonString = JSON.stringify(schedule.value);
   console.log(jsonString);
-  console.log(userId.value);
-  trainerStore.registSchedule(userId.value, jsonString)
+  if (!existSchedule)
+    trainerStore.registSchedule(userStore.idValue, jsonString)
+  else trainerStore.modifySchedule(userStore.idValue, jsonString)
 };
 
-// 나중에 서버에서 받는 기능으로 수정
-const schedule = ref([
-  {
-    id: "11/13",
-    title: "11월 13일 월요일",
-    items: [{ time: "09:00 - 10:00", title: "달리기", part: "유산소 운동" }],
-  },
-  {
-    id: "11/14",
-    title: "11월 14일 화요일",
-    items: [{ time: "09:00 - 10:00", title: "달리기", part: "유산소 운동" }],
-  },
-  {
-    id: "11/15",
-    title: "11월 15일 수요일",
-    items: [{ time: "09:00 - 10:00", title: "달리기", part: "유산소 운동" }],
-  },
-]);
 
 
 </script>

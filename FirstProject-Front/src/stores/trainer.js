@@ -81,7 +81,23 @@ export const useTrainerStore = defineStore('trainer', () => {
     })
       .then(() => {
         alert("스케줄 등록 완료")
-        router.push('/trainers/manage')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const modifySchedule = (userId, schedule) => {
+    console.log(userId);
+    axios({
+      url: `http://localhost:8080/api/product/schedule/${userId}`,
+      method: "PUT",
+      data: {
+        schedule
+      }
+    })
+      .then(() => {
+        alert("스케줄 수정 완료")
       })
       .catch((err) => {
         console.log(err);
@@ -178,7 +194,7 @@ export const useTrainerStore = defineStore('trainer', () => {
     loginTrainer, trainerLogout, getTrainer,
     getTrainerDetail, Trainer: trainer,
     updateTrainer, deleteTrainer,
-    getUserManageList, userManageList, registSchedule,
+    getUserManageList, userManageList, registSchedule,modifySchedule
   }
 
 })
