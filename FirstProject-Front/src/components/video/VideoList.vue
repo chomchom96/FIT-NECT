@@ -1,45 +1,16 @@
 <template>
   <div class="video-list-page">
-    <!-- <div class="video-list-page">
-    <h2>영상 목록</h2>
-    <div class="video-list-card">
-      <table>
-        <thead>
-          <tr>
-            <th>제목</th>
-            <th>URL</th>
-            <th>부위</th>
-            <th>조회수</th>
-            <th>채널명</th>
-            <th>등록일</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="video in store.videoList" :key="video.videoId">
-            <td>
-              <router-link :to="`/video/${video.videoId}`">{{ video.videoTitle }}</router-link>
-            </td>
-            <td>{{ video.videoUrl }}</td>
-            <td>{{ video.videoPart }}</td>
-            <td>{{ video.videoViewCnt }}</td>
-            <td>{{ video.videoChannelName }}</td>
-            <td>{{ video.videoCreatedAt }}</td>
-          </tr>
-        </tbody>
-      </table>
-  </div> -->
-
-
     <div>
       <div class="row">
-        <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in store.videoList" :key="video.videoId">
+       
+        <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in pagenatedVideos" :key="video.videoId">
           <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="...">
 
           <div class="card-body">
             <h5>
               <router-link :to="`/video/${video.videoId}`">{{ video.videoTitle }}</router-link>
             </h5>
-            <!-- <h5 class="card-title">{{ video.videoTitle }}</h5> -->
+            <h5 class="card-title">{{ video.videoTitle }}</h5>
             <p class="card-text text-truncate">{{ video.videoChannelName }}</p>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">파트 : {{ video.videoPart }}</li>
@@ -50,16 +21,23 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
+    <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
+              <a class="page-link" @click="prevPage" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item" v-for="page in rows" :key="page" :class="{ 'active': currentPage === page }">
+              <a class="page-link" @click="setPage(page)" href="#">{{ page }}</a>
+            </li>
+            <li class="page-item" :class="{ 'disabled': currentPage === rows }">
+              <a class="page-link" @click="nextPage" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
     <form @submit.prevent="submitSearchForm" class="row">
       <div class="col-2" style="display: inline-block;">
         <select v-model="searchKey" class="form-select">
@@ -75,71 +53,53 @@
       <div class="col-5" style="display: inline-block;">
         <input v-model="searchWord" name="word" class="form-control">
       </div>
-
-      <!--정렬기준 일단 주석처리/검색과 동시에 안됨-->
-      <!-- <div class="col-2">
-					<label>정렬 기준 :</label>
-					<select v-model="searchOrderBy" class="form-select">
-						<option value="none">없음</option>
-						<option value="videoId">영상번호</option>
-						<option value="videoPart">부위</option>
-						<option value="videoChannelName">채널명</option>
-            <option value="videoCreatedAt">등록일</option>
-            <option value="videoViewCnt">조회수</option>
-					</select>
-				</div>
-				<div class="col-2">
-					<label>정렬 방향 :</label>
-					<select v-model="searchOrderByDir" class="form-select">
-						<option value="asc">오름차순</option>
-						<option value="desc">내림차순</option>
-					</select>
-				</div> -->
-
-
       <div class="col-1">
         <input type="submit" value="검색">
+
       </div>
-
-
     </form>
 
     <router-link :to="{ name: 'VideoRegist' }">
       <button>Regist</button>
     </router-link>
 
-
-
-
-
-
-
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from 'vue'
+import { ref, onMounted, defineProps, computed } from 'vue'
 import { useVideoStore } from '@/stores/video'
-import { useUserStore } from '../../stores/user'
-import videoImage from '@/assets/coder.png';
-import { useRoute, useRouter } from 'vue-router'
-import axios from 'axios'
-
-const router = useRouter();
-const route = useRoute();
 
 const store = useVideoStore()
-const userStore = useUserStore();
+const perPage = 6;
+const currentPage = ref(1);
+const rows = computed(() => Math.ceil(store.videoList.length / perPage));
+console.log(rows.value)
 
-// onMounted(() => {
-//   store.getVideoList();
-// })
+const setPage = (page) => {
+  if (page >= 1 && page <= rows.value) {
+    currentPage.value = page;
+  }
+};
+
+const prevPage = () => {
+  setPage(currentPage.value - 1);
+};
+
+const nextPage = () => {
+  setPage(currentPage.value + 1);
+};
+
+const pagenatedVideos = computed(() => {
+  const start = (currentPage.value - 1) * perPage;
+  const end = start + perPage;
+  return store.videoList.slice(start, end);
+})
 
 onMounted(async () => {
   for (const video of store.videoList) {
     video.thumbnailUrl = await getYouTubeThumbnail(video.videoUrl);
   }
-
   searchKey.value = "videoTitle";
 });
 
