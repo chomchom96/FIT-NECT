@@ -2,7 +2,7 @@
   <div class="video-list-page">
     <div>
       <div class="row">
-       
+
         <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in pagenatedVideos" :key="video.videoId">
           <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="...">
 
@@ -22,22 +22,22 @@
       </div>
     </div>
     <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
-              <a class="page-link" @click="prevPage" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item" v-for="page in rows" :key="page" :class="{ 'active': currentPage === page }">
-              <a class="page-link" @click="setPage(page)" href="#">{{ page }}</a>
-            </li>
-            <li class="page-item" :class="{ 'disabled': currentPage === rows }">
-              <a class="page-link" @click="nextPage" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
+          <a class="page-link" @click="prevPage" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="page in rows" :key="page" :class="{ 'active': currentPage === page }">
+          <a class="page-link" @click="setPage(page)" href="#">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ 'disabled': currentPage === rows }">
+          <a class="page-link" @click="nextPage" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
     <form @submit.prevent="submitSearchForm" class="row">
       <div class="col-2" style="display: inline-block;">
         <select v-model="searchKey" class="form-select">
