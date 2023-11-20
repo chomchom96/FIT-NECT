@@ -91,13 +91,6 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 
-	@Override
-	public List<Video> findBookmarkDetail(List<String> bookmark) {
-		// TODO Auto-generated method stub
-		return videoDao.findBookmarkDetail(bookmark);
-	}
-
-
 	
 
 }

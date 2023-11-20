@@ -2,6 +2,8 @@ package com.ssafy.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.SearchCondition;
@@ -94,37 +95,32 @@ public class VideoRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PostMapping("/video/bookmark")
+	@PostMapping("/video/bookmark/{videoId}")
 	@ApiOperation(value="영상 찜하기 (bookmark table에 삽입)")
-	public ResponseEntity<Void> bookmarkVideo(@RequestBody VideoBookmark bm){
-		System.out.println(bm.getUserId());
+	public ResponseEntity<Void> bookmarkVideo(String userId, @PathVariable int videoId){
+		VideoBookmark bm = new VideoBookmark();
+		bm.setUserId(userId);
+		bm.setVideoId(videoId);
 		videoService.bookmark(bm);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/video/bookmark")
+	@DeleteMapping("/video/bookmark/{videoId}")
 	@ApiOperation(value="영상 찜하기 해제")
-	public ResponseEntity<Void> delete(@RequestBody VideoBookmark bm){
+	public ResponseEntity<Void> delete(String userId, @PathVariable int videoId){
+		VideoBookmark bm = new VideoBookmark();
+		bm.setUserId(userId);
+		bm.setVideoId(videoId);
 		videoService.unbookmark(bm);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/user/bookmark/{userId}")
+	@GetMapping("/user/bookmark")
 	@ApiOperation(value="user가 찜한 영상 userId로 가져오기")
-	public ResponseEntity<?> findBookmark(@PathVariable String userId){
+	public ResponseEntity<?> findBookmark(String userId){
 		List<String> videoList = videoService.findBookmark(userId);
 		if (videoList != null) return new ResponseEntity<List<String>>(videoList, HttpStatus.OK);
 		else return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	} 
-		
-	@GetMapping("/user/bookmark/detail")
-	@ApiOperation(value="user가 찜한 영상 디테일 가져오기")
-	public ResponseEntity<?> findBookmarkDetail(@RequestParam List<String> bookmark){
-	    List<Video> videoList = videoService.findBookmarkDetail(bookmark);
-	    if (videoList != null) {
-	        return new ResponseEntity<List<Video>>(videoList, HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-	    }
-	}
+	
 }

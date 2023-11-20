@@ -1,4 +1,4 @@
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { defineStore } from 'pinia'
 import axios from "axios";
@@ -38,15 +38,21 @@ export const useUserStore = defineStore('user', ()=>{
       console.log(err);
     });
   };
+
   const updateUser = (user) => {
     axios({
-      url: `http://localhost:8080/api/users/${user.id}`,
+      url: `http://localhost:8080/api/users`,
       method: "PUT", 
-      data: user
+      data: {
+        userId: user.userId,
+        userPassword: user.userPassword,
+        userEmail: user.userEmail,
+        userNickname: user.userNickname,
+      }  
     })
       .then(() => {
         alert("계정 정보 업데이트!")
-        router.push('/mypage')
+        router.push('/mypage/${user.userId}')
       })
       .catch((err) => {
         alert("예전 비밀번호를 잘못 입력했습니다");
@@ -56,7 +62,7 @@ export const useUserStore = defineStore('user', ()=>{
 
   const deleteUser = () => {
     axios({
-      url: `http://localhost:8080/api/users/${idValue.value}`,
+      url: `http://localhost:8080/api/users/${idValue}`,
       method: "DELETE", 
     })
       .then(() => {
@@ -132,95 +138,17 @@ export const useUserStore = defineStore('user', ()=>{
     router.push("/")
   };
 
-  const bookmarks = ref([]);
-
-  const getBookmarks = () => {
-    axios({
-      url: `http://localhost:8080/api/user/bookmark/${idValue.value}`,
-      method: "GET",
-    })
-    .then((res) => {
-      bookmarks.value = res.data
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  const bookmarkDetails = ref([]);
-
-  const getBookmarkDetail = () => {
-    console.log(bookmarks.value)
-    const arr = ["1", "2", "3"];
-    const queryString = arr.map(id => `bookmark=${id}`).join('&');
-    console.log(`http://localhost:8080/api/user/bookmark/detail?${queryString}`)
-    axios({
-      url: `http://localhost:8080/api/user/bookmark/detail?${queryString}`,
-    })
-    .then((res) => {
-      bookmarkDetails.value = res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  const bookmarkVideo = (videoId) => {
-    console.log(videoId);
-    console.log(idValue.value);
-
-    axios({
-      url: 'http://localhost:8080/api/video/bookmark',
-      method: "POST",
-      data: {
-        userId: idValue.value,
-        videoId: videoId,
-      },
-    })
-    .then(() => {
-      alert("영상을 찜했습니다!")
-      router.push(`/video/${videoId}`)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  const unbookmarkVideo = (videoId) => {
-    console.log(idValue.value);
-    axios({
-      url: 'http://localhost:8080/api/video/bookmark',
-      method: "DELETE",
-      data: {
-        userId: idValue.value,
-        videoId: videoId,
-      },
-    })
-    .then(() => {
-      alert("영상을 찜해제 했습니다!")
-      router.push(`/video/${videoId}`)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  const isBookmark = (videoId) => {
-    if (bookmarks.value.includes(videoId)) return true;
-    return false;
-  }
+  
 
   onMounted(() => {
     getUserList(); 
     checkAuthentication();
-    getBookmarks();
   })
 
   return { router, idValue, userList, 
     getUserList, signup, onMounted, 
     loginUser, logout, getUser, 
     getUserDetail, user, updateUser, deleteUser, 
-    userEmail, checkAuthentication,
-    getBookmarks, bookmarks, bookmarkVideo, unbookmarkVideo, isBookmark, getBookmarkDetail, bookmarkDetails}
+    userEmail, checkAuthentication}
 
 })

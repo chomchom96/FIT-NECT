@@ -6,7 +6,7 @@
     <br>
    
       <span>
-      <label for="id" class="textfont">Your email</label>
+      <label for="id" class="textfont">Your Id</label>
       </span>
       <div>
       <input v-model="id" type="text" id="userId" required>
@@ -17,6 +17,20 @@
       </span>
       <div>
       <input v-model="password" type="password" id="userPassword" required>
+      </div>
+      <br>
+      <span>
+      <label for="email" class="textfont">Your email</label>
+      </span>
+      <div>
+      <input v-model="email" type="text" id="userEmail" >
+      </div>
+      <br>
+      <span>
+      <label for="nickname" class="textfont">Your nickName</label>
+      </span>
+      <div>
+      <input v-model="nickname" type="text" id="userNickname" >
       </div>
       <br>
       <button class="btn" @click="signup">
@@ -39,24 +53,32 @@ const router = useRouter();
 
 const emit = defineEmits(["regist-user"]);
 
-const id = ref('');
+const id = ref(''); 
+const email = ref(null);
 const password = ref(''); 
+const nickname = ref(null); 
 
-const isValidEmail = (id) => {
+const isValidEmail = (email) => {
+  if (email === null || email === undefined || email === '') {
+    // 이메일이 null이거나 빈 문자열이라면 유효하지 않다고 판단하지 않고 통과시킴
+    return true;
+  }
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  return emailRegex.test(id);
+  return emailRegex.test(email);
 }
 
 const signup = () => { 
   
-  if (!isValidEmail(id.value)) {
+  if (!isValidEmail(email.value)) {
     alert("이메일 주소가 유효하지 않습니다.");
     return;
   } 
   else {
     let user = {
-      id : id,
-      password: password,
+      id : id.value,
+      email : email.value,
+      password: password.value,
+      nickname: nickname.value
     }
     store.signup(user)
 };

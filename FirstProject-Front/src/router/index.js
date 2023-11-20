@@ -10,8 +10,8 @@ import UserSignup from "@/components/user/UserSignup.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
 import UserInfo from "@/components/user/UserInfo.vue";
+import UserInfoDetail from "@/components/user/UserInfoDetail.vue";
 import UserSchedule from "@/components/user/UserSchedule.vue"
-import UserBookmarks from "@/components/user/UserBookmarks.vue"
 
 import Video from "../views/VideoView.vue"
 import VideoList from "@/components/video/VideoList.vue"
@@ -97,11 +97,6 @@ const routes = [
         path: "schedule",
         name: "UserSchedule",
         component : UserSchedule,
-      },
-      {
-        path: "bookmark",
-        name: "UserBookmark",
-        component : UserBookmarks
       }
     ],
   },
@@ -150,11 +145,11 @@ const routes = [
         name: "UserInfo",
         component: UserInfo,
       },
-      // {
-      //   path: "detail",
-      //   name: "UserDetail",
-      //   component: UserDetail,
-      // },
+      {
+        path: "detail",
+        name: "UserInfoDetail",
+        component: UserInfoDetail,
+      },
     ]
   },
   {

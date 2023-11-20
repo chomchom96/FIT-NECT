@@ -74,8 +74,6 @@
 
               <RouterLink to="/users/schedule">내 스케줄</RouterLink>
 
-              <RouterLink to="/users/bookmark">찜한 영상</RouterLink>
-
               <RouterLink to="/" @click="logout">로그아웃</RouterLink>
             </div>
           </div>

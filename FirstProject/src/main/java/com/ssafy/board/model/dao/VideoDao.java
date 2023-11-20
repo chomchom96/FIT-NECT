@@ -38,7 +38,4 @@ public interface VideoDao {
     //조회수 증가
     public void increaseViewCnt(int videoId);
 
-    //찜목록 상세보기
-	public List<Video> findBookmarkDetail(List<String> bookmark);
-
 }

@@ -1,6 +1,6 @@
 <template>
 
-    
+   
 
 
     <div style="width: 100%; height: 40vh; display: flex; justify-content: center; align-items: center;">
@@ -19,7 +19,7 @@
                         style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
                         <div
                             style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            Email</div>
+                            프로필 이미지 </div>
                         <div
                             style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
                             <input type="text" v-model="email" :placeholder="placeholderText1"
@@ -30,7 +30,7 @@
                         style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
                         <div
                             style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            User name</div>
+                            성별</div>
                         <div
                             style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
                             <input type="text" v-model="nickname" :placeholder="placeholderText2"
@@ -41,7 +41,7 @@
                         style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
                         <div
                             style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            Previous Password</div>
+                            나이</div>
                         <div
                             style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
                             <input type="text" v-model="oldPassword"
@@ -52,7 +52,51 @@
                         style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
                         <div
                             style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            New Password</div>
+                            키</div>
+                        <div
+                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
+                            <input type="text" v-model="newPassword"
+                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
+                        </div>
+                    </div>
+                    <div
+                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <div
+                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
+                            몸무게</div>
+                        <div
+                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
+                            <input type="text" v-model="newPassword"
+                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
+                        </div>
+                    </div>
+                    <div
+                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <div
+                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
+                            선호 운동장소</div>
+                        <div
+                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
+                            <input type="text" v-model="newPassword"
+                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
+                        </div>
+                    </div>
+                    <div
+                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <div
+                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
+                            한마디(user_extra)</div>
+                        <div
+                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
+                            <input type="text" v-model="newPassword"
+                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
+                        </div>
+                    </div>
+                    <div
+                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <div
+                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
+                            담당 트레이너</div>
                         <div
                             style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
                             <input type="text" v-model="newPassword"
@@ -66,9 +110,9 @@
 
                 <div
                     style="left: 340px; top: 34px; position: absolute; color: #6E6D7A; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; line-height: 18.20px; word-wrap: break-word">
-                    계정정보를 업데이트하세요</div>
+                    사용자 정보를 업데이트하세요</div>
                 <div style="left: 350px; top: 0px; position: absolute"><span
-                        style="color: #0D0C22; font-size: 20px; font-family: Helvetica Neue; font-weight: 500; line-height: 29px; word-wrap: break-word">{{ store.idValue}}의 계정정보 </span></div>
+                        style="color: #0D0C22; font-size: 20px; font-family: Helvetica Neue; font-weight: 500; line-height: 29px; word-wrap: break-word">{{ store.idValue}}의 사용자 정보 </span></div>
 
             </div>
         </div>

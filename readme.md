@@ -31,3 +31,7 @@
 - BoardList, VideoList 검색기능 구현
 - BoardList, BoardWrite, BoardModify 등 Board 관련 디자인/CSS 추가
 >>>>>>> origin/feature/SearchCondition+boardcss
+
+1120 업데이트
+- Mypage/info 구현 
+- 로그인 양식 수정 

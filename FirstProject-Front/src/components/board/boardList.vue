@@ -7,6 +7,9 @@
         <button class="btn"> 글쓰기 </button>
       </RouterLink>
     </div>
+
+
+
     <table class="board-list">
 
       <colgroup>
@@ -23,45 +26,38 @@
           <th>
             제목
           </th>
+          <!-- <th>글내용</th> -->
           <th>글쓴이</th>
           <th>작성일</th>
           <th>조회수</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="board-row" v-for="(board, index) in pagenatedBoard" :key="index"
-          @click="handleRowClick(board.boardId)">
+        <tr class="board-row" v-for="(board, index) in board" :key="index" @click="handleRowClick(board.boardId)">
+          <!-- <td>{{ index + 1 }}</td> -->
           <td>
             {{ board.boardId }}
           </td>
+          <!-- <td class="left">
+              <RouterLink class="board-link" :to="`/board/${board.boardId}`">{{     
+                board.boardTitle
+              }}</RouterLink>
+            </td>  -->
           <td class="left">{{ board.boardTitle }}</td>
           <td>{{ board.userId }}</td>
           <td>{{ board.boardCreatedAt }}</td>
           <td>{{ board.boardViewCnt }}</td>
+          <!-- <td>{{ board.boardContent }}</td> -->
+
         </tr>
       </tbody>
     </table>
+
     <br>
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
-          <a class="page-link" @click="prevPage" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item" v-for="page in rows" :key="page" :class="{ 'active': currentPage === page }">
-          <a class="page-link" @click="setPage(page)" href="#">{{ page }}</a>
-        </li>
-        <li class="page-item" :class="{ 'disabled': currentPage === rows }">
-          <a class="page-link" @click="nextPage" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="text-center mt-3">
-      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">
-        <div class="col-2">
+    <div class="search-container">
+      <form @submit.prevent="submitSearchForm" class="row">
+        <div class="col-2" style="display: inline-block;">
+          <!-- <label>검색 기준 :</label> -->
           <select v-model="searchKey" class="form-select">
             <option value="boardTitle">제목</option>
             <option value="boardContent">내용</option>
@@ -69,50 +65,59 @@
             <option value="boardId">글번호</option>
           </select>
         </div>
-        <div class="col-5">
+        <div class="col-5" style="display: inline-block;">
+          <!-- <label>검색 내용 :</label> -->
           <input v-model="searchWord" name="word" class="form-control">
         </div>
-        <div class="form-row float-right">
-          <button id="myBtn" class="btn btn-primary btn-md" @click="submitSearchForm">검색</button>
+
+        <!-- 정렬기능이 꼭 필요한가? 의문이라 일단 주석처리
+          <div class="col-2">
+					<label>정렬 기준 :</label>
+					<select v-model="searchOrderBy" class="form-select">
+						<option value="userId">글쓴이</option>
+						<option value="boardTitle">제목</option>
+						<option value="boardViewCnt">조회수</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<label>정렬 방향 :</label>
+					<select v-model="searchOrderByDir" class="form-select">
+						<option value="asc">오름차순</option>
+						<option value="desc">내림차순</option>
+					</select>
+				</div> -->
+
+        <!-- <div class="col-6" style="display: inline-block;">
+					<input type="submit" value="검색" >
+				</div> -->
+
+        <div class="col-8" style="display: inline-block;">
+          <button type="button" class="btn" @click="submitSearchForm">검색</button>
         </div>
+
+        <!-- <div>
+          <RouterLink to="/board/write">
+            <button class="btn"> 글쓰기 </button>
+          </RouterLink></div> -->
+
+
       </form>
+
+      <br>
+
     </div>
   </div>
 </template>
 
 <script setup>
 
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useBoardStore } from '@/stores/board'
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
 const store = useBoardStore()
-const perPage = 10;
-const currentPage = ref(1);
-const rows = computed(() => Math.ceil(store.board.length / perPage));
-
-
-const setPage = (page) => {
-  if (page >= 1 && page <= rows.value) {
-    currentPage.value = page;
-  }
-};
-
-const prevPage = () => {
-  setPage(currentPage.value - 1);
-};
-
-const nextPage = () => {
-  setPage(currentPage.value + 1);
-};
-
-const pagenatedBoard = computed(() => {
-  const start = (currentPage.value - 1) * perPage;
-  const end = start + perPage;
-  return store.board.slice(start, end);
-})
-
 
 onMounted(() => {
   store.getBoardList();
@@ -134,6 +139,9 @@ const submitSearchForm = () => {
   store.searchBoardList(searchParams);
 };
 
+
+
+
 const props = defineProps({
   board: {
     type: Array,
@@ -145,13 +153,10 @@ const handleRowClick = (boardId) => {
   router.push(`/board/${boardId}`);
 };
 
+// const userCnt = computed(() => props.users.length);
 </script>
 
 <style scoped>
-#myBtn {
-  width: 100px;
-}
-
 .container {
   text-align: center;
   flex-direction: column;
@@ -211,11 +216,11 @@ const handleRowClick = (boardId) => {
   text-align: center;
 }
 
-.search-container {
+/* .search-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-center;
-}
+  align-items: center;
+} */
 
 
 
@@ -228,5 +233,4 @@ const handleRowClick = (boardId) => {
   border: none;
   cursor: pointer;
   margin-right: 10px;
-}
-</style>
+}</style>
