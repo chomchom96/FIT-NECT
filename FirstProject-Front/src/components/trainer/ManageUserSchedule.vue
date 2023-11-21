@@ -5,34 +5,19 @@
     </h2>
     <p class="text-sm text-dark mt-0 mb-5">맞춤형 스케줄을 관리하세요!</p>
     <div class="row">
-      <div
-        v-for="(day, index) in schedule"
-        :key="index"
-        class="col-lg-4 mb-3"
-        :id="day.id"
-      >
+      <div v-for="(day, index) in schedule" :key="index" class="col-lg-4 mb-3" :id="day.id">
         <h4 class="mt-0 mb-3 text-dark op-8 font-weight-bold">
           {{ day.title }}
         </h4>
 
-        <h4 class="mt-0 mb-3 text-dark op-8 font-weight-bold">
-          {{ day.part}}
-        </h4>
         <ul class="list-timeline list-timeline-primary">
-          <li
-            v-for="(item, itemIndex) in day.items"
-            :key="itemIndex"
-            class="list-timeline-item p-0 pb-3 pb-lg-4 d-flex flex-wrap flex-column"
-          >
+          <li v-for="(item, itemIndex) in day.items" :key="itemIndex"
+            class="list-timeline-item p-0 pb-3 pb-lg-4 d-flex flex-wrap flex-column">
             <p class="my-0 text-dark flex-fw text-sm text-uppercase">
               <span class="text-inverse op-8">{{ item.time }}</span> - {{ item.title }} -
               {{ item.part }}
-              <span class="ml-2 cursor-pointer" @click="modifyItem(day.id, itemIndex)"
-                >✎</span
-              >
-              <span class="ml-2 cursor-pointer" @click="deleteItem(day.id, itemIndex)"
-                >❌</span
-              >
+              <span class="ml-2 cursor-pointer" @click="modifyItem(day.id, itemIndex)">✎</span>
+              <span class="ml-2 cursor-pointer" @click="deleteItem(day.id, itemIndex)">❌</span>
             </p>
           </li>
         </ul>
@@ -60,8 +45,11 @@
       <button type="submit" class="btn btn-primary mt-2">스케줄 추가</button>
     </form>
     <form @submit.prevent="submitSchedule">
-        <button type="submit" class="btn btn-primary mt-4">스케줄 전송</button>
-      </form>
+      <button type="submit" class="btn btn-primary mt-4">스케줄 전송</button>
+    </form>
+    <form @submit.prevent="modifySchedule">
+      <button type="submit" class="btn btn-primary mt-4">스케줄 수정</button>
+    </form>
   </div>
 </template>
 
@@ -70,7 +58,6 @@ import { useTrainerStore } from "../../stores/trainer";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const existSchedule = ref(true);
 const trainerStore = useTrainerStore();
 
 const pathName = new URL(document.location).pathname.split("/");
@@ -112,7 +99,6 @@ const getUserSchedule = async () => {
     schedule.value = JSON.parse(parse1Schedule);
     console.log(schedule.value)
   } catch (error) {
-    existSchedule.value = false;
     console.error("Error fetching user schedule:", error);
   }
 };
@@ -132,7 +118,7 @@ const addNewSchedule = () => {
       const newScheduleItem = {
         id: newDay.value,
         title: newDay.value,
-        items: [{ time: newTime.value, title: newTitle.value }],
+        items: [{ time: newTime.value, title: newTitle.value, part: newPart.value }],
       };
 
       schedule.value.push(newScheduleItem);
@@ -141,6 +127,7 @@ const addNewSchedule = () => {
     newDay.value = "";
     newTime.value = "";
     newTitle.value = "";
+    newPart.value = "";
   } else {
     alert("값을 전부 입력해주세요!");
   }
@@ -164,14 +151,15 @@ const deleteItem = (dayId, itemIndex) => {
 };
 
 const submitSchedule = () => {
-  console.log(existSchedule.value)
   const jsonString = JSON.stringify(schedule.value);
-  console.log(jsonString);
-  if (!existSchedule.value)
-    trainerStore.registSchedule(id, jsonString)
-  else trainerStore.modifySchedule(id, jsonString)
+  trainerStore.modifySchedule(id, jsonString)
 };
 
+
+const modifySchedule = () => {
+  const jsonString = JSON.stringify(schedule.value);
+  trainerStore.modifySchedule(id, jsonString)
+}
 
 
 </script>
