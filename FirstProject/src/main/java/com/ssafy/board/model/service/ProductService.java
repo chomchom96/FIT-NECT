@@ -20,4 +20,6 @@ public interface ProductService {
 
 	public UserSchedule getSchedule(String userId);
 
+	public void deleteSchedule(String userId);
+
 }

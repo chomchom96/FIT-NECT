@@ -104,6 +104,20 @@ export const useTrainerStore = defineStore('trainer', () => {
       })
   }
 
+  const deleteSchedule = (userId) => {
+    axios({
+      url: `http://localhost:8080/api/product/schedule/${userId}`,
+      method: "DELETE",
+    })
+      .then(() => {
+        alert("스케줄 삭제 완료")
+        router.push("/trainers/manage")
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   const trainerSignup = (trainer) => {
     axios({
       url: 'http://localhost:8080/api/trainers/signup',
@@ -195,7 +209,7 @@ export const useTrainerStore = defineStore('trainer', () => {
     loginTrainer, trainerLogout, getTrainer,
     getTrainerDetail, Trainer: trainer,
     updateTrainer, deleteTrainer,
-    getUserManageList, userManageList, registSchedule,modifySchedule
+    getUserManageList, userManageList, registSchedule, modifySchedule, deleteSchedule
   }
 
 })

@@ -32,8 +32,13 @@
 	<update id="updateSchedule" parameterType="UserSchedule">
     UPDATE user_schedule
     SET user_schedule = #{userSchedule}
-    WHERE user_id = #{userId}
+    WHERE user_id = #{userId};
 	</update>
+	
+	<delete id="deleteSchedule" parameterType="String">
+	DELETE FROM user_schedule
+	WHERE user_id= #{userId};
+	</delete>
 	
 
 </mapper>

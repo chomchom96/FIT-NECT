@@ -23,33 +23,63 @@
         </ul>
       </div>
     </div>
-    <form @submit.prevent="addNewSchedule">
-      <h4 class="mt-4 mb-3 text-dark op-8 font-weight-bold">Add New Schedule</h4>
+    <br><br><br>
+    <hr>
+    <form @submit.prevent="addNewSchedule" id="exercise-form">
+      <h4 class="mt-4 mb-3 text-dark op-8 font-weight-bold">운동을 추가하세요</h4>
 
-      <label for="newDay">날짜 </label>
-      <input type="text" id="newDay" v-model="newDay" required />
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <label for="newDay">날짜</label>
+            <input type="date" id="newDay" v-model="newDay" class="form-control" required />
+          </div>
+        </div>
+      </div>
+      <div class="row">
 
-      <label for="newTime">시간 </label>
-      <input type="text" id="newTime" v-model="newTime" required />
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <label for="startTime">시작 시간</label>
+            <input type="time" id="startTime" v-model="startTime" class="form-control" required min="2023-11-21" max="9999-12-31"/>
 
-      <label for="newTitle">운동명 </label>
-      <input type="text" id="newTitle" v-model="newTitle" required />
+            <label for="endTime">종료 시간</label>
+            <input type="time" id="endTime" v-model="endTime" class="form-control" required min="2023-11-21" max="9999-12-31"/>
+          </div>
+        </div>
+      </div>
 
-      <label for="newPart">부위 </label>
-      <select v-model="newPart" id="newPart" required>
-        <option v-for="partOption in partOptions" :key="partOption" :value="partOption">
-          {{ partOption }}
-        </option>
-      </select>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <label for="newTitle">운동명</label>
+            <input type="text" id="newTitle" v-model="newTitle" class="form-control" required />
+          </div>
+        </div>
+      </div>
 
-      <button type="submit" class="btn btn-primary mt-2">스케줄 추가</button>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <label for="newPart">부위</label>
+            <select v-model="newPart" id="newPart" style="padding: 8px;">
+              <option v-for="partOption in partOptions" :key="partOption" :value="partOption">
+                {{ partOption }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primart" @click="addNewSchedule">운동 추가</button>
     </form>
-    <form @submit.prevent="submitSchedule">
-      <button type="submit" class="btn btn-primary mt-4">스케줄 전송</button>
-    </form>
-    <form @submit.prevent="modifySchedule">
-      <button type="submit" class="btn btn-primary mt-4">스케줄 수정</button>
-    </form>
+    <hr>
+    <div class="input-group mb-3">
+      <button type="submit" class="btn btn-primary" @click="submitSchedule">스케줄<br />전송</button>
+      &nbsp &nbsp
+      <button type="submit" class="btn btn-primary" @click="modifySchedule">스케줄<br />수정</button>
+      &nbsp &nbsp
+      <button type="submit" class="btn btn-primary" @click="deleteSchedule">스케줄<br />삭제</button>
+    </div>
   </div>
 </template>
 
@@ -71,6 +101,8 @@ const newDay = ref("");
 const newTime = ref("");
 const newTitle = ref("");
 const newPart = ref("");
+const startTime = ref("");
+const endTime = ref("");
 
 const partOptions = [
   "유산소 운동",
@@ -105,6 +137,8 @@ const getUserSchedule = async () => {
 
 
 const addNewSchedule = () => {
+  console.log(startTime.value, " ", endTime.value)
+  newTime.value = startTime.value + "~" + endTime.value
   if (newDay.value && newTime.value && newTitle.value) {
     const existingDay = schedule.value.find((day) => day.id === newDay.value);
 
@@ -152,7 +186,7 @@ const deleteItem = (dayId, itemIndex) => {
 
 const submitSchedule = () => {
   const jsonString = JSON.stringify(schedule.value);
-  trainerStore.modifySchedule(id, jsonString)
+  trainerStore.registSchedule(id, jsonString)
 };
 
 
@@ -161,10 +195,52 @@ const modifySchedule = () => {
   trainerStore.modifySchedule(id, jsonString)
 }
 
+const deleteSchedule = () => {
+  trainerStore.deleteSchedule(id)
+}
 
 </script>
 
 <style scoped>
+label {
+  display: inline-block;
+}
+
+.option {
+  border-radius: 5px;
+}
+
+.custom-select {
+  background-color: white;
+  color: black;
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: black;
+  padding: 3px 5px;
+}
+
+.exercise-form {
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.btn {
+  padding: 10px;
+  background-color: #333;
+  /* 무채색 배경 */
+  color: #fff;
+  /* 흰색 텍스트 */
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
 body {
   background-color: #eee;
   margin-top: 20px;

@@ -46,4 +46,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getSchedule(userId);
 	}
 
+	@Override
+	public void deleteSchedule(String userId) {
+		productDao.deleteSchedule(userId);
+	}
+
 }
