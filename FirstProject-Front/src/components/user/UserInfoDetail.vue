@@ -1,227 +1,255 @@
 <template>
-    <main class="content">
-      <div class="main bg-light p-4">
-        <div class="row">
-          <div class="col-12 col-xl-8">
-            <div class="card card-body shadow-sm mb-4 ">
-              <form>
-                <div class="row mt-3">
-                  <div class="col-md-12 mb-3">
-                    <div>
-                      <label for="userName">Name</label>
-                      <input
-                        class="form-control"
-                        id="userName"
-                        type="text"
-                        placeholder="Enter your name"
-                        required
-                      />
-                    </div>
+  <main class="content">
+    <div class="main bg-light p-4">
+      <h4 class="mb-3" style="padding-left: 30px">내 개인 정보</h4>
+
+      <div class="row">
+        <div class="col-12 col-xl-8">
+          <div class="card card-body shadow-sm mb-4">
+            <form>
+              <div class="row mt-3">
+                <div class="col-md-3 mb-3">
+                  <div>
+                    <label for="userGender">성별</label>
+                    <select class="form-control" id="userGender" v-model="userGender">
+                      <option value="0" :selected="userGender === 0">남성</option>
+                      <option value="1" :selected="userGender === 1">여성</option>
+                    </select>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <label for="userEmail">Email</label>
-                      <input
-                        class="form-control"
-                        id="userEmail"
-                        type="email"
-                        placeholder="ssafy@ssafy.com"
-                        readonly
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <label for="userPassword">Password</label>
-                     
-                        <input
-                          
-                          class="form-control"
-                          id="userPassword"
-                          type="password"
-                          placeholder="********"
-                          required>
-                      
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="row">
-                  <div class="col-sm-12 mb-3">
-                    <div class="form-group">
-                      <label for="userMessage">Profile Message</label>
-                      <textarea
-                                        
-                        class="form-control"
-                        id="userMessage"
-                        row="4"
-                        placeholder="프로필 메세지...."
-                        required
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3 mt-3">
-                  <div class="col">
-                    <div class="form-group">
-                      <div class="btn-group" style="float:right;">
-                        <button
-                          type="submit"
-                          id="successAlert"
-                          class="btn btn-outline-dark"
-                        >
-                          <font-awesome-icon :icon="['fas', 'user-edit']" /> 수정
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-  
-          </div>
-          <!-- <div class="col-12 col-xl-4">
-            <div class="row">
-              <div class="col-12 mb-4">
-                <div class="card shadow-sm text-center p-0">
-                  <div
-                    style="background: linear-gradient(to bottom, #262b40, #FFFFFF)"
-                  ></div>
-                  
                 </div>
               </div>
-            </div>
-          </div> -->
+
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="form-group">
+                    <label for="userAge">나이</label>
+                    <input
+                      class="form-control"
+                      id="userAge"
+                      type="number"
+                      v-model="userAge"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="form-group">
+                    <label for="userHeight">키(cm)</label>
+                    <input
+                      class="form-control"
+                      id="userHeight"
+                      type="number"
+                      v-model="userHeight"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3 mb-3">
+                  <div class="form-group">
+                    <label for="userCurrentWeight">현재 몸무게</label>
+                    <input
+                      class="form-control"
+                      id="userCurrentWeight"
+                      type="number"
+                      v-model="userCurrentWeight"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3 mb-3">
+                  <div class="form-group">
+                    <label for="userTargetWeight">목표 몸무게</label>
+                    <input
+                      class="form-control"
+                      id="userTargetWeight"
+                      type="number"
+                      v-model="userTargetWeight"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3 mb-6">
+                  <div class="form-group">
+                    <label for="userPreferredPlace">평소 운동 장소</label>
+                    <select
+                      class="form-control"
+                      id="userPreferredPlace"
+                      v-model="userPreferredPlace"
+                    >
+                      <option value="헬스장">헬스장</option>
+                      <option value="집">집</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 mb-12">
+                  <div class="form-group">
+                    <label for="userTargetWeight" style="width: 200%; margin-top: 10px"
+                      >트레이너에게 하고 싶은 말 :
+                    </label>
+                    <textarea
+                      class="form-control"
+                      id="userExtra"
+                      v-model="userExtra"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3 mt-3" v-show="ifExistsDetail">
+                <div class="col">
+                  <div class="form-group">
+                    <div class="btn-group" style="float: right">
+                      <button
+                        type="submit"
+                        id="successAlert"
+                        class="btn btn-outline-dark"
+                        @click="modifyDetail"
+                      >
+                        수정
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 mt-3" v-show="!ifExistsDetail">
+                <div class="col">
+                  <div class="form-group">
+                    <div class="btn-group" style="float: right">
+                      <button
+                        type="submit"
+                        id="successAlert"
+                        class="btn btn-outline-dark"
+                        @click="registDetail"
+                      >
+                        제출
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </main>
-  </template>
-  
+    </div>
+  </main>
+</template>
 
 <script setup>
-import { useUserStore } from "@/stores/user.js";
-import { ref } from 'vue';
-import { onMounted, watch } from "vue"; 
+import { ref, onMounted } from "vue";
 import axios from "axios";
-import { useRoute, useRouter } from 'vue-router'
-
-
-const placeholderText1 = ref(""); 
-const placeholderText2 = ref(""); 
-
+import { useUserStore } from "../../stores/user";
+import { useRouter } from "vue-router";
 const router = useRouter();
 
 const store = useUserStore();
-// const user = ref({});
+const ifExistsDetail = ref(true);
 
-console.log(store.idValue);
-
-const user = ref({
-  id: "",
-  password: "",
-  name: "",
-  email: "",
-});
-
-
-console.log(user);
-
-
-//사용자가 입력한 변수들 
-const email = ref("");
-const nickname = ref("");
-const oldPassword = ref("");
-const newPassword = ref("");
+const userGender = ref(0);
+const userAge = ref("");
+const userProfilePic = ref("");
+const userHeight = ref("");
+const userCurrentWeight = ref("");
+const userTargetWeight = ref("");
+const userPreferredPlace = ref("");
+const userExtra = ref("");
 
 onMounted(() => {
-  const pathName = new URL(document.location).pathname.split("/");
-//   console.log(pathName);
-  const id = pathName[pathName.length - 1];
-//   console.log(id);
-  const API_URL = `http://localhost:8080/api/users/${store.idValue}`;
+  const API_URL = `http://localhost:8080/api/product/${store.idValue}`;
   axios({
     url: API_URL,
-    method: "GET"
+    method: "GET",
   })
-    .then((res) => {
-      user.value.id = res.data.userId;
-      user.value.password = res.data.userPassword;
-      user.value.name = res.data.userNickname;
-      user.value.email = res.data.userEmail;
-      placeholderText1.value = `${user.value.email}`;
-      placeholderText2.value = `${user.value.name}입니당`;
+    .then((response) => {
+      console.log(response.status);
+      if (response.status === 404) {
+        ifExistsDetail.value = false;
+      } else if (response.status === 200) {
+        userGender.value = response.data.userGender;
+        userProfilePic.value = response.data.userProfilePic;
+        userAge.value = response.data.userAge;
+        userHeight.value = response.data.userHeight;
+        userCurrentWeight.value = response.data.userCurrentWeight;
+        userTargetWeight.value = response.data.userTargetWeight;
+        userPreferredPlace.value = response.data.userPreferredPlace;
+        userExtra.value = response.data.userExtra;
+      } else {
+        console.log(error);
+      }
     })
     .catch((err) => {
-        // console.log(res.data) 
-        // console.log(id)
-        // console.log(user.value.name);
-        // console.log(user); 
-      console.log(err);
+      if (err.response.status === 404) {
+        ifExistsDetail.value = false;
+      } else {
+        console.log(err);
+        alert("Internal Server Error!");
+      }
     });
 });
 
-watch(() => user.value.email, (newEmail) => {
-  placeholderText1.value = `${newEmail}`;
-});
+const registDetail = () => {
+  const API_URL = `http://localhost:8080/api/product/`;
+  console.log(userDetail.value);
+  const requestData = {
+    userId : store.idValue,
+    userGender: Number(userGender.value),
+    userProfilePic: userProfilePic.value,
+    userAge: userAge.value,
+    userHeight: userHeight.value,
+    userCurrentWeight: userCurrentWeight.value,
+    userTargetWeight: userTargetWeight.value,
+    userPreferredPlace: userPreferredPlace.value,
+    userExtra: userExtra.value,
+  };
 
-watch(() => user.value.name, (newName) => {
-  placeholderText2.value = `${newName}`;
-});
-
-// console.log(user.value.id)
-// console.log(user.userEmail)
-
-const update = async () => {
-const password = oldPassword.value;
-const userConfirm = {
-    userId: store.idValue,
-    userPassword: oldPassword.value,
-    userEmail: store.user.userEmail
+  console.log(requestData);
+  axios({
+    url: API_URL,
+    method: "POST",
+    data: requestData
+  })
+    .then(() => {
+      alert("등록 완료!");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
-
-//새로운 비밀번호, 닉네임, 이메일을 포함하여 업데이트할 사용자 정보 
-const userToUpdate = {
-    userId: store.idValue,
-    userPassword: newPassword.value,
-    userNickname: nickname.value,
-    userEmail: email.value
+const modifyDetail = () => {
+  const API_URL = `http://localhost:8080/api/product/${store.idValue}`;
+  axios({
+    url: API_URL,
+    method: "PUT",
+    data: {
+    userId : store.idValue,
+    userGender: Number(userGender.value),
+    userProfilePic: userProfilePic.value,
+    userAge: userAge.value,
+    userHeight: userHeight.value,
+    userCurrentWeight: userCurrentWeight.value,
+    userTargetWeight: userTargetWeight.value,
+    userPreferredPlace: userPreferredPlace.value,
+    userExtra: userExtra.value,
+    }
+  })
+    .then(() => {
+      alert("수정 완료!");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
-
-
-try {
-    const existingUser = await store.getUserDetail(userConfirm.userId);
-console.log(userConfirm.userId)
-console.log(userConfirm.userPassword)
-console.log(userConfirm.userEmail)
-
-console.log(userToUpdate.userId)
-console.log(userToUpdate.userPassword)
-console.log(userToUpdate.userNickname)
-console.log(userToUpdate.userEmail)
-
-console.log(existingUser)
-console.log(store.user.value)
-console.log(store.user.password)
-console.log(user.value.password)
-console.log(user.value.email)
-
-
-if (userConfirm.userPassword === user.value.password) {
-    await store.updateUser(userToUpdate);
-    console.log("업데이트 성공");
-} else {
-    alert("이전 비밀번호가 불일치합니다")
-}
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
 </script>
 <style></style>

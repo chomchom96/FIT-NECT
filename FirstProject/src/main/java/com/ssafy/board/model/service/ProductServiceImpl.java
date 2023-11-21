@@ -51,4 +51,16 @@ public class ProductServiceImpl implements ProductService {
 		productDao.deleteSchedule(userId);
 	}
 
+	@Override
+	public UserDetail getDetail(String userId) {
+		// TODO Auto-generated method stub
+		return productDao.getDetail(userId);
+	}
+
+	@Override
+	public void modifyDetail(UserDetail userDetail) {
+		// TODO Auto-generated method stub
+		productDao.modifyDetail(userDetail);
+	}
+
 }

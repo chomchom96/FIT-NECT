@@ -22,4 +22,8 @@ public interface ProductService {
 
 	public void deleteSchedule(String userId);
 
+	public UserDetail getDetail(String userId);
+
+	public void modifyDetail(UserDetail userDetail);
+
 }

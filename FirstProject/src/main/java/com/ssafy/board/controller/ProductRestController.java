@@ -43,6 +43,35 @@ public class ProductRestController {
 		}
 	}
 	
+	@GetMapping("/product/{userId}")
+	@ApiOperation(value="사용자 정보 반환")
+	public ResponseEntity<?> getUserDetail(@PathVariable String userId){
+		try {
+			UserDetail userDetail = productService.getDetail(userId);
+			if (userDetail != null)
+				return new ResponseEntity<UserDetail>(userDetail,HttpStatus.OK);
+			else
+				return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/product/{userId}")
+	@ApiOperation(value="사용자 정보 반환")
+	public ResponseEntity<?> modifyUserDetail(@RequestBody UserDetail userDetail){
+		try {
+			productService.modifyDetail(userDetail);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/product/{userId}")
 	@ApiOperation(value="유저가 트레이너 선택")
 	public ResponseEntity<Void> getTrainer(@RequestBody String trainerId, @PathVariable String userId){

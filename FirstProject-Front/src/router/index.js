@@ -7,7 +7,6 @@ import LoginForm from "@/components/LoginForm.vue";
 import User from "../views/UserView.vue";
 import UserList from "@/components/user/UserList.vue";
 import UserSignup from "@/components/user/UserSignup.vue";
-import UserPage from "@/components/user/UserPage.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
 import UserInfo from "@/components/user/UserInfo.vue";
 import UserInfoDetail from "@/components/user/UserInfoDetail.vue";
@@ -141,17 +140,12 @@ const routes = [
     ],
   },
   {
-    path: "/mypage",
-    component: UserPage,
-    name: UserPage,
-  },
-  {
-    path: "/mypage/info",
+    path: "/myinfo",
     name: "UserInfo",
     component: UserInfo,
   },
   {
-    path: "/mypage/detail",
+    path: "/mydetail",
     name: "UserInfoDetail",
     component: UserInfoDetail,
   },

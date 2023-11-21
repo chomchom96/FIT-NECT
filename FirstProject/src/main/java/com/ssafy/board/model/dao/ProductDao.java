@@ -19,4 +19,8 @@ public interface ProductDao {
 
 	public Object deleteSchedule(String userId);
 
+	public UserDetail getDetail(String userId);
+
+	public Void modifyDetail(UserDetail userDetail);
+
 }

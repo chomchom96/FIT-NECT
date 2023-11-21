@@ -68,7 +68,9 @@
             <div>{{ userStore.idValue }}님, 환영합니다.</div>
 
             <div class="dropdown-content">
-              <RouterLink to="/mypage">MyPage</RouterLink>
+              <RouterLink to="/myinfo">계정정보관리</RouterLink>
+
+              <RouterLink to="/mydetail">개인정보관리</RouterLink>
 
               <RouterLink to="/users/schedule">내 스케줄</RouterLink>
 
