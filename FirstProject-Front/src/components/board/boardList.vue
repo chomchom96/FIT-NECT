@@ -50,8 +50,7 @@
 
     <br>
     <div class="search-container">
-      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">
-        <div class="col-2" style="display: inline-block;">
+      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">        <div class="col-2" style="display: inline-block;">
           <!-- <label>검색 기준 :</label> -->
           <select v-model="searchKey" class="form-select">
             <option value="boardTitle">제목</option>

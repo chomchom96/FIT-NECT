@@ -37,11 +37,10 @@
   
         </div>
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="address">Address</label>
           <input type="text" class="form-control" id="address" readonly>
-
-        </div>
+        </div> -->
 
       </form>
     </div>
