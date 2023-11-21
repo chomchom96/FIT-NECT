@@ -22,8 +22,6 @@
           <RouterLink :to="{ name: 'ServiceForm' }"> START SERVICE </RouterLink>
 
           <RouterLink to="/trainers/show"> OUR TRIAINERS </RouterLink>
-
-          <a href="#">MY PLAN</a>
         </div>
       </div>
 
