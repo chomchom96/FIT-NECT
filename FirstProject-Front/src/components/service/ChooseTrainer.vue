@@ -35,11 +35,16 @@ const userStore = useUserStore();
 const userId = ref('')
 
 const chooseTrainer = (trainerId) => {
-    store.selectTrainer(userStore.idValue, trainerId)
+    const result = confirm("이 트레이너를 선택하시겠습니까?")
+    if (result)
+      store.selectTrainer(userStore.idValue, trainerId)
+    else
+      return;
 }
 
 onMounted(() => {
   store.getDetails();
+
 });
 </script>
 

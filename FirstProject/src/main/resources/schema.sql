@@ -20,36 +20,37 @@ CREATE TABLE trainer(
 )ENGINE = InnoDB;
 
 CREATE TABLE user_detail(
-	user_seq INT NOT NULL PRIMARY KEY ,
+	user_id VARCHAR(20) NOT NULL PRIMARY KEY ,
 	user_profile_pic VARCHAR(2000),
 	# user detail
 	user_gender TINYINT, # 0 : 남
 	user_age INT,
 	user_height NUMERIC,
-	user_weight NUMERIC,
+	user_current_weight NUMERIC,
+	user_target_weight NUMERIC,
 	user_preferred_place VARCHAR(10),
 	user_extra VARCHAR(50),
     trainer_id VARCHAR(20),
-	FOREIGN KEY (user_seq) REFERENCES user (user_seq) ON DELETE CASCADE
+	FOREIGN KEY (user_id) REFERENCES user (user_id) ON DELETE CASCADE
 )ENGINE = InnoDB;
 
 CREATE TABLE trainer_detail(
-	trainer_seq INT NOT NULL PRIMARY KEY ,
+	trainer_seq INT NOT NULL PRIMARY KEY,
+	trainer_id VARCHAR(20) NOT NULL,
+    trainer_name VARCHAR(20) NOT NULL,
 	trainer_profile_pic VARCHAR(2000),
-	# trainer detail
     trainer_experience VARCHAR(30), 
 	trainer_extra VARCHAR(50),
     user_id VARCHAR(20),
 	FOREIGN KEY (trainer_seq) REFERENCES trainer (trainer_seq)
 )ENGINE = InnoDB;
 
-
 CREATE TABLE user_schedule(
-	user_seq INT NOT NULL PRIMARY KEY,
+	user_id VARCHAR(20) NOT NULL PRIMARY KEY,
 	user_schedule TEXT NOT NULL,
 	CONSTRAINT fk_user_seq_schedule
-		FOREIGN KEY (user_seq) 
-		REFERENCES User (user_seq)
+		FOREIGN KEY (user_id) 
+		REFERENCES User (user_id)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE
 )ENGINE = InnoDB;
@@ -73,6 +74,12 @@ CREATE TABLE review (
 	review_content VARCHAR(255)
 ) ENGINE = InnoDB;
 
+CREATE TABLE matched(
+	trainer_id VARCHAR(20) NOT NULL,
+    user_id VARCHAR(20) NOT NULL,
+	PRIMARY KEY(user_id, trainer_id)
+)ENGINE = InnoDB;
+
 CREATE TABLE board(
 	board_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	board_title VARCHAR(200) NOT NULL,
@@ -95,18 +102,6 @@ CREATE TABLE comment(
     comment VARCHAR(100) NOT NULL,
     created_at DATETIME DEFAULT NOW()
 )ENGINE = InnoDB;
-
-
-insert into comment (board_id, user_id, comment) values 
-  (1, "admin", "내가 첫 댓글이다!");
-insert into comment (board_id, user_id, comment) values 
-  (1, "admin", "내가 두번째 댓글이다!");
-insert into comment (board_id, user_id, comment) values 
-  (2, "admin", "내가 두번째 글의 첫번째 댓글이다!");
-  insert into comment (board_id, user_id, comment) values 
-  (2, "ssafy", "내가 두번째 글의 두번째 댓글이다!");
-
-select * from comment;
 
 CREATE TABLE followings (
 	user_id VARCHAR(20) NOT NULL UNIQUE,
@@ -132,7 +127,6 @@ CREATE TABLE bookmarks (
 )ENGINE = InnoDB;
 
 
-
 -- user
 select * from user;
 
@@ -152,18 +146,11 @@ insert into user (user_id, user_email, user_nickname, is_kakao) values
 
 select * from user;
 
-
 -- user_detail
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (1, null, 1, 28, 180, 75, "헬스장", "운동을 즐겨합니다!", "trainer_1");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (2, "프로필_사진_링크", 2, 25, 162, 48, "집", "홈트레이닝 선호", "trainer_2");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (3, "프로필_사진_링크", 2, 38, 177, 65, "실외", "런데이 같은 유산소운동 선호", "trainer_3");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (4, "프로필_사진_링크", 1, 32, 173, 70, "실외", "운동 동호회를 하고 있음", "trainer_4");
-insert into user_detail (user_seq, user_profile_pic, user_gender, user_age, user_height, user_weight, user_preferred_place, user_extra, trainer_id) values 
-  (5, "프로필_사진_링크", 1, 29, 198, 102, "헬스장", "싸피의 대표헬창", "trainer_5");
+insert into user_detail (user_id, user_profile_pic, user_gender, user_age, user_height, user_current_weight,user_target_weight, user_preferred_place, user_extra, trainer_id) values 
+  ("admin", null, 1, 28, 180, 75, 80, "헬스장", "운동을 즐겨합니다!", "trainer_1");
+
+
 
 select * from user_detail;
 
@@ -179,6 +166,15 @@ insert into board (board_title, board_user_id, board_content) values
 ("다들 목표가 어떻게 되세요?", "kakao", "저는 싸피를 대표하는 헬창이 되고 싶습니다");
 select * from board;
 
+-- comment
+insert into comment (board_id, user_id, comment) values 
+  (1, "admin", "내가 첫 댓글이다!");
+insert into comment (board_id, user_id, comment) values 
+  (1, "admin", "내가 두번째 댓글이다!");
+insert into comment (board_id, user_id, comment) values 
+  (2, "admin", "내가 두번째 글의 첫번째 댓글이다!");
+  insert into comment (board_id, user_id, comment) values 
+  (2, "ssafy", "내가 두번째 글의 두번째 댓글이다!");
 
 -- followings
 insert into followings values ("admin", "ssafy");
@@ -203,16 +199,16 @@ insert into trainer (trainer_id, trainer_password, trainer_email, trainer_nickna
 select * from trainer;
 
 -- trainer_detail 
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (1, "트레이너_프로필이미지_링크", "ㅇㅇ대학교 체육학과 졸업", "건강관리운동 전문", "admin");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (2, "트레이너_프로필이미지_링크", "역삼 싸피피트니스 수석 트레이너", "원하는 몸, 만들어드립니다", "ssafy");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (3, "트레이너_프로필이미지_링크", "생활체육관리사 자격증 유", "실생활운동을 가르쳐드립니다", "baek");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (4, "트레이너_프로필이미지_링크", "강남 자바짐 5년 경력 트레이너", "바디 프로필 전문", "samsung");
-insert into trainer_detail (trainer_seq, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
-  (5, "트레이너_프로필이미지_링크", "요가/필라테스 강사 2년 경력", "요가/필라테스 전문", "kakao");
+insert into trainer_detail (trainer_seq, trainer_id, trainer_name, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
+  (1,"trainer_1","성아름", "/src/assets/trainer1.png", "ㅇㅇ대학교 체육학과 졸업", "건강관리운동 전문", "admin");
+insert into trainer_detail (trainer_seq, trainer_id, trainer_name, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
+  (2,"trainer_2","이민아", "/src/assets/trainer2.png", "역삼 싸피피트니스 수석 트레이너", "원하는 몸, 만들어드립니다", "ssafy");
+insert into trainer_detail (trainer_seq, trainer_id, trainer_name, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
+  (3,"trainer_3","김민성", "/src/assets/trainer3.png", "생활체육관리사 자격증 유", "실생활운동을 가르쳐드립니다", "baek");
+insert into trainer_detail (trainer_seq, trainer_id, trainer_name, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
+  (4,"trainer_4","박임박", "/src/assets/trainer4.png", "강남 자바짐 5년 경력 트레이너", "바디 프로필 전문", "samsung");
+insert into trainer_detail (trainer_seq, trainer_id, trainer_name, trainer_profile_pic, trainer_experience, trainer_extra, user_id) values 
+  (5,"trainer_5","조박살", "/src/assets/trainer5.png", "요가/필라테스 강사 2년 경력", "요가/필라테스 전문", "kakao");
   
 select * from trainer_detail; 
 

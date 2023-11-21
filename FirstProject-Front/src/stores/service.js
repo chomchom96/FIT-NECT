@@ -41,7 +41,7 @@ export const useServiceStore = defineStore('service', () => {
     axios({
       url: "http://localhost:8080/api/product/" + userId,
       method: "POST",
-      data: trainerId
+      data: trainerId.value
     })
     .then(() => {
       alert("트레이너 신청이 완료되었습니다.")
@@ -51,11 +51,8 @@ export const useServiceStore = defineStore('service', () => {
       console.log(e)
     })
   }
-
-  // const writeSchedule
-  // const getSchedule
-
   return {
     registDetail, getDetails, trainerDetailList, selectTrainer
   };
+
 });

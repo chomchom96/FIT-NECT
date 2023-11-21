@@ -21,13 +21,13 @@
 <script setup>
 import { useTrainerStore } from "../../stores/trainer";
 import { onMounted } from "vue";
-import { RouterLink } from "vue-router";
 
 const store = useTrainerStore();
 
 onMounted(() => {
 store.getUserManageList();
 });
+
 </script>
 
 <style scoped>

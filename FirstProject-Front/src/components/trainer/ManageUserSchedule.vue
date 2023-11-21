@@ -62,14 +62,15 @@
 </template>
 
 <script setup>
-import { useUserStore } from "../../stores/user";
 import { useTrainerStore } from "../../stores/trainer";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const existSchedule = ref(true);
-const userStore = useUserStore();
 const trainerStore = useTrainerStore();
+
+const pathName = new URL(document.location).pathname.split("/");
+const id = pathName[pathName.length - 1];
 
 onMounted(() => {
   getUserSchedule();
@@ -94,11 +95,11 @@ const partOptions = [
 
 const schedule = ref([]);
 
+
 const getUserSchedule = async () => {
   try {
-    console.log(userStore.idValue);
     const response = await axios.get(
-      `http://localhost:8080/api/product/schedule/${userStore.idValue}`
+      `http://localhost:8080/api/product/schedule/${id}`
     );
     console.log(response)
     const jsonString = response.data.userSchedule;
@@ -159,11 +160,12 @@ const deleteItem = (dayId, itemIndex) => {
 };
 
 const submitSchedule = () => {
+  console.log(existSchedule.value)
   const jsonString = JSON.stringify(schedule.value);
   console.log(jsonString);
-  if (!existSchedule)
-    trainerStore.registSchedule(userStore.idValue, jsonString)
-  else trainerStore.modifySchedule(userStore.idValue, jsonString)
+  if (!existSchedule.value)
+    trainerStore.registSchedule(id, jsonString)
+  else trainerStore.modifySchedule(id, jsonString)
 };
 
 

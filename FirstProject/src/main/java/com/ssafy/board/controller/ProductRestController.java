@@ -45,6 +45,10 @@ public class ProductRestController {
 	@PostMapping("/product/{userId}")
 	@ApiOperation(value="유저가 트레이너 선택")
 	public ResponseEntity<Void> getTrainer(@RequestBody String trainerId, @PathVariable String userId){
+		System.out.println(trainerId);
+		trainerId = trainerId.substring(14);
+		trainerId = trainerId.substring(0, trainerId.length() - 2);
+		System.out.println(trainerId);
 		try {
 			productService.matchTrainer(trainerId, userId);
 			return new ResponseEntity<Void>(HttpStatus.OK);
