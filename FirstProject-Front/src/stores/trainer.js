@@ -90,7 +90,7 @@ export const useTrainerStore = defineStore('trainer', () => {
   const modifySchedule = (userId, schedule) => {
     console.log(userId);
     axios({
-      url: `http://localhost:8080/api/product/schedule/`,
+      url: `http://localhost:8080/api/product/schedule/${userId}`,
       method: "PUT",
       data: {
         schedule

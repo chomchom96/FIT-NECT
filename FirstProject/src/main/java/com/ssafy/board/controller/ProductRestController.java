@@ -77,6 +77,24 @@ public class ProductRestController {
 		}
 	}
 	
+	@PutMapping("/product/schedule/{userId}")
+	@ApiOperation(value="유저 스케줄 업데이트")
+	public ResponseEntity<?> updateSchedule(@RequestBody String jsonSchedule, @PathVariable String userId){
+		UserSchedule schedule = new UserSchedule();
+		schedule.setUserId(userId);
+		schedule.setUserSchedule(jsonSchedule);
+		System.out.println(jsonSchedule);
+		try 
+		{
+			productService.updateSchedule(schedule);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@GetMapping("/product/schedule/{userId}")
 	public ResponseEntity<?> getSchedule(@PathVariable String userId){
 		System.out.println(userId);
@@ -90,17 +108,5 @@ public class ProductRestController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
-	@PutMapping("/product/schedule/{userId}")
-	@ApiOperation(value="유저 스케줄 업데이트")
-	public ResponseEntity<?> updateSchedule(@RequestBody UserSchedule schedule){
-		try 
-		{
-			productService.updateSchedule(schedule);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	
 }

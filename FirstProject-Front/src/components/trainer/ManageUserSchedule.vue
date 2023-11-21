@@ -14,6 +14,10 @@
         <h4 class="mt-0 mb-3 text-dark op-8 font-weight-bold">
           {{ day.title }}
         </h4>
+
+        <h4 class="mt-0 mb-3 text-dark op-8 font-weight-bold">
+          {{ day.part}}
+        </h4>
         <ul class="list-timeline list-timeline-primary">
           <li
             v-for="(item, itemIndex) in day.items"
