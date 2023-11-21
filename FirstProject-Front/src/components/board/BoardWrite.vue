@@ -5,18 +5,6 @@
   <h2>글 작성</h2>
     <div>
       <div v-if="store.getUser">
-        <!-- <label for="userId">아이디:</label>
-        <input readonly v-model="store.idValue" type="text" id="userId"> -->
-          <!-- <input readonly v-model="userId.value" type="text" id="userId" class="view"> -->
-      
-        <!-- <label>제목:</label>
-        <input v-model="boardTitle" type="text" id="boardTitle" required>
-
-        <label for="boardText">내용:</label>
-        <input v-model="boardText" type="text" id="boardText" required> -->
-
-       <!-- <button type="submit2" @click="registBoard">등록</button> -->
-       
 
         <div class ="container">
         <table class="board-list">
@@ -42,17 +30,6 @@
                  ✒️
               </span>
             </td>
-            <!-- <td class="left">
-              <RouterLink class="board-link" :to="`/board/${board.boardId}`">{{     
-                board.boardTitle
-              }}</RouterLink>
-            </td>  -->
-            <!-- <td class="left">{{ board.boardTitle}}</td>
-            <td>{{ board.userId }}</td>
-            <td>{{ board.boardCreatedAt }}</td>
-            <td>{{ board.boardViewCnt }}</td> -->
-            <!-- <td>{{ board.boardContent }}</td> -->
-           
           </tr>
         </tbody>
         <tbody>
