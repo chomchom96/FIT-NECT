@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
-@Api(tags="댓글(코멘트) 컨트롤러")
+@Api(tags="게시판 댓글 컨트롤러")
 @CrossOrigin("*")
 public class CommentRestController {
 

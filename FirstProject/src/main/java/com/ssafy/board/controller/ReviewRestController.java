@@ -24,7 +24,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
-@Api(tags="리뷰 컨트롤러")
+@Api(tags="영상 댓글 컨트롤러")
 @CrossOrigin("*")
 public class ReviewRestController {
 
