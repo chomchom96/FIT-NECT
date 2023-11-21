@@ -7,9 +7,6 @@
         <button class="btn"> 글쓰기 </button>
       </RouterLink>
     </div>
-
-
-
     <table class="board-list">
 
       <colgroup>
@@ -33,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="board-row" v-for="(board, index) in board" :key="index" @click="handleRowClick(board.boardId)">
+        <tr class="board-row" v-for="(board, index) in computedBoard" :key="index" @click="handleRowClick(board.boardId)">
           <!-- <td>{{ index + 1 }}</td> -->
           <td>
             {{ board.boardId }}
@@ -53,8 +50,7 @@
 
     <br>
     <div class="search-container">
-      <form @submit.prevent="submitSearchForm" class="row">
-        <div class="col-2" style="display: inline-block;">
+      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">        <div class="col-2" style="display: inline-block;">
           <!-- <label>검색 기준 :</label> -->
           <select v-model="searchKey" class="form-select">
             <option value="boardTitle">제목</option>
@@ -63,7 +59,7 @@
             <option value="boardId">글번호</option>
           </select>
         </div>
-        <div class="col-5" style="display: inline-block;">
+        <div class="col-2" style="display: inline-block;">
           <!-- <label>검색 내용 :</label> -->
           <input v-model="searchWord" name="word" class="form-control">
         </div>
@@ -89,32 +85,78 @@
 					<input type="submit" value="검색" >
 				</div> -->
 
-        <div class="col-8" style="display: inline-block;">
+        <div class="col-5" style="display: inline-block;">
           <button type="button" class="btn" @click="submitSearchForm">검색</button>
         </div>
 
       </form>
 
       <br>
-
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <a class="page-link" @click="changePage(currentPage - 1)" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li v-for="page in pages" :key="page" class="page-item" :class="{ active: page === currentPage }">
+            <a class="page-link" @click="changePage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+            <a class="page-link" @click="changePage(currentPage + 1)" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
 
 <script setup>
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useBoardStore } from '@/stores/board'
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-
 const store = useBoardStore()
+
+const itemsPerPage = 10;
+const currentPage = ref(1);
+const totalPages = computed(() => Math.ceil(store.board.length / itemsPerPage));
+const pages = ref([]);
+
+const computedBoard = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const boards = store.board.slice(startIndex, endIndex)
+  return boards;
+})
 
 onMounted(() => {
   store.getBoardList();
   searchKey.value = "boardTitle";
+  updatePages();
 })
+
+watch(currentPage, () => {
+  updatePages();
+});
+
+const updatePages = () => {
+  const startPage = Math.max(1, currentPage.value - 2);
+  const endPage = Math.min(totalPages.value, startPage + 4);
+
+  pages.value = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+};
+
+const changePage = (page) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page;
+  }
+};
+
 
 const searchKey = ref("none");
 const searchWord = ref("");
@@ -131,9 +173,6 @@ const submitSearchForm = () => {
   store.searchBoardList(searchParams);
 };
 
-
-
-
 const props = defineProps({
   board: {
     type: Array,
@@ -145,7 +184,6 @@ const handleRowClick = (boardId) => {
   router.push(`/board/${boardId}`);
 };
 
-// const userCnt = computed(() => props.users.length);
 </script>
 
 <style scoped>
@@ -225,4 +263,5 @@ const handleRowClick = (boardId) => {
   border: none;
   cursor: pointer;
   margin-right: 10px;
-}</style>
+}
+</style>

@@ -2,7 +2,7 @@
   <div class="video-list-page">
     <div>
       <div class="row">
-        <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in store.videoList" :key="video.videoId">
+        <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in computedVideos" :key="video.videoId">
           <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="...">
 
           <div class="card-body">
@@ -42,12 +42,28 @@
     <router-link :to="{ name: 'VideoRegist' }">
       <button>Regist</button>
     </router-link>
-
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" @click="changePage(currentPage - 1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li v-for="page in pages" :key="page" class="page-item" :class="{ active: page === currentPage }">
+          <a class="page-link" @click="changePage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" @click="changePage(currentPage + 1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from 'vue'
+import { ref, onMounted, defineProps, computed, watch } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useUserStore } from '../../stores/user'
 import videoImage from '@/assets/coder.png';
@@ -60,17 +76,47 @@ const route = useRoute();
 const store = useVideoStore()
 const userStore = useUserStore();
 
-// onMounted(() => {
-//   store.getVideoList();
-// })
+const itemsPerPage = 6;
+const currentPage = ref(1);
 
-onMounted(async () => {
-  for (const video of store.videoList) {
+const computedVideos = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const videos = store.videoList.slice(startIndex, endIndex);
+
+  videos.forEach(async (video) => {
     video.thumbnailUrl = await getYouTubeThumbnail(video.videoUrl);
-  }
+  });
 
-  searchKey.value = "videoTitle";
+  return videos;
 });
+
+const totalVideos = computed(() => store.videoList.length);
+const totalPages = computed(() => Math.ceil(totalVideos.value / itemsPerPage));
+const pages = ref([]);
+
+onMounted(() => {
+  updatePages();
+});
+
+
+watch(currentPage, () => {
+  updatePages();
+});
+
+const updatePages = () => {
+  const startPage = Math.max(1, currentPage.value - 2);
+  const endPage = Math.min(totalPages.value, startPage + 4);
+
+  pages.value = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+};
+
+const changePage = (page) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page;
+  }
+};
+
 
 const searchKey = ref("none");
 const searchWord = ref("");
