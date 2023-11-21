@@ -26,8 +26,7 @@
     <br><br><br>
     <hr>
     <form @submit.prevent="addNewSchedule" id="exercise-form">
-      <h4 class="mt-4 mb-3 text-dark op-8 font-weight-bold">운동을 추가하세요</h4>
-
+      <h4 class="mt-4 mb-3 text-dark op-8 font-weight-bold" >운동을 추가하세요</h4>
       <div class="row">
         <div class="col-md-6">
           <div class="input-group mb-3">
@@ -70,15 +69,15 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primart" @click="addNewSchedule">운동 추가</button>
+      <button type="submit" class="btn" @click="addNewSchedule">운동 추가</button>
     </form>
     <hr>
     <div class="input-group mb-3">
-      <button type="submit" class="btn btn-primary" @click="submitSchedule">스케줄<br />전송</button>
+      <button type="submit" class="btn" @click="submitSchedule">스케줄<br />전송</button>
       &nbsp &nbsp
-      <button type="submit" class="btn btn-primary" @click="modifySchedule">스케줄<br />수정</button>
+      <button type="submit" class="btn" @click="modifySchedule">스케줄<br />수정</button>
       &nbsp &nbsp
-      <button type="submit" class="btn btn-primary" @click="deleteSchedule">스케줄<br />삭제</button>
+      <button type="submit" class="btn" @click="deleteSchedule">스케줄<br />삭제</button>
     </div>
   </div>
 </template>
@@ -206,39 +205,20 @@ label {
   display: inline-block;
 }
 
-.option {
-  border-radius: 5px;
+.row {
+  align-items: flex-start;
 }
-
-.custom-select {
-  background-color: white;
-  color: black;
-  border: 1px solid;
-  border-radius: 5px;
-  border-color: black;
-  padding: 3px 5px;
-}
-
-.exercise-form {
-  margin: auto;
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 5px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
 .btn {
   padding: 10px;
-  background-color: #333;
+  border-color: solid black;
+  background-color: rgb(136, 136, 136);
   /* 무채색 배경 */
   color: #fff;
   /* 흰색 텍스트 */
   border: none;
   cursor: pointer;
   margin-right: 10px;
+  font: bold;
 }
 
 body {
@@ -344,257 +324,4 @@ body {
   background: #33635c;
 }
 
-.list-timeline.list-timeline-primary-dark .list-timeline-item:before {
-  border-color: #33635c;
-}
-
-.list-timeline.list-timeline-primary-faded .list-timeline-item.active:before,
-.list-timeline.list-timeline-primary-faded .list-timeline-item.show:before,
-.list-timeline.list-timeline-primary-faded:before {
-  background: rgba(85, 167, 154, 0.3);
-}
-
-.list-timeline.list-timeline-primary-faded .list-timeline-item:before {
-  border-color: rgba(85, 167, 154, 0.3);
-}
-
-.list-timeline.list-timeline-info .list-timeline-item.active:before,
-.list-timeline.list-timeline-info .list-timeline-item.show:before,
-.list-timeline.list-timeline-info:before {
-  background: #17a2b8;
-}
-
-.list-timeline.list-timeline-info .list-timeline-item:before {
-  border-color: #17a2b8;
-}
-
-.list-timeline.list-timeline-success .list-timeline-item.active:before,
-.list-timeline.list-timeline-success .list-timeline-item.show:before,
-.list-timeline.list-timeline-success:before {
-  background: #28a745;
-}
-
-.list-timeline.list-timeline-success .list-timeline-item:before {
-  border-color: #28a745;
-}
-
-.list-timeline.list-timeline-warning .list-timeline-item.active:before,
-.list-timeline.list-timeline-warning .list-timeline-item.show:before,
-.list-timeline.list-timeline-warning:before {
-  background: #ffc107;
-}
-
-.list-timeline.list-timeline-warning .list-timeline-item:before {
-  border-color: #ffc107;
-}
-
-.list-timeline.list-timeline-danger .list-timeline-item.active:before,
-.list-timeline.list-timeline-danger .list-timeline-item.show:before,
-.list-timeline.list-timeline-danger:before {
-  background: #dc3545;
-}
-
-.list-timeline.list-timeline-danger .list-timeline-item:before {
-  border-color: #dc3545;
-}
-
-.list-timeline.list-timeline-dark .list-timeline-item.active:before,
-.list-timeline.list-timeline-dark .list-timeline-item.show:before,
-.list-timeline.list-timeline-dark:before {
-  background: #343a40;
-}
-
-.list-timeline.list-timeline-dark .list-timeline-item:before {
-  border-color: #343a40;
-}
-
-.list-timeline.list-timeline-secondary .list-timeline-item.active:before,
-.list-timeline.list-timeline-secondary .list-timeline-item.show:before,
-.list-timeline.list-timeline-secondary:before {
-  background: #6c757d;
-}
-
-.list-timeline.list-timeline-secondary .list-timeline-item:before {
-  border-color: #6c757d;
-}
-
-.list-timeline.list-timeline-black .list-timeline-item.active:before,
-.list-timeline.list-timeline-black .list-timeline-item.show:before,
-.list-timeline.list-timeline-black:before {
-  background: #000;
-}
-
-.list-timeline.list-timeline-black .list-timeline-item:before {
-  border-color: #000;
-}
-
-.list-timeline.list-timeline-white .list-timeline-item.active:before,
-.list-timeline.list-timeline-white .list-timeline-item.show:before,
-.list-timeline.list-timeline-white:before {
-  background: #fff;
-}
-
-.list-timeline.list-timeline-white .list-timeline-item:before {
-  border-color: #fff;
-}
-
-.list-timeline.list-timeline-green .list-timeline-item.active:before,
-.list-timeline.list-timeline-green .list-timeline-item.show:before,
-.list-timeline.list-timeline-green:before {
-  background: #55a79a;
-}
-
-.list-timeline.list-timeline-green .list-timeline-item:before {
-  border-color: #55a79a;
-}
-
-.list-timeline.list-timeline-red .list-timeline-item.active:before,
-.list-timeline.list-timeline-red .list-timeline-item.show:before,
-.list-timeline.list-timeline-red:before {
-  background: #be3e1d;
-}
-
-.list-timeline.list-timeline-red .list-timeline-item:before {
-  border-color: #be3e1d;
-}
-
-.list-timeline.list-timeline-blue .list-timeline-item.active:before,
-.list-timeline.list-timeline-blue .list-timeline-item.show:before,
-.list-timeline.list-timeline-blue:before {
-  background: #00adbb;
-}
-
-.list-timeline.list-timeline-blue .list-timeline-item:before {
-  border-color: #00adbb;
-}
-
-.list-timeline.list-timeline-purple .list-timeline-item.active:before,
-.list-timeline.list-timeline-purple .list-timeline-item.show:before,
-.list-timeline.list-timeline-purple:before {
-  background: #b771b0;
-}
-
-.list-timeline.list-timeline-purple .list-timeline-item:before {
-  border-color: #b771b0;
-}
-
-.list-timeline.list-timeline-pink .list-timeline-item.active:before,
-.list-timeline.list-timeline-pink .list-timeline-item.show:before,
-.list-timeline.list-timeline-pink:before {
-  background: #cc164d;
-}
-
-.list-timeline.list-timeline-pink .list-timeline-item:before {
-  border-color: #cc164d;
-}
-
-.list-timeline.list-timeline-orange .list-timeline-item.active:before,
-.list-timeline.list-timeline-orange .list-timeline-item.show:before,
-.list-timeline.list-timeline-orange:before {
-  background: #e67e22;
-}
-
-.list-timeline.list-timeline-orange .list-timeline-item:before {
-  border-color: #e67e22;
-}
-
-.list-timeline.list-timeline-lime .list-timeline-item.active:before,
-.list-timeline.list-timeline-lime .list-timeline-item.show:before,
-.list-timeline.list-timeline-lime:before {
-  background: #b1dc44;
-}
-
-.list-timeline.list-timeline-lime .list-timeline-item:before {
-  border-color: #b1dc44;
-}
-
-.list-timeline.list-timeline-blue-dark .list-timeline-item.active:before,
-.list-timeline.list-timeline-blue-dark .list-timeline-item.show:before,
-.list-timeline.list-timeline-blue-dark:before {
-  background: #34495e;
-}
-
-.list-timeline.list-timeline-blue-dark .list-timeline-item:before {
-  border-color: #34495e;
-}
-
-.list-timeline.list-timeline-red-dark .list-timeline-item.active:before,
-.list-timeline.list-timeline-red-dark .list-timeline-item.show:before,
-.list-timeline.list-timeline-red-dark:before {
-  background: #a10f2b;
-}
-
-.list-timeline.list-timeline-red-dark .list-timeline-item:before {
-  border-color: #a10f2b;
-}
-
-.list-timeline.list-timeline-brown .list-timeline-item.active:before,
-.list-timeline.list-timeline-brown .list-timeline-item.show:before,
-.list-timeline.list-timeline-brown:before {
-  background: #91633c;
-}
-
-.list-timeline.list-timeline-brown .list-timeline-item:before {
-  border-color: #91633c;
-}
-
-.list-timeline.list-timeline-cyan-dark .list-timeline-item.active:before,
-.list-timeline.list-timeline-cyan-dark .list-timeline-item.show:before,
-.list-timeline.list-timeline-cyan-dark:before {
-  background: #008b8b;
-}
-
-.list-timeline.list-timeline-cyan-dark .list-timeline-item:before {
-  border-color: #008b8b;
-}
-
-.list-timeline.list-timeline-yellow .list-timeline-item.active:before,
-.list-timeline.list-timeline-yellow .list-timeline-item.show:before,
-.list-timeline.list-timeline-yellow:before {
-  background: #d4ac0d;
-}
-
-.list-timeline.list-timeline-yellow .list-timeline-item:before {
-  border-color: #d4ac0d;
-}
-
-.list-timeline.list-timeline-slate .list-timeline-item.active:before,
-.list-timeline.list-timeline-slate .list-timeline-item.show:before,
-.list-timeline.list-timeline-slate:before {
-  background: #5d6d7e;
-}
-
-.list-timeline.list-timeline-slate .list-timeline-item:before {
-  border-color: #5d6d7e;
-}
-
-.list-timeline.list-timeline-olive .list-timeline-item.active:before,
-.list-timeline.list-timeline-olive .list-timeline-item.show:before,
-.list-timeline.list-timeline-olive:before {
-  background: olive;
-}
-
-.list-timeline.list-timeline-olive .list-timeline-item:before {
-  border-color: olive;
-}
-
-.list-timeline.list-timeline-teal .list-timeline-item.active:before,
-.list-timeline.list-timeline-teal .list-timeline-item.show:before,
-.list-timeline.list-timeline-teal:before {
-  background: teal;
-}
-
-.list-timeline.list-timeline-teal .list-timeline-item:before {
-  border-color: teal;
-}
-
-.list-timeline.list-timeline-green-bright .list-timeline-item.active:before,
-.list-timeline.list-timeline-green-bright .list-timeline-item.show:before,
-.list-timeline.list-timeline-green-bright:before {
-  background: #2ecc71;
-}
-
-.list-timeline.list-timeline-green-bright .list-timeline-item:before {
-  border-color: #2ecc71;
-}
 </style>

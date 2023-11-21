@@ -1,122 +1,61 @@
 <template>
-    <h4>😭 SSAFIT을 사용해 주셔서 감사합니다 😭</h4>
-    <div class="container px-4 text-center">
-        <div class="row gx-5">
-            <div class="col">
-            <div class="p-3">
-                <h3 style="align-self: center;"> 🧑 조용운 </h3>
-                <h5> 10기 서울 5반</h5>
-                <img src="@/assets/cat.png" width="20%"/>
-                <p></p>
-                <p class="emailfont"><i class="bi bi-mailbox"></i> cyy8071@naver.com</p>
-                <a class="gitfont" href="https://github.com/chomchom96"><i class="bi bi-github"></i> GITHUB</a>
-                <p></p>
-                <p class="phonefont"> <i class="bi bi-phone"></i> 010-5040-8071 </p>
-                <p> </p>
+    <main class="content">
+      <div class="row m-8 p-3 mt-2" style="text-align:center; justify-content:space-between;">
+        <div class="card col p-5 border-light page-preview shadow-sm cust_box  page-preview scale-up-2">
+          <div class="card-body pb-3">
+            <img src="@/assets/cat.png" class="user-avatar scale-up-2 mt-5 large-avatar  mx-auto mb-4" alt="User Avatar" style="width: 200px;">
+            <h4 class="h2 fw-bold">🧑 조용운</h4> <br>
+            <h5 class="fw-normal">10기 서울 5반</h5>
+            <br><br>
+            <div style="text-align:left; margin-left:20px;">
+              <p class="text-gray mt-5 mb-0  page-preview scale-up-2">
+                <i class="bi bi-mailbox"></i> cyy8071@naver.com
+              </p>
+              <p class="text-gray mt-0 mb-0  page-preview scale-up-2">
+                <i class="bi bi-github"></i><a href="https://github.com/chomchom96"> chomchom96</a>
+              </p>
+              <p class="text-gray mt-0 mb-0  page-preview scale-up-2">
+                <i class="bi bi-phone"></i>  010-5040-8071
+              </p>
             </div>
-            
-            </div>
-            <div class="col">
-            <div class="p-3">
-                <h3 style="align-self: center;"> 🤢 백천주 </h3>
-                <h5> 10기 서울 5반</h5>
-                <img src="@/assets/coder.png" width="20%"/>
-                <p></p>
-                <p class="emailfont"><i class="bi bi-mailbox"></i> kakapokachip@gmail.com</p>
-                <a class="gitfont" href="https://github.com/lookoblong"><i class="bi bi-github"></i> GITHUB</a>
-                <p></p>
-                <p class="phonefont"> <i class="bi bi-phone"></i> 010-9918-8441 </p>
-                <p> </p>
-            </div>
-            </div>
+          </div>
         </div>
-    </div>
-</template>
-
+  
+        <div class="card col p-5 border-light page-preview shadow-sm cust_box  page-preview scale-up-2">
+          <div class="card-body pb-3">
+            <img src="@/assets/coder.png" class="user-avatar scale-up-2 mt-5 large-avatar mx-auto mb-4" alt="User Avatar" style="width: 200px;">
+            <h4 class="h2 fw-bold">👍 백천주</h4> <br>
+            <h5 class="fw-normal">10기 서울 5반</h5>
+            <br><br>
+            <div style="text-align:left; margin-left:20px;">
+              <p class="text-gray mt-5 mb-0  page-preview scale-up-2">
+                <i class="bi bi-mailbox"></i> kakapokachip@gmail.com
+              </p>
+              <p class="text-gray mt-0 mb-0  page-preview scale-up-2">
+                <i class="bi bi-github"></i> <a href="https://github.com/lookoblong"> lookoblong</a>
+              </p>
+              <p class="text-gray mt-0 mb-0  page-preview scale-up-2">
+                <i class="bi bi-phone"></i> 010-9918-8441
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </template>
 <script setup>
 
 </script>
 
 
 <style scoped>
-
-h4 {
-    margin-left: 50px;
-    text-align: center;
+p {
+    font-size: 20px;
+    padding: 7px;
 }
 
-.intro {
-    text-align: center;
+.card {
+    padding : 50px;
+    border: 2px solid lightgrey;
 }
-
-.row {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.p-3 {
-    color: #666;
-    background-color: #ffffff;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 0.5px solid rgba(102, 102, 102, 0.35);
-
-    
-}
-
-.contact {
-    text-align: center;
-    margin: 50px auto;
-    max-width: 700px;
-}
-
-
-.contact {
-    text-align: center;
-}
-
-.btn {
-  padding: 10px;
-  background-color: #333; /* 무채색 배경 */
-  color: #fff; /* 흰색 텍스트 */
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-  
-}
-
-.btn:hover {
-  background-color: #555; /* 호버 시 어둡게 변하는 배경 */
-}
-
-h2, h4 {
-    text-align: center;
-    color: #333;
-    font-family: Poppins;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-.emailfont {
-    color: #666;
-    font-family: Poppins;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.gitfont {
-    font-size: 17px;
-}
-
-.phonefont {
-    font-size: 15px;
-
-}
-
 </style>

@@ -146,18 +146,17 @@ const routes = [
   {
     path: "/mypage",
     component: UserPage,
-    children: [
-      {
-        path: "info",
-        name: "UserInfo",
-        component: UserInfo,
-      },
-      {
-        path: "detail",
-        name: "UserInfoDetail",
-        component: UserInfoDetail,
-      },
-    ]
+    name: UserPage,
+  },
+  {
+    path: "/mypage/info",
+    name: "UserInfo",
+    component: UserInfo,
+  },
+  {
+    path: "/mypage/detail",
+    name: "UserInfoDetail",
+    component: UserInfoDetail,
   },
   {
     path: "/board",

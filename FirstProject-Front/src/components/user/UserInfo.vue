@@ -1,79 +1,54 @@
 <template>
-
-    
-
-
-    <div style="width: 100%; height: 40vh; display: flex; justify-content: center; align-items: center;">
-        <div style="width: 878px; height: 555px; position: relative">
-            <form style="width: 400px; height: 384px; left: 223.50px; top: 119px; position: absolute">
-                <button @click="update"
-                    style="width: 127.28px; height: 40px; left: 135px; top: 450px; position: absolute; background: #787cbb; border-radius: 8px; justify-content: center; align-items: center; display: inline-flex">
-                    <div
-                        style="width: 127.48px; height: 25px; text-align: center; color: white; font-size: 14px; font-family: Helvetica Neue; font-weight: 500; line-height: 20px; word-wrap: break-word">
-                        Save change</div>
-                </button>
-
-                <div
-                    style="width: 400px; height: 400px; padding-top: 12px; padding-bottom: 12px; left: 0px; top: 0px; position: absolute; flex-direction: column; justify-content: center; align-items: flex-start; gap: 32px; display: inline-flex">
-                    <div
-                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
-                        <div
-                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            Email</div>
-                        <div
-                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
-                            <input type="text" v-model="email" :placeholder="placeholderText1"
-                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
-                        </div>
-                    </div>
-                    <div
-                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
-                        <div
-                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            User name</div>
-                        <div
-                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
-                            <input type="text" v-model="nickname" :placeholder="placeholderText2"
-                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
-                        </div>
-                    </div>
-                    <div
-                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
-                        <div
-                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            Previous Password</div>
-                        <div
-                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
-                            <input type="text" v-model="oldPassword"
-                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
-                        </div>
-                    </div>
-                    <div
-                        style="align-self: stretch; height: 80px; padding-left: 0.84px; padding-right: 0.66px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; display: inline-flex">
-                        <div
-                            style="color: #0D0C22; font-size: 16px; font-family: Helvetica Neue; font-weight: 500; line-height: 22px; word-wrap: break-word">
-                            New Password</div>
-                        <div
-                            style="align-self: stretch; height: 48px; padding: 15.50px 18px; background: white; border-radius: 8px; border: 2px #E7E7E9 solid; display: flex; align-items: center;">
-                            <input type="text" v-model="newPassword"
-                                style="flex: 1; color: #0D0C22; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; word-wrap: break-word; border: none; outline: none;">
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <div style="width: 879px; height: 62.59px; left: 0px; top: 31px; position: absolute">
-
-                <div
-                    style="left: 340px; top: 34px; position: absolute; color: #6E6D7A; font-size: 14px; font-family: Helvetica Neue; font-weight: 400; line-height: 18.20px; word-wrap: break-word">
-                    계정정보를 업데이트하세요</div>
-                <div style="left: 350px; top: 0px; position: absolute"><span
-                        style="color: #0D0C22; font-size: 20px; font-family: Helvetica Neue; font-weight: 500; line-height: 29px; word-wrap: break-word">{{ store.idValue}}의 계정정보 </span></div>
-
-            </div>
+    <div class="container">
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">내 정보 수정</h4>
+      <form class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">ID</label>
+            <input type="text" class="form-control" id="userId">
+          </div>
         </div>
+
+        <div class="mb-3">
+          <label for="username">Email</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" id="username" placeholder="Username" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your username is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Email <span class="text-muted">(Optional)</span></label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+        </div>
+
+        <hr class="mb-4">
+      </form>
     </div>
-</template>
+    </div>
+  </template>
 
 <script setup>
 import { useUserStore } from "@/stores/user.js";

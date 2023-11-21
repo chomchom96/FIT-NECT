@@ -63,6 +63,9 @@ const submitForm = () => {
 </script>
   
 <style scoped>
+* {
+  font-family: 'Nanum Gothic', sans-serif;
+}
 .form-container {
     max-width: 400px;
     margin: auto;

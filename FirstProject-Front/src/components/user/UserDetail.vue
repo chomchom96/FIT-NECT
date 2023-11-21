@@ -13,7 +13,6 @@
       <input type="text" id="name" v-model="user.name" class="view" /><br />
       <label for="email">이메일</label>
       <input type="email" id="email" v-model="user.email" class="view" /><br />
-      <button class="btn" @click="deleteUser">삭제</button>
     </fieldset>
   </div>
 </template>

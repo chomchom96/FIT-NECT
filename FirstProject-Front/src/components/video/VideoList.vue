@@ -3,18 +3,18 @@
     <div>
       <div class="row">
         <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in computedVideos" :key="video.videoId">
-          <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="...">
 
           <div class="card-body">
-            <h5>
+            <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="..." style="padding: 5px;">
+            <p style="font-size: 20px;">
               <router-link :to="`/video/${video.videoId}`">{{ video.videoTitle }}</router-link>
-            </h5>
+            </p>
             <!-- <h5 class="card-title">{{ video.videoTitle }}</h5> -->
             <p class="card-text text-truncate">{{ video.videoChannelName }}</p>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">파트 : {{ video.videoPart }}</li>
+              <li class="list-group-item">{{ video.videoPart }}</li>
               <li class="list-group-item">조회수 : {{ video.videoViewCnt }}</li>
-              <li class="list-group-item">등록일 : {{ video.videoCreatedAt }}</li>
+              <li class="list-group-item">{{ video.videoCreatedAt }}</li>
             </ul>
           </div>
         </div>
@@ -25,23 +25,32 @@
         <select v-model="searchKey" class="form-select">
           <option value="videoId">영상번호</option>
           <option value="videoTitle">제목</option>
-          <option value="videoPart">부위</option>
+          <option value="videoPart" selected>부위</option>
           <option value="videoChannelName">채널명</option>
           <option value="videoCreatedAt">등록일</option>
-          <option value="videoViewCnt">조회수</option>
-          <option value="videoUrl">영상Url</option>
         </select>
       </div>
       <div class="col-5" style="display: inline-block;">
         <input v-model="searchWord" name="word" class="form-control">
       </div>
+      <div class="col-2" style="display: inline-block;">
+        <select v-if="searchKey === 'videoPart'" v-model="selectedPart" class="form-select">
+          <option value="part1">부위 1</option>
+          <option value="part2">부위 2</option>
+          <option value="part3">부위 3</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+
       <div class="col-1">
         <input type="submit" value="검색">
       </div>
     </form>
-    <router-link :to="{ name: 'VideoRegist' }">
-      <button>Regist</button>
-    </router-link>
+    <div>
+      <router-link :to="{ name: 'VideoRegist' }">
+        <button type="submit" class="btn">Regist</button>
+      </router-link>
+    </div>
     <nav aria-label="Page navigation">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: currentPage === 1 }">
@@ -163,16 +172,14 @@ const getYouTubeThumbnail = async (videoUrl) => {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Nanum Gothic', sans-serif;
+}
 .video-list-page {
+  background-color: rgb(240, 240, 240);
   max-width: 1100px;
   margin: auto;
   padding: 20px;
-}
-
-.video-list-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 table {
@@ -184,14 +191,17 @@ table {
 
 th,
 td {
+  background-color: antiquewhite;
   padding: 12px;
-  text-align: left;
   border-bottom: 1px solid #ddd;
   text-align: center;
-
 }
 
 th {
   background-color: #f2f2f2;
+}
+
+.list-group-item {
+  
 }
 </style>
