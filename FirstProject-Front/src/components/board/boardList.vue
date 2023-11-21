@@ -47,8 +47,6 @@
           <td>{{ board.userId }}</td>
           <td>{{ board.boardCreatedAt }}</td>
           <td>{{ board.boardViewCnt }}</td>
-          <!-- <td>{{ board.boardContent }}</td> -->
-
         </tr>
       </tbody>
     </table>
@@ -94,12 +92,6 @@
         <div class="col-8" style="display: inline-block;">
           <button type="button" class="btn" @click="submitSearchForm">검색</button>
         </div>
-
-        <!-- <div>
-          <RouterLink to="/board/write">
-            <button class="btn"> 글쓰기 </button>
-          </RouterLink></div> -->
-
 
       </form>
 

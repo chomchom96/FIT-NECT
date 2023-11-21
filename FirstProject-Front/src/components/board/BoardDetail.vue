@@ -2,29 +2,6 @@
   <div class="container">
     <br>
     <h2>글 보기</h2>
-    <!-- <fieldset class="text-center">
-      <br>
-      <label for="userId">글번호</label>
-      <input readonly
-        type="text"
-        id="id"
-        v-model="board.boardId"
-        class="view"
-      /><br />
-      <label for="email">작성자</label>
-      <input readonly type="email" id="email" v-model="board.userId" class="view" /><br />
-      <label for="password">제목</label>
-      <input readonly type="text" id="title" v-model="board.boardTitle" class="view"/><br />
-      <label for="name">내용</label>
-      <input readonly type="text" id="name" v-model="board.boardContent" class="view" /><br />
-      
-      <br>
-
-      <button class="btn" @click="handleModifyClick">수정</button>
-      <button class="btn" @click="call_confirm()">삭제</button>
-    </fieldset> -->
-
-
 
     <table class="board-list">
         <colgroup>

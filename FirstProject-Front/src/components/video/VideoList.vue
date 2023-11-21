@@ -1,35 +1,5 @@
 <template>
   <div class="video-list-page">
-    <!-- <div class="video-list-page">
-    <h2>영상 목록</h2>
-    <div class="video-list-card">
-      <table>
-        <thead>
-          <tr>
-            <th>제목</th>
-            <th>URL</th>
-            <th>부위</th>
-            <th>조회수</th>
-            <th>채널명</th>
-            <th>등록일</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="video in store.videoList" :key="video.videoId">
-            <td>
-              <router-link :to="`/video/${video.videoId}`">{{ video.videoTitle }}</router-link>
-            </td>
-            <td>{{ video.videoUrl }}</td>
-            <td>{{ video.videoPart }}</td>
-            <td>{{ video.videoViewCnt }}</td>
-            <td>{{ video.videoChannelName }}</td>
-            <td>{{ video.videoCreatedAt }}</td>
-          </tr>
-        </tbody>
-      </table>
-  </div> -->
-
-
     <div>
       <div class="row">
         <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in store.videoList" :key="video.videoId">
@@ -50,16 +20,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
     <form @submit.prevent="submitSearchForm" class="row">
       <div class="col-2" style="display: inline-block;">
         <select v-model="searchKey" class="form-select">
@@ -75,44 +35,13 @@
       <div class="col-5" style="display: inline-block;">
         <input v-model="searchWord" name="word" class="form-control">
       </div>
-
-      <!--정렬기준 일단 주석처리/검색과 동시에 안됨-->
-      <!-- <div class="col-2">
-					<label>정렬 기준 :</label>
-					<select v-model="searchOrderBy" class="form-select">
-						<option value="none">없음</option>
-						<option value="videoId">영상번호</option>
-						<option value="videoPart">부위</option>
-						<option value="videoChannelName">채널명</option>
-            <option value="videoCreatedAt">등록일</option>
-            <option value="videoViewCnt">조회수</option>
-					</select>
-				</div>
-				<div class="col-2">
-					<label>정렬 방향 :</label>
-					<select v-model="searchOrderByDir" class="form-select">
-						<option value="asc">오름차순</option>
-						<option value="desc">내림차순</option>
-					</select>
-				</div> -->
-
-
       <div class="col-1">
         <input type="submit" value="검색">
       </div>
-
-
     </form>
-
     <router-link :to="{ name: 'VideoRegist' }">
       <button>Regist</button>
     </router-link>
-
-
-
-
-
-
 
   </div>
 </template>
