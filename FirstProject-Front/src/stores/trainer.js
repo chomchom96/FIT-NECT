@@ -90,7 +90,7 @@ export const useTrainerStore = defineStore('trainer', () => {
   const modifySchedule = (userId, schedule) => {
     console.log(userId);
     axios({
-      url: `http://localhost:8080/api/product/schedule/${userId}`,
+      url: `http://localhost:8080/api/product/schedule/`,
       method: "PUT",
       data: {
         schedule
@@ -163,6 +163,7 @@ export const useTrainerStore = defineStore('trainer', () => {
   };
 
   const trainerLogout = () => {
+    sessionStorage.removeItem('trainer-access-token'); // Remove access-token from sessionStorage
     idValue.value = '';
     alert("로그아웃 하셨습니다")
     getTrainer.value = false

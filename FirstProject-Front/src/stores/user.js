@@ -130,14 +130,14 @@ export const useUserStore = defineStore('user', ()=>{
       alert("로그인 실패");
     });
   };
-
+  
   const logout = () => {
+    sessionStorage.removeItem('access-token'); // Remove access-token from sessionStorage
     idValue.value = '';
-    alert("로그아웃 하셨습니다")
-    getUser.value = false
-    router.push("/")
+    getUser.value = false;
+    alert("로그아웃 하셨습니다");
+    router.push("/");
   };
-
   
 
   onMounted(() => {
