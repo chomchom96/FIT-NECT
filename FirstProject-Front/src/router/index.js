@@ -18,7 +18,6 @@ import VideoList from "@/components/video/VideoList.vue"
 import VideoRegist from "@/components/video/VideoRegist.vue"
 import VideoDetail from "@/components/video/VideoDetail.vue"
 
-import ReviewList from "@/components/review/ReviewList.vue"
 import Board from "../views/BoardView.vue";
 import BoardList from "@/components/board/BoardList.vue";
 import BoardModify from "@/components/board/BoardModify.vue";
@@ -36,8 +35,6 @@ import TrainerLoginForm from "@/components/TrainerLoginForm.vue"
 
 import ManageUser from "@/components/trainer/ManageUser.vue"
 import ManageUserSchedule from "@/components/trainer/ManageUserSchedule.vue"
-
-import Comment from "@/components/comment/Comment.vue"
 
 const routes = [
   {
@@ -203,14 +200,6 @@ const routes = [
         path: ":id",
         name: "VideoDetail",
         component: VideoDetail,
-        children:[
-          {
-            path: 'reviews',
-            name: "ReviewList",
-            component: ReviewList,
-          },
-          
-        ]
       },
      
     ],
