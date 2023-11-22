@@ -71,13 +71,25 @@ CREATE TABLE review (
 	user_id VARCHAR(20) NOT NULL,
 	review_created_at DATETIME DEFAULT NOW(),
 	review_title VARCHAR(100),
-	review_content VARCHAR(255)
+	review_content VARCHAR(255),
+    FOREIGN KEY (video_id)
+    REFERENCES video(video_id)
+    ON DELETE NO ACTION
+	ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE matched(
 	trainer_id VARCHAR(20) NOT NULL,
     user_id VARCHAR(20) NOT NULL,
-	PRIMARY KEY(user_id, trainer_id)
+	PRIMARY KEY(user_id),
+    FOREIGN KEY (user_id)
+    REFERENCES user(user_id)
+    ON DELETE NO ACTION
+	ON UPDATE CASCADE,
+    FOREIGN KEY (trainer_id)
+    REFERENCES trainer(trainer_id)
+    ON DELETE NO ACTION
+	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
 insert into followings values ("ssafy", "admin");
@@ -102,7 +114,11 @@ CREATE TABLE comment(
 	board_id INT NOT NULL,
     user_id VARCHAR(20) NOT NULL,
     comment VARCHAR(100) NOT NULL,
-    created_at DATETIME DEFAULT NOW()
+    created_at DATETIME DEFAULT NOW(),
+    FOREIGN KEY (board_id)
+    REFERENCES board(board_id)
+    ON DELETE NO ACTION
+	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
 CREATE TABLE followings (
