@@ -92,7 +92,6 @@ CREATE TABLE matched(
 	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
-insert into followings values ("ssafy", "admin");
 
 CREATE TABLE board(
 	board_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -146,6 +145,7 @@ CREATE TABLE bookmarks (
 	FOREIGN KEY (video_id) 
     REFERENCES video(video_id)
 )ENGINE = InnoDB;
+
 
 select * from matched;
 -- user
