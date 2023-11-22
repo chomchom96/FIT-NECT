@@ -27,7 +27,7 @@
       </div>
       <br>
       <span>
-      <label for="nickname" class="textfont">Your nickName</label>
+      <label for="nickname" class="textfont">Your nickname</label>
       </span>
       <div>
       <input v-model="nickname" type="text" id="userNickname" >

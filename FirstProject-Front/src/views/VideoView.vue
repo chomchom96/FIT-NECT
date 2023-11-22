@@ -1,6 +1,6 @@
 <template>
   <div class="video-management-page">
-    <br><h1>VIDEO LIST</h1>
+    <br><h1>WORKOUT VIDEO LIST</h1>
     <router-view/>
   </div>
 </template>

@@ -80,6 +80,8 @@ CREATE TABLE matched(
 	PRIMARY KEY(user_id, trainer_id)
 )ENGINE = InnoDB;
 
+insert into followings values ("ssafy", "admin");
+
 CREATE TABLE board(
 	board_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	board_title VARCHAR(200) NOT NULL,
@@ -104,10 +106,17 @@ CREATE TABLE comment(
 )ENGINE = InnoDB;
 
 CREATE TABLE followings (
-	user_id VARCHAR(20) NOT NULL UNIQUE,
-	following_id VARCHAR(20) NOT NULL UNIQUE,
-	PRIMARY KEY (user_id, following_id)
-	
+	user_id VARCHAR(20) NOT NULL,
+	following_id VARCHAR(20) NOT NULL,
+	PRIMARY KEY (user_id, following_id),
+    FOREIGN KEY (user_id) 
+    REFERENCES user(user_id)
+    ON DELETE NO ACTION
+	ON UPDATE CASCADE,
+    FOREIGN KEY (following_id) 
+    REFERENCES user(user_id)
+    ON DELETE NO ACTION
+	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
 CREATE TABLE bookmarks (
@@ -116,18 +125,15 @@ CREATE TABLE bookmarks (
 	PRIMARY KEY(user_id, video_id),
     CONSTRAINT fk_user_id_bookmarks
 	FOREIGN KEY (user_id) 
-    REFERENCES user(user_id)
-    ON DELETE NO ACTION
-	ON UPDATE CASCADE,
+    REFERENCES user(user_id),
     CONSTRAINT fk_video_id_bookmarks
 	FOREIGN KEY (video_id) 
     REFERENCES video(video_id)
-    ON DELETE NO ACTION
-	ON UPDATE CASCADE
 )ENGINE = InnoDB;
 
-
+select * from matched;
 -- user
+
 select * from user;
 
 insert into user (user_id, user_password, user_email, user_nickname, is_kakao) values 
@@ -180,6 +186,7 @@ insert into comment (board_id, user_id, comment) values
 insert into followings values ("admin", "ssafy");
 insert into followings values ("ssafy", "admin"); -- 맞팔
 insert into followings values ("samsung", "baek");
+insert into followings values ("admin", "baek");
 -- delete from followings where (user_id, following_id) =("admin", "ssafy");
 -- select * from followings;
 select following_id followId from followings where user_id= "admin";

@@ -11,9 +11,9 @@ import { RouterView } from "vue-router";
 
 <style scoped>
 
-h1 {
+h2 {
   font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 30px;
+  margin: 30px;
 }
 </style>

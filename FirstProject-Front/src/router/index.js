@@ -7,7 +7,6 @@ import LoginForm from "@/components/LoginForm.vue";
 import User from "../views/UserView.vue";
 import UserList from "@/components/user/UserList.vue";
 import UserSignup from "@/components/user/UserSignup.vue";
-import UserDetail from "@/components/user/UserDetail.vue";
 import UserInfo from "@/components/user/UserInfo.vue";
 import UserInfoDetail from "@/components/user/UserInfoDetail.vue";
 import UserSchedule from "@/components/user/UserSchedule.vue"
@@ -87,11 +86,6 @@ const routes = [
         path: "",
         name: "UserList",
         component: UserList,
-      },
-      {
-        path: ":id",
-        name: "UserDetail",
-        component: UserDetail,
       },
       {
         path: "schedule",

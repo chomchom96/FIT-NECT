@@ -145,7 +145,7 @@ header a {
   margin: 10px;
   text-decoration: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .header-nav {

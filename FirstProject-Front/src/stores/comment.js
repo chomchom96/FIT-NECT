@@ -60,7 +60,7 @@ export const useCommentStore = defineStore('comment', ()=>{
                boardId: comment.boardId,
                userId: comment.userId,
                comment: comment.comment,
-               createdAt: comment.createAt,
+               createdAt: comment.creatAt,
              },
            })
              .then(() => {

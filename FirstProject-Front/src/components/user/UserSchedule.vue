@@ -1,9 +1,11 @@
 <template>
   <div class="container py-7">
-    <h2 class="text-uppercase text-letter-spacing-xs my-0 text-primary font-weight-bold">
-      내 스케줄 확인
-    </h2>
-    <p class="text-sm text-dark mt-0 mb-5">맞춤형 스케줄을 확인하세요!</p>
+    <div>
+      <h2 class="head">
+        내 스케줄 확인
+      </h2>
+      <p class="desc">맞춤형 스케줄을 확인하세요!</p>
+    </div>
     <div class="row" v-show="schedule.length > 0">
       <div v-for="(day, index) in schedule" :key="index" class="col-lg-4 mb-3" :id="day.id">
         <h4 class="mt-0 mb-3 text-dark op-8 font-weight-bold">
@@ -21,7 +23,7 @@
       </div>
     </div>
     <div v-show="schedule.length === 0">
-      <h1 style="text-align: center; color: #555; margin-top: 20px; font-size: 1.5em;">
+      <h1 style="text-align: center; color: #555; margin-top: 200px; font-size: 2em;">
         입력된 스케줄이 없습니다 😔
       </h1>
     </div>
@@ -63,6 +65,12 @@ onMounted(() => {
 body {
   background-color: #eee;
   margin-top: 20px;
+}
+
+.head, .desc {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .list-timeline {

@@ -3,11 +3,11 @@
     <br>
     <h2>Log in</h2>
     <br>
-    <div class="withssafyfont">Use your email or other service to continue with SSAFIT</div>
+    <div class="withssafyfont">Use your Id or other service to continue with SSAFIT</div>
     <br>
     <fieldset class="text-center">
       <span>
-        <label for="id" class="textfont">Your email</label>
+        <label for="id" class="textfont">Your Id</label>
       </span>
       <div>
         <input v-model="id" type="text" id="id" required />
@@ -48,9 +48,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useUserStore } from "../stores/user";
-import axios from "axios";
 
 const store = useUserStore();
 
@@ -64,22 +63,6 @@ const login = async () => {
   };
   store.loginUser(user);
 };
-onMounted(() => {
-  const accessToken = "3c3eb64bc763f25ee53eebbc7fd59ae3";
-
-axios.get('https://kapi.kakao.com/v2/user/me', {
-  headers: {
-    Authorization: `Bearer ${accessToken}`,
-  },
-})
-.then(response => {
-  console.log(response.data);
-})
-.catch(error => {
-  console.error(error.response.data);
-});
-
-})
 
 
 const kakaoLogin = () => {
@@ -96,7 +79,7 @@ const getKakaoAccount = () => {
       const kakao_account = res.kakao_account;
       const email = kakao_account.email;
       console.log("email", email);
-      store.kakaoLogin(kakao_account);
+      alert("로그인 성공!");
     },
     fail: (error) => {
       console.log(error);

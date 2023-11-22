@@ -1,7 +1,7 @@
 <template>
   <main class="content">
-    <div class="main bg-light p-4">
-      <h4 class="mb-3" style="padding-left: 30px">내 개인 정보</h4>
+    <div class="main bg-light p-4"> <br>
+      <h3 class="mb-3" style="padding-left: 40px"><strong>내 개인 정보</strong></h3>
 
       <div class="row">
         <div class="col-12 col-xl-8">
@@ -94,13 +94,14 @@
               <div class="row">
                 <div class="col-sm-12 mb-12">
                   <div class="form-group">
-                    <label for="userTargetWeight" style="width: 200%; margin-top: 10px"
-                      >트레이너에게 하고 싶은 말 :
+                    <label for="userTargetWeight">
+                      트레이너에게 하고 싶은 말 :
                     </label>
                     <textarea
                       class="form-control"
                       id="userExtra"
                       v-model="userExtra"
+                      rows="5"
                     ></textarea>
                   </div>
                 </div>
@@ -252,4 +253,9 @@ const modifyDetail = () => {
     });
 };
 </script>
-<style></style>
+<style>
+label {
+  margin : 10px;
+  width: max-content;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <main class="content">
-    <div class="main bg-light p-4">
-      <h4 class="mb-3" style="padding-left: 30px">내 계정 정보</h4>
+    <div class="main bg-light p-4"> <br>
+      <h3 class="mb-3" style="padding-left: 40px"><strong>계정 정보 관리</strong></h3>
 
       <div class="row">
         <div class="col-12 col-md-8 order-md-1">
@@ -197,4 +197,8 @@ const deleteUser = function () {
   }
 };
 </script>
-<style></style>
+<style scoped>
+button {
+  width: max-content;
+}
+</style>

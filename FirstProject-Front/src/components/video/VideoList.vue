@@ -1,19 +1,19 @@
 <template>
   <div class="video-list-page">
     <div>
-      <div class="row">
+      <div class="row" >
         <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in computedVideos" :key="video.videoId">
 
           <div class="card-body">
             <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="..." style="padding: 5px;">
-            <p style="font-size: 20px;">
+            <p style="font-size: 17px;">
               <router-link :to="`/video/${video.videoId}`">{{ video.videoTitle }}</router-link>
             </p>
             <!-- <h5 class="card-title">{{ video.videoTitle }}</h5> -->
             <p class="card-text text-truncate">{{ video.videoChannelName }}</p>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">{{ video.videoPart }}</li>
-              <li class="list-group-item">조회수 : {{ video.videoViewCnt }}</li>
+              <li class="list-group-item">조회수 {{ video.videoViewCnt }}</li>
               <li class="list-group-item">{{ video.videoCreatedAt }}</li>
             </ul>
           </div>
@@ -201,7 +201,8 @@ th {
   background-color: #f2f2f2;
 }
 
-.list-group-item {
-  
+a {
+  color:black;
 }
+
 </style>

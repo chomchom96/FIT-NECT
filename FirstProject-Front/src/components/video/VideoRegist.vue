@@ -1,20 +1,29 @@
 <template>
-  <div>
-    <h2>영상 등록</h2>
-    <form @submit.prevent="registVideo">
+  <div class="container my-5">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">영상 등록</h2>
 
-      <label for="part">부위 </label>
-      <select v-model="part" id="part" required>
-        <option v-for="partOption in partOptions" :key="partOption" :value="partOption">
-          {{ partOption }}
-        </option>
-      </select>
+        <form @submit.prevent="registVideo">
 
-      <label>URL </label>
-      <input v-model="url" type="url" id="url" required>
+          <div class="mb-3">
+            <label for="part" class="form-label">부위</label>
+            <select v-model="part" id="part" class="form-select" required>
+              <option v-for="partOption in partOptions" :key="partOption" :value="partOption">
+                {{ partOption }}
+              </option>
+            </select>
+          </div>
 
-      <button type="submit">등록</button>
-    </form>
+          <div class="mb-3">
+            <label for="url" class="form-label">URL</label>
+            <input v-model="url" type="url" id="url" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">등록</button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 

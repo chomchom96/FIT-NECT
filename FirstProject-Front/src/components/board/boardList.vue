@@ -1,20 +1,20 @@
 <template>
   <div class="container">
-    <br>
-    <h2>게시판</h2>
+    <br><br>
+    <h2>질문 게시판</h2>
     <div style="text-align: right; padding-left: 5px; padding-right: 100px;">
       <RouterLink to="/board/write">
-        <button class="btn"> 글쓰기 </button>
+        <button class="btn btn-secondary"> 글쓰기 </button>
       </RouterLink>
     </div>
     <table class="board-list">
 
       <colgroup>
+        <col style="width: 2%" />
+        <col style="width: 16%" />
         <col style="width: 3%" />
         <col style="width: 10%" />
-        <col style="width: 5%" />
-        <col style="width: 5%" />
-        <col style="width: 5%" />
+        <col style="width: 2%" />
       </colgroup>
 
       <thead>
@@ -23,7 +23,6 @@
           <th>
             제목
           </th>
-          <!-- <th>글내용</th> -->
           <th>글쓴이</th>
           <th>작성일</th>
           <th>조회수</th>
@@ -44,43 +43,45 @@
 
     <br>
     <div class="search-container">
-      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">        <div class="col-2" style="display: inline-block;">
-          <select v-model="searchKey" class="form-select">
-            <option value="boardTitle">제목</option>
-            <option value="boardContent">내용</option>
-            <option value="userId">글쓴이</option>
-            <option value="boardId">글번호</option>
-          </select>
+      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">
+        <div class="col-1" style="display: inline-block;">
+            <select v-model="searchKey" class="form-select">
+              <option value="boardTitle">제목</option>
+              <option value="boardContent">내용</option>
+              <option value="userId">글쓴이</option>
+              <option value="boardId">글번호</option>
+            </select>
         </div>
-        <div class="col-2" style="display: inline-block;">
+        <div class="col-6" >
           <input v-model="searchWord" name="word" class="form-control">
         </div>
 
-        <div class="col-5" style="display: inline-block;">
-          <button type="button" class="btn" @click="submitSearchForm">검색</button>
+        <div class="col-1" >
+          <button type="button" class="btn btn-secondary" @click="submitSearchForm">검색</button>
         </div>
 
       </form>
 
       <br>
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li class="page-item" :class="{ disabled: currentPage === 1 }">
-            <a class="page-link" @click="changePage(currentPage - 1)" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li v-for="page in pages" :key="page" class="page-item" :class="{ active: page === currentPage }">
-            <a class="page-link" @click="changePage(page)">{{ page }}</a>
-          </li>
-          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-            <a class="page-link" @click="changePage(currentPage + 1)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
     </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" @click="changePage(currentPage - 1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li v-for="page in pages" :key="page" class="page-item" :class="{ active: page === currentPage }">
+          <a class="page-link" @click="changePage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" @click="changePage(currentPage + 1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -96,7 +97,6 @@ const store = useBoardStore()
 const itemsPerPage = 10;
 const currentPage = ref(1);
 const totalPages = computed(() => Math.ceil(store.board.length / itemsPerPage));
-const pages = ref([]);
 
 const computedBoard = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
@@ -104,6 +104,14 @@ const computedBoard = computed(() => {
   const boards = store.board.slice(startIndex, endIndex)
   return boards;
 })
+
+const pages = computed(()=>{
+  const startPage = Math.max(1, currentPage.value - 2);
+  const totalPages =  Math.ceil(store.board.length / itemsPerPage);
+  const endPage = Math.min(totalPages, startPage + 4);
+  return  Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+})
+
 
 onMounted(() => {
   store.getBoardList();
@@ -175,10 +183,14 @@ const handleRowClick = (boardId) => {
   background-color: rgb(249, 247, 247);
 }
 
+button {
+  width: max-content;
+}
 
 .board-list th,
 .board-list td {
   padding: 10px;
+  background-color: white;
   text-align: center;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid white;
@@ -210,29 +222,69 @@ const handleRowClick = (boardId) => {
 .board-list td.left {
   text-align: left;
   padding-left: 20px;
-  /* 추가한 여백 */
 }
 
-.row {
-  text-align: center;
-}
 
-/* .search-container {
+.search-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-} */
-
-
+  align-items: stretch;
+}
 
 .btn {
-  padding: 10px;
-  background-color: #333;
-  /* 무채색 배경 */
+  background-color: #424242;
   color: #fff;
-  /* 흰색 텍스트 */
   border: none;
   cursor: pointer;
   margin-right: 10px;
 }
-</style>
+
+nav {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.pagination {
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.page-item {
+  display: inline-block;
+  margin: 5px;
+}
+
+.page-link {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.page-link:hover {
+  background-color: #eee;
+}
+
+.page-item.active .page-link {
+  color: #000;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+}
+
+.page-item.disabled .page-link {
+  pointer-events: none;
+}
+
+
+
+.form-control {
+  width: 60%;
+}
+
+.btn-search {
+  margin-top: -5px;
+}</style>

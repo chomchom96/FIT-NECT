@@ -1,52 +1,66 @@
 <template>
-    <div class="main bg-light p-4" style="text-align: right; padding-left: 5px; padding-right: 100px;">
-        <table class="board-list">
-            <colgroup>
-                <col style="width: 5%" />
-                <col style="width: 15%" />
-            </colgroup>
+    <div class="card-container">
+        <div class="card">
+            <div class="main bg-light p-4" style="text-align: right; padding-left: 5px; padding-right: 100px;">
+                <div class="col-6" v-if="store.follower.length > 0">
+                    <table class="board-list">
+                        <colgroup>
+                            <col style="width: 5%" />
+                            <col style="width: 15%" />
+                        </colgroup>
 
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>팔로워</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="board-row" v-for="(followerId, index) in store.follower" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td @click = "showScheudulePage(followerId)">{{ followerId }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <hr class="#f2f2f2"><br>
-        <table class="board-list" v-show="store.following.length > 0">
-            <colgroup>
-                <col style="width: 5%" />
-                <col style="width: 15%" />
-                <col style="width: 5%" />
-            </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>팔로워</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="board-row" v-for="(followerId, index) in store.follower" :key="index">
+                                <td>{{ index + 1 }}</td>
+                                <td @click="showScheudulePage(followerId)">{{ followerId }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-else>
+                    <h1 style="text-align: center; color: #555; margin-top: 20px; font-size: 1.5em;">
+                        아직 유저를 팔로우하지 않았습니다 😔
+                    </h1>
+                </div>
 
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>팔로잉</th>
-                    <th>언팔로우</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="board-row" v-for="(followId, index) in store.following" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td @click = "showScheudulePage(followId)">{{ followId }}</td>
-                    <td><button @click="unFollow(followId)"><i class="bi bi-heartbreak"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div v-show="store.following.length === 0">
-            <h1 style="text-align: center; color: #555; margin-top: 20px; font-size: 1.5em;">
-                아직 유저를 팔로잉하지 않았습니다 😔
-            </h1>
+                <br>
+                <hr class="#f2f2f2"><br>
+                <div class="col-6">
+                    <table class="board-list" v-show="store.following.length > 0">
+                        <colgroup>
+                            <col style="width: 5%" />
+                            <col style="width: 15%" />
+                            <col style="width: 5%" />
+                        </colgroup>
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>팔로잉</th>
+                                <th>언팔로우</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="board-row" v-for="(followId, index) in store.following" :key="index">
+                                <td>{{ index + 1 }}</td>
+                                <td @click="showScheudulePage(followId)">{{ followId }}</td>
+                                <td><button @click="unFollow(followId)"><i class="bi bi-heartbreak"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-show="store.following.length === 0">
+                    <h1 style="text-align: center; color: #555; margin-top: 20px; font-size: 1.5em;">
+                        아직 유저를 팔로잉하지 않았습니다 😔
+                    </h1>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -90,38 +104,67 @@ const unFollow = (followId) => { // 내가 팔로우한 상대를 해제할 수 
 
 
 <style scoped>
-.board-list {
-    /* background-color: antiquewhite; */
-    width: 85%;
-    border-collapse: collapse;
-    margin-top: 5px;
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Adjust the height as needed */
+}
+
+.card {
+    width: 80%;
+    /* Adjust the width as needed */
+    border: 1px solid #ddd;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-
-.board-list tr:hover td {
-    background-color: rgb(255, 242, 242);
+.col-6 {
+    margin-left: 25%;
 }
 
-.board-list tbody {
-    background-color: white;
+table {
+    align-self: center;
+}
+.board-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.board-list td button:hover {
+    color: red;
+}
+.board-list tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+.board-list tr:hover {
+    background-color: #f1f1f1; 
 }
 
 .board-list th,
 .board-list td {
-    padding: 10px;
+    padding: 12px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
 }
 
 .board-list th {
-    background-color: #f7e6e6;
+    background-color: #f2f2f2;
 }
 
 .board-list td.left {
     text-align: left;
     padding-left: 20px;
+}
+
+/* Icons for actions */
+.board-list td button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
 </style>
