@@ -72,6 +72,8 @@
 
               <RouterLink to="/mydetail">개인정보관리</RouterLink>
 
+              <RouterLink to="/users/follow">팔로우 관리</RouterLink>
+
               <RouterLink to="/users/schedule">내 스케줄</RouterLink>
 
               <RouterLink to="/" @click="logout">로그아웃</RouterLink>

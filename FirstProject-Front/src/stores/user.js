@@ -138,7 +138,34 @@ export const useUserStore = defineStore('user', ()=>{
     alert("로그아웃 하셨습니다");
     router.push("/");
   };
-  
+
+  const follower = ref([]);
+  const following = ref([]);
+
+  const getFollower = () => {
+    axios({
+      url: `http://localhost:8080/api/follower/${idValue.value}` ,
+      method: "GET",
+    })
+    .then((res) => {
+      follower.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+  const getFollowing = () => {
+    axios({
+      url: `http://localhost:8080/api/following/${idValue.value}` ,
+      method: "GET",
+    })
+    .then((res) => {
+      following.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   onMounted(() => {
     getUserList(); 
@@ -149,6 +176,7 @@ export const useUserStore = defineStore('user', ()=>{
     getUserList, signup, onMounted, 
     loginUser, logout, getUser, 
     getUserDetail, user, updateUser, deleteUser, 
-    userEmail, checkAuthentication}
+    userEmail, checkAuthentication,
+  getFollower, getFollowing, follower, following}
 
 })

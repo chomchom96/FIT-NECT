@@ -31,15 +31,9 @@
       </thead>
       <tbody>
         <tr class="board-row" v-for="(board, index) in computedBoard" :key="index" @click="handleRowClick(board.boardId)">
-          <!-- <td>{{ index + 1 }}</td> -->
           <td>
             {{ board.boardId }}
           </td>
-          <!-- <td class="left">
-              <RouterLink class="board-link" :to="`/board/${board.boardId}`">{{     
-                board.boardTitle
-              }}</RouterLink>
-            </td>  -->
           <td class="left">{{ board.boardTitle }}</td>
           <td>{{ board.userId }}</td>
           <td>{{ board.boardCreatedAt }}</td>
@@ -51,7 +45,6 @@
     <br>
     <div class="search-container">
       <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">        <div class="col-2" style="display: inline-block;">
-          <!-- <label>검색 기준 :</label> -->
           <select v-model="searchKey" class="form-select">
             <option value="boardTitle">제목</option>
             <option value="boardContent">내용</option>
@@ -60,30 +53,8 @@
           </select>
         </div>
         <div class="col-2" style="display: inline-block;">
-          <!-- <label>검색 내용 :</label> -->
           <input v-model="searchWord" name="word" class="form-control">
         </div>
-
-        <!-- 정렬기능이 꼭 필요한가? 의문이라 일단 주석처리
-          <div class="col-2">
-					<label>정렬 기준 :</label>
-					<select v-model="searchOrderBy" class="form-select">
-						<option value="userId">글쓴이</option>
-						<option value="boardTitle">제목</option>
-						<option value="boardViewCnt">조회수</option>
-					</select>
-				</div>
-				<div class="col-2">
-					<label>정렬 방향 :</label>
-					<select v-model="searchOrderByDir" class="form-select">
-						<option value="asc">오름차순</option>
-						<option value="desc">내림차순</option>
-					</select>
-				</div> -->
-
-        <!-- <div class="col-6" style="display: inline-block;">
-					<input type="submit" value="검색" >
-				</div> -->
 
         <div class="col-5" style="display: inline-block;">
           <button type="button" class="btn" @click="submitSearchForm">검색</button>

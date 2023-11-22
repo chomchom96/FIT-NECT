@@ -11,6 +11,8 @@ import UserDetail from "@/components/user/UserDetail.vue";
 import UserInfo from "@/components/user/UserInfo.vue";
 import UserInfoDetail from "@/components/user/UserInfoDetail.vue";
 import UserSchedule from "@/components/user/UserSchedule.vue"
+import UserManageFollow from "@/components/user/UserManageFollow.vue"
+import ShowFollowUserSchedule from "@/components/user/ShowFollowUserSchedule.vue"
 
 import Video from "../views/VideoView.vue"
 import VideoList from "@/components/video/VideoList.vue"
@@ -56,11 +58,7 @@ const routes = [
     name: "Login",
     component: LoginForm,
   },
-  {
-    path: "/comment",
-    name: "Comment",
-    component: Comment,
-  },
+
   {
     path: "/service",
     component: Service,
@@ -100,6 +98,17 @@ const routes = [
         path: "schedule",
         name: "UserSchedule",
         component : UserSchedule,
+      },
+      {
+        path: "follow",
+        name: "UserManageFollow",
+        component : UserManageFollow,
+      },
+      {
+        path: "follow/:id",  // Use a dynamic segment ":id" to capture the user ID
+        name: "ShowFollowUserSchedule",
+        component: ShowFollowUserSchedule,
+        props: true,  // Allow the route to receive the ID as a prop
       }
     ],
   },

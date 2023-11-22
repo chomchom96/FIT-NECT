@@ -117,7 +117,7 @@ public class UserRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("follow/{followId}")
+	@PostMapping("follow/{followId}")
 	@ApiOperation(value="session의 id + followId로 팔로우")
 	public ResponseEntity<Void> follow(String id, @PathVariable String followId)  {
 		UserFollow userFollow = new UserFollow();
@@ -127,17 +127,17 @@ public class UserRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("following")
+	@GetMapping("following/{id}")
 	@ApiOperation(value="session의 id로 팔로잉 목록 가져오기")
-	public ResponseEntity<?> following(String id) {
+	public ResponseEntity<?> following(@PathVariable String id) {
 		List<String> followingList = userService.getFollowing(id);
 		if (followingList != null) return new ResponseEntity<List<String>>(followingList, HttpStatus.OK);
 		else return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
 	
-	@GetMapping("follower")
+	@GetMapping("follower/{id}")
 	@ApiOperation(value="session의 id로 팔로워 목록 가져오기")
-	public ResponseEntity<?> follower(String id) {
+	public ResponseEntity<?> follower(@PathVariable String id) {
 		List<String> followerList = userService.getFollower(id);
 		if (followerList != null) 
 			return new ResponseEntity<List<String>>(followerList, HttpStatus.OK);
@@ -146,7 +146,8 @@ public class UserRestController {
 	
 	@DeleteMapping("follow/{followId}")
 	@ApiOperation(value="id + followId로 언팔로우")
-	public ResponseEntity<Void> unfollow(String id, @PathVariable String followId)  {
+	public ResponseEntity<Void> unfollow(@RequestBody String id, @PathVariable String followId)  {
+		System.out.println(id + " " + followId );
 		UserFollow userFollow = new UserFollow();
 		userFollow.setUserId(id);
 		userFollow.setFollowId(followId);
