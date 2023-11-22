@@ -13,6 +13,7 @@ import UserInfoDetail from "@/components/user/UserInfoDetail.vue";
 import UserSchedule from "@/components/user/UserSchedule.vue"
 import UserManageFollow from "@/components/user/UserManageFollow.vue"
 import ShowFollowUserSchedule from "@/components/user/ShowFollowUserSchedule.vue"
+import UserFollow from "@/components/user/UserFollow.vue"
 
 import Video from "../views/VideoView.vue"
 import VideoList from "@/components/video/VideoList.vue"
@@ -25,7 +26,6 @@ import BoardModify from "@/components/board/BoardModify.vue";
 import BoardWrite from "@/components/board/BoardWrite.vue";
 import BoardDetail from "@/components/board/BoardDetail.vue";
 
-import ServiceForm from "@/components/service/ServiceForm.vue"
 import Service from "@/views/ServiceView.vue"
 import ChooseTrainer from "@/components/service/ChooseTrainer.vue"
 import Trainer from "../views/TrainerView.vue"
@@ -58,16 +58,15 @@ const routes = [
     name: "Login",
     component: LoginForm,
   },
-
+  {
+    path: "/userfollow",
+    name: "UserFollow",
+    component: UserFollow,
+  },
   {
     path: "/service",
     component: Service,
     children: [
-      {
-        path: "form",
-        name: "ServiceForm",
-        component: ServiceForm,
-      },
       {
         path: "trainers",
         name: "ChooseTrainer",

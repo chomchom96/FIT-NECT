@@ -1,6 +1,12 @@
 <template>
-  <div class="background">
-  </div>
+  <head>
+
+  </head>
+  <body>
+    <div>
+    </div>
+  </body>
+  <router-view></router-view>
 </template>
 
 <script setup>
@@ -8,5 +14,6 @@
 </script>
 
 <style>
+
 
 </style>

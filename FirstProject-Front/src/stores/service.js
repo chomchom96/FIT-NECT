@@ -32,6 +32,9 @@ export const useServiceStore = defineStore('service', () => {
       trainerDetailList.value = res.data;
     })
     .catch((err) => {
+      if (err.response.status === 400) {
+        alert("등록된 트레이너가 없습니다")
+      }
       console.log(err)
     })
   }
@@ -48,6 +51,9 @@ export const useServiceStore = defineStore('service', () => {
       router.push('/')
     })
     .catch((e) => {
+      if (e.response.status === 400) {
+        alert("이미 매칭을 신청하셨습니다!")
+      }
       console.log(e)
     })
   }

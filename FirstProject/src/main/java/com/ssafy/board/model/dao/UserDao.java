@@ -36,5 +36,9 @@ public interface UserDao {
 
 	//id로 가져오기
 	User selectUser(String userId);
+
+	List<User> search(String query);
+
+	boolean isFollowing(String userId, String followId);
 	
 }

@@ -81,5 +81,16 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	
+
+	@Override
+	public List<User> search(String query) {
+		return userDao.search(query);
+	}
+
+
+	@Override
+	public boolean isFollowing(String userId, String followId) {
+		return userDao.isFollowing(userId, followId);
+	}
+
 }

@@ -2,7 +2,7 @@
   <header>
     <nav class="header-nav">
       <div>
-        <RouterLink to="/" class="logo">SSAFIT</RouterLink>
+        <RouterLink to="/" class="logo">FIT-NECT</RouterLink>
       </div>
 
       <div class="dropdown">
@@ -19,7 +19,7 @@
         <RouterLink to="/service/"> SERVICE </RouterLink>
 
         <div class="dropdown-content">
-          <RouterLink :to="{ name: 'ServiceForm' }"> START SERVICE </RouterLink>
+          <RouterLink :to="{ name: 'ChooseTrainer' }"> START SERVICE </RouterLink>
 
           <RouterLink to="/trainers/show"> OUR TRIAINERS </RouterLink>
         </div>
@@ -31,7 +31,7 @@
         <div class="dropdown-content">
           <RouterLink to="/board">자유게시판</RouterLink>
 
-          <a href="#">HOW TO FI-NECT</a>
+          <RouterLink to="/userfollow">사용자 검색</RouterLink>
         </div>
       </div>
 
@@ -40,7 +40,7 @@
       </div>
 
       <div class="dropdown" v-if="!userStore.getUser">
-        <a>TRAINER</a>
+        <a style="color: white">TRAINER</a>
 
         <div class="dropdown-content">
           <div v-if="!trainerStore.getTrainer & userStore.idValue != 'admin'">
@@ -49,18 +49,15 @@
 
           <div v-else>
             <RouterLink to="/trainers/list">LIST</RouterLink>
-            <RouterLink v-if="trainerStore.getTrainer" to="/trainers/manage"
-              >회원 관리</RouterLink
-            >
-            <RouterLink
-              v-if="trainerStore.getTrainer"
-              to="/"
-              @click="trainerStore.trainerLogout"
-              >로그아웃</RouterLink
-            >
+            <RouterLink v-if="trainerStore.getTrainer" to="/trainers/manage">회원 관리</RouterLink>
+            <RouterLink v-if="trainerStore.getTrainer" to="/" @click="trainerStore.trainerLogout">로그아웃</RouterLink>
           </div>
         </div>
       </div>
+      <div>
+        <RouterLink to="/video">VIDEO</RouterLink>
+      </div>
+
 
       <div>
         <a href="#" v-if="userStore.getUser">
@@ -85,7 +82,6 @@
           <RouterLink to="/login">LOGIN</RouterLink>
           <RouterLink :to="{ name: 'UserSignup' }">SIGN UP</RouterLink>
         </div>
-        <RouterLink to="/video">VIDEO</RouterLink>
         <RouterLink v-show="userStore.idValue == 'admin'" to="/users">USER</RouterLink>
       </div>
     </nav>
@@ -119,22 +115,28 @@ const logout = () => {
   display: none;
   position: absolute;
   z-index: 1;
+  width: max-content;
   /*다른 요소들보다 앞에 배치*/
 }
 
 .dropdown-content a {
   display: block;
   color: black;
-  text-align: center;
+  text-align: lefts;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
+.dropdown:hover .dropdown-content a:hover {
+  display: flex;
+  color: rgb(145, 52, 52);
+}
+
 header {
   height: 70px;
-  background-color: rgb(166, 173, 224);
+  background-color: rgb(0, 0, 0);
   line-height: 70px;
   padding: 0px 30px;
 }
@@ -143,6 +145,7 @@ header a {
   margin: 10px;
   text-decoration: none;
   color: white;
+  font-size: 20px;
 }
 
 .header-nav {

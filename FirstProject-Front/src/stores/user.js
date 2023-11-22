@@ -35,6 +35,7 @@ export const useUserStore = defineStore('user', ()=>{
       userEmail.value = res.data.userEmail;
     })
     .catch((err) => {
+      
       console.log(err);
     });
   };
@@ -103,6 +104,41 @@ export const useUserStore = defineStore('user', ()=>{
       getUser.value = true;
     }
   };
+
+  const kakaoLogin = (kakao_account) => {
+    const account = kakao_account.email;
+    axios.post({
+      url: 'http://localhost:8080/api/login',
+      method: "POST",
+      data: {
+        userId: account,
+      }
+    })
+    .then(() => {
+      idValue.value = account;
+      getUser.value = true;
+      alert("카카오로 로그인 했습니다")
+    })
+    .catch(() => {
+      axios({
+        url: 'http://localhost:8080/api/users/signup',
+        method: "POST",
+        data: {
+          userId: account,
+          kakao : true,
+        },
+      })
+        .then(() => {
+          alert("카카오계정 가입 성공!");
+          getUserList();
+          router.push("/users");
+        })
+        .catch((err) => {
+          alert("중복된 아이디입니다")
+          console.log(err);
+        });
+    })
+  }
 
   const loginUser = (user) => {
     axios({
@@ -174,7 +210,7 @@ export const useUserStore = defineStore('user', ()=>{
 
   return { router, idValue, userList, 
     getUserList, signup, onMounted, 
-    loginUser, logout, getUser, 
+    loginUser, logout, getUser, kakaoLogin,
     getUserDetail, user, updateUser, deleteUser, 
     userEmail, checkAuthentication,
   getFollower, getFollowing, follower, following}

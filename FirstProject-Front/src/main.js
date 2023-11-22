@@ -19,4 +19,3 @@ app.mount('#app')
 
 // kakao 로그인
 window.Kakao.init("46e60c693adfb731063ad4f459c80b2f");
-

@@ -1,6 +1,6 @@
 <template>
   <div class="video-management-page">
-    <h1>영상 관리 페이지</h1>
+    <br><h1>VIDEO LIST</h1>
     <router-view/>
   </div>
 </template>
@@ -20,7 +20,8 @@ h1 {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 30px;
-  
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 </style>

@@ -49,6 +49,22 @@ public class UserRestController {
 		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping("users/search/{query}")
+	@ApiOperation(value="사용자 id로 검색")
+	public ResponseEntity<?> search(@PathVariable String query) {
+		List<User> list = userService.search(query);
+		if(list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("users/{userId}/{followId}")
+	@ApiOperation(value="팔로잉 확인")
+	public ResponseEntity<Boolean> isFollowing(@PathVariable String userId, @PathVariable String followId) {
+		if (userService.isFollowing(userId, followId)) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		else return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+	}
+	
 	@PostMapping("users/signup")
 	@ApiOperation(value="회원가입")
 	public ResponseEntity<User> signup(@RequestBody User user) {

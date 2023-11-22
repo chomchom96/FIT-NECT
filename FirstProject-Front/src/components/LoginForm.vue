@@ -48,8 +48,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "../stores/user";
+import axios from "axios";
 
 const store = useUserStore();
 
@@ -63,6 +64,22 @@ const login = async () => {
   };
   store.loginUser(user);
 };
+onMounted(() => {
+  const accessToken = "3c3eb64bc763f25ee53eebbc7fd59ae3";
+
+axios.get('https://kapi.kakao.com/v2/user/me', {
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+})
+.then(response => {
+  console.log(response.data);
+})
+.catch(error => {
+  console.error(error.response.data);
+});
+
+})
 
 
 const kakaoLogin = () => {
@@ -79,7 +96,7 @@ const getKakaoAccount = () => {
       const kakao_account = res.kakao_account;
       const email = kakao_account.email;
       console.log("email", email);
-      alert("로그인 성공!");
+      store.kakaoLogin(kakao_account);
     },
     fail: (error) => {
       console.log(error);

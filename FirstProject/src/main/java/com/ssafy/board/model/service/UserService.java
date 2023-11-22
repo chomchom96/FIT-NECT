@@ -26,5 +26,9 @@ public interface UserService {
 	void follow(UserFollow userFollow);
 	
 	void unfollow(UserFollow userFollow);
+
+	List<User> search(String query);
+
+	boolean isFollowing(String userId, String followId);
 	
 }
