@@ -294,7 +294,7 @@ nav {
 }
 
 .card-body {
-  border :1px solid lightgray;
+  /* border :1px solid lightgray; */
   background-color: white;
 }
 </style>

@@ -98,7 +98,7 @@
                     </div>
                   </span>
                   <span style="text-align: right; padding-right: 5px;">
-                    <span> ⭐🤢⭐⭐⭐ </span>
+                    <span> ⭐⭐⭐⭐⭐ </span>
                   </span>
                 </th>
               </tr>
@@ -175,7 +175,7 @@
             </span>
 
             <span style="text-align: right; padding-right: 5px;">
-              <span> 🤢🤢🤢🤢🤢 </span>
+              <span> ⭐⭐⭐⭐⭐ </span>
             </span>
           </th>
         </tr>

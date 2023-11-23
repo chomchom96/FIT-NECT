@@ -1,19 +1,20 @@
 <template>
   <div class="container text" style="font-size: 40px; text-align: center; margin-top: 110px"><span>FIT-NECT와 함께 새로운 삶을 시작하세요</span></div>
     <br>
-    <section>
+    <section class="text1">
+      <span>
       <h1>FIT-NECT</h1>
-      <p>언제 어디서든 편리한 비대면 개인 트레이닝 서비스</p>
+      <p>언제 어디서든 편리한 비대면 개인 트레이닝 서비스</p></span>
     </section>
 
-    <section>
-      <h2>우리의 서비스</h2>
-      <p>
-        FITNECT는 트레이너와의 실시간 온라인 세션을 통해 전문적인 퍼스널
-        트레이닝을 받을 수 있는 서비스입니다. 건강하고 활기찬 삶을 위한 시작!
-      </p>
+    <section class="text2">
+      <span style="font-size: 40px;"><h2>우리의 서비스</h2></span>
+        <div style="font-size: 20px;">FITNECT는 트레이너와의 실시간 온라인 세션을 통해</div>
+        <div style="font-size: 20px;">전문적인 퍼스널
+        트레이닝을 받을 수 있는 서비스입니다. </div>
+        <div style="font-size: 20px;">건강하고 활기찬 삶을 위한 시작!</div>
     </section> 
-    <section>
+    <section class="text3">
         <router-link to="/service/trainers">
                 <button class="btn">START WITH FIT-NECT</button>
         </router-link>
@@ -55,7 +56,14 @@
 
 
 .text span:nth-child(1) {animation: txt_blur 0.8s forwards alternate ease-in;}
+.text1 span:nth-child(1) {animation: txt_blur 1.2s forwards alternate ease-in;}
+.text2 span:nth-child(1) {animation: txt_blur 1.6s forwards alternate ease-in;}
+.text2 div:nth-child(2) {animation: txt_blur 1.6s forwards alternate ease-in;}
+.text2 div:nth-child(3) {animation: txt_blur 1.6s forwards alternate ease-in;}
+.text2 div:nth-child(4) {animation: txt_blur 1.6s forwards alternate ease-in;}
+.text3 span:nth-child(1) {animation: txt_blur 2s forwards alternate ease-in;}
 
+.text3 button:nth-child(1) {animation: txt_blur 2.3s forwards alternate ease-in;}
 
 @keyframes txt_blur {
   0%, 50% {

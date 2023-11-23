@@ -177,7 +177,7 @@ onMounted(() => {
       if (response.status === 404) {
         ifExistsDetail.value = false;
       } else if (response.status === 200) {
-        userGender.value = response.data.userGender? 0:1;
+        userGender.value = response.data.userGender === true? 0:1;
         userProfilePic.value = response.data.userProfilePic;
         userAge.value = response.data.userAge;
         userHeight.value = response.data.userHeight;
@@ -236,7 +236,7 @@ const modifyDetail = () => {
     method: "PUT",
     data: {
     userId : store.idValue,
-    userGender: userGender.value === 0? true: false,
+    userGender: (userGender.value == 0? true: false),
     userProfilePic: userProfilePic.value,
     userAge: userAge.value,
     userHeight: userHeight.value,
@@ -253,6 +253,8 @@ const modifyDetail = () => {
       console.log(err);
     });
 };
+
+
 </script>
 <style scoped>
 label {

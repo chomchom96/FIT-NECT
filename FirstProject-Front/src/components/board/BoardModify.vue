@@ -38,7 +38,7 @@
         <tbody>
         <tr>
             <!-- <td>{{ index + 1 }}</td> -->
-            <td style="display: flex; justify-content: space-between; align-items: center;">
+            <td style="display: flex; justify-content: space-between; align-items: center; background-color: #eee;">
               <span style="text-align: left; padding-left: 5px;">
                   {{ board.userId }} 
               </span>
@@ -138,6 +138,7 @@ text-align: center;
   margin-top: 30px;
   border-top: white;
   border-left: white;
+
 }
 
 .board-list th, .board-list td {
@@ -146,6 +147,7 @@ padding: 10px;
 /* border-bottom: 1px solid #ddd;  */
 border-left: 1px solid white;
 border-right: 1px solid white;
+background-color: white;
 }
 
 .text-center {

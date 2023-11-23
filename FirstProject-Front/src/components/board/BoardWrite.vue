@@ -22,7 +22,7 @@
         <tbody>
         <tr>
             <!-- <td>{{ index + 1 }}</td> -->
-            <td style="display: flex; justify-content: space-between; align-items: center;">
+            <td style="display: flex; justify-content: space-between; align-items: center; background-color: #eee; ">
               <span style="text-align: left; padding-left: 5px;">
                 {{ store.idValue }} 
               </span>
@@ -140,16 +140,21 @@ onMounted(() => {
   width: 85%;
   border-collapse: collapse;
   margin-top: 30px;
-  border-top: white;
-  border-left: white;
+  /* border-top: white;
+  border-left: white; */
+  background-color: white;
 }
+
+/* .board-list tb {
+  background-color: #f2f2f2;
+} */
 
 .board-list th, .board-list td {
 padding: 10px;
 /* text-align: center; 가운데 정렬로 변경 */
 /* border-bottom: 1px solid #ddd;  */
-border-left: 1px solid white;
-border-right: 1px solid white;
+border-left: 1px solid #eee;
+border-right: 1px solid #eee;
 }
 
 .btn {
