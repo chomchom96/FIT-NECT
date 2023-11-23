@@ -208,11 +208,90 @@ export const useUserStore = defineStore('user', ()=>{
     checkAuthentication();
   })
 
+  const bookmarks = ref([]);
+
+  const getBookmarks = () => {
+    axios({
+      url: `http://localhost:8080/api/user/bookmark/${idValue.value}`,
+      method: "GET",
+    })
+    .then((res) => {
+      bookmarks.value = res.data
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  const bookmarkDetails = ref([]);
+
+  const getBookmarkDetail = () => {
+    console.log(bookmarks.value)
+    const arr = ["1", "2", "3"];
+    const queryString = arr.map(id => `bookmark=${id}`).join('&');
+    console.log(`http://localhost:8080/api/user/bookmark/detail?${queryString}`)
+    axios({
+      url: `http://localhost:8080/api/user/bookmark/detail?${queryString}`,
+    })
+    .then((res) => {
+      bookmarkDetails.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  const bookmarkVideo = (videoId) => {
+    console.log(videoId);
+    console.log(idValue.value);
+
+    axios({
+      url: 'http://localhost:8080/api/video/bookmark',
+      method: "POST",
+      data: {
+        userId: idValue.value,
+        videoId: videoId,
+      },
+    })
+    .then(() => {
+      alert("영상을 찜했습니다!")
+      router.push(`/video/${videoId}`)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  const unbookmarkVideo = (videoId) => {
+    console.log(idValue.value);
+    axios({
+      url: 'http://localhost:8080/api/video/bookmark',
+      method: "DELETE",
+      data: {
+        userId: idValue.value,
+        videoId: videoId,
+      },
+    })
+    .then(() => {
+      alert("영상을 찜해제 했습니다!")
+      router.push(`/video/${videoId}`)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  const isBookmark = (videoId) => {
+    if (bookmarks.value.includes(videoId)) return true;
+    return false;
+  }
+
   return { router, idValue, userList, 
     getUserList, signup, onMounted, 
     loginUser, logout, getUser, kakaoLogin,
     getUserDetail, user, updateUser, deleteUser, 
     userEmail, checkAuthentication,
-  getFollower, getFollowing, follower, following}
+  getFollower, getFollowing, follower, following,
+  getBookmarks, bookmarks, bookmarkVideo, unbookmarkVideo, isBookmark, getBookmarkDetail, bookmarkDetails}
 
 })

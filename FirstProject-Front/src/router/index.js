@@ -14,6 +14,7 @@ import UserManageFollow from "@/components/user/UserManageFollow.vue"
 import ShowFollowUserSchedule from "@/components/user/ShowFollowUserSchedule.vue"
 import UserFollow from "@/components/user/UserFollow.vue"
 import ManageUserInfo from "@/components/user/ManageUserInfo.vue"
+import UserBookmarks from "@/components/user/UserBookmarks.vue"
 
 import Video from "../views/VideoView.vue"
 import VideoList from "@/components/video/VideoList.vue"
@@ -106,16 +107,21 @@ const routes = [
         component : UserManageFollow,
       },
       {
-        path: "follow/:id",  // Use a dynamic segment ":id" to capture the user ID
+        path: "follow/:id",  
         name: "ShowFollowUserSchedule",
         component: ShowFollowUserSchedule,
-        props: true,  // Allow the route to receive the ID as a prop
+        props: true, 
       },
       {
-        path: ":id",  // Use a dynamic segment ":id" to capture the user ID
+        path: ":id",  
         name: "ManageUserInfo",
-        component: ManageUserInfo,  // Allow the route to receive the ID as a prop
-      }
+        component: ManageUserInfo, 
+      },
+      {
+        path: "bookmark",
+        name: "UserBookmarks",
+        component: UserBookmarks,
+      },
     ],
   },
   {

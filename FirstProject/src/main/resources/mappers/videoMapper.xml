@@ -120,10 +120,19 @@
     	WHERE (user_id, video_id) = (#{userId}, #{videoId});
     </delete>
     
-    <select id="bookmarkFind" parameterType="String">
+    <select id="findBookmark" parameterType="String">
     	SELECT video_id videoId 
     	FROM bookmarks
     	WHERE user_id = #{userId};
     </select>
+    
+    <select id="findBookmarkDetail" resultMap="videoMap" parameterType="java.util.List">
+    SELECT video_id, video_title, video_part, video_view_cnt, video_channel_name, video_url, DATE_FORMAT(video_created_at, "%y-%m-%d") video_created_at
+    FROM video
+    WHERE video_id IN
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>;
+	</select>
     
 </mapper>

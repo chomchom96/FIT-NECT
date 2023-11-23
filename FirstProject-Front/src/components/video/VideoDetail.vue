@@ -20,7 +20,7 @@
         </thead>
         <tbody>
           <tr>
-            <td class ="example" style="display: flex; justify-content: space-between; align-items: center;">
+            <td class="example" style="display: flex; justify-content: space-between; align-items: center;">
               <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
                 <!-- <b style="min-width: 100px;">{{ store.video.videoPart}}</b> -->
                 <span style="margin-left: 5px;">조회수 {{ store.video.videoViewCnt }}</span>
@@ -31,75 +31,35 @@
             </td>
           </tr>
         </tbody>
+        <div v-show="userStore.isBookmark(route.params.id)">
+          <button @click="userStore.unbookmarkVideo(route.params.id)">💔</button>
+        </div>
+        <div v-show="!userStore.isBookmark(route.params.id)">
+          <button @click="userStore.bookmarkVideo(route.params.id)">❤</button>
+        </div>
         <tfoot>
           <tr>
-            <td class ="example" style="display: flex; justify-content: space-between; align-items: center;">
+            <td class="example" style="display: flex; justify-content: space-between; align-items: center;">
               <div style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
-                <!-- <b style="min-width: 100px;">{{ store.video.videoPart}}</b> -->
-                <!-- <span style="margin-left: 5px;">{{ store.video.videoPart }}</span> -->
               </div>
               <div class="youtube-video">
                 <iframe :src="getYouTubeEmbedUrl(store.video.videoUrl)" width="560" height="315" frameborder="0"
                   allowfullscreen></iframe>
               </div>
-              <!-- <span style="text-align: right; padding-right: 5px;">
-              <span> {{ store.video.videoCreatedAt }} </span>
-            </span> -->
+
             </td>
           </tr>
         </tfoot>
-        
+
       </table>
-      <!--비디오 게시글 수정/삭제 기능-->
-  
     </li>
 
   </div>
-<div>
+  <div>
     <button class="btn" v-if="userStore.idValue == 'admin'" @click="updateVideo">수정</button>
     <button class="btn" v-if="userStore.idValue == 'admin'" @click="deleteVideo">삭제</button>
   </div>
 
-  <!-- <div class="container mt-4 "> -->
-  <!-- <div class="card"> -->
-  <!-- <div class="card-header">
-          <h2 class="card-title board-list">{{ store.video.videoTitle }}</h2>
-        </div> -->
-  <!-- <div class="card-body"> -->
-  <!-- <h2 class="card-title board-list">{{ store.video.videoTitle }}</h2> -->
-  <!-- <div class="details board-list"> -->
-  <!-- <p class="card-text"><strong>파트:</strong> {{ store.video.videoPart }}</p> -->
-  <!-- <div class="youtube-video">
-              <iframe :src="getYouTubeEmbedUrl(store.video.videoUrl)" width="560" height="315" frameborder="0"
-                allowfullscreen></iframe>
-            </div>
-            <p class="card-text"><strong>등록일:</strong> {{ store.video.videoCreatedAt }}</p>
-            <p class="card-text"><strong>조회수:</strong> {{ store.video.videoViewCnt }}</p>
-          </div> -->
-
-  <!-- </div> -->
-
-  <!--기존 리뷰 기능-->
-  <!-- <div>
-          <h3> Comments </h3>
-          <br />
-          <div class="details" v-for="review in reviews" :key="review.reviewId">
-            <div>
-              <div class="card-body">
-                <h3 class="card-title">{{ review.title }}</h3>
-                <p class="card-text">{{ review.userId }}</p>
-                <p class="card-text">{{ review.content }}</p>
-  
-                <button v-if="userStore.idValue === 'admin' || userStore.idValue === review.userId"
-                  @click="deleteReview(review.reviewId)">삭제</button>
-              </div>
-              <br />
-            </div>
-          </div>
-  
-        </div> -->
-
-  <!--새로운 디자인 리뷰 기능-->
   <div>
     <br>
     <h3> review </h3>
@@ -146,20 +106,6 @@
                   <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
                     <b style="min-width: 100px;">{{ review.userId }}</b>
                     <span style="margin-left: 5px;">{{ review.content }}</span>
-                    <!-- <span v-if="isHovered(index)" style="cursor: pointer; margin-left: 10px; " @click="removeComment">&times;</span> -->
-                    <!-- <div v-show="isHovered(index)">
-                          <span v-if="!review.isEditing">
-                          <span title="수정">
-                            <button @click="() => updateReviewState(review.reviewId, review.userId)"
-                              style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">🖍</button>
-                          </span>
-                        </span>
-                          <span title="삭제">
-                            <button @click="() => deleteReview(review.reviewId, review.userId)"
-                              style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">✖</button>
-                          </span>
-                          
-                        </div> -->
                   </span>
                   <span style="text-align: right; padding-right: 5px;">
                     <span> {{ review.createdAt }} </span>
@@ -177,18 +123,13 @@
             </colgroup>
             <thead>
               <tr>
-                <!-- <th>{{ review.title }}</th> -->
                 <td style="display: flex; justify-content: space-between; align-items: center;">
                   <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
-                    <!-- <b style="min-width: 100px;"> {{ userStore.idValue }}</b> -->
                     <span style="margin-left: 5px;">
                       <input type="text" v-model="modifyReview.title" id="title" placeholder="리뷰제목을 수정하세요" required
                         style="width: calc(250px); height: 24px;">
                     </span>
                   </span>
-                  <!-- <span style="text-align: right; padding-right: 5px;">
-                    <button class="commentbtn" @click="updateReview(review.reviewId, review.userId)">수정</button>
-                  </span> -->
                 </td>
               </tr>
             </thead>
@@ -225,9 +166,6 @@
       <thead>
         <tr>
           <th style="display: flex; justify-content: space-between; align-items: center;">
-            <!-- <span style="text-align: center; padding-left: 5px; display: flex; align-items: flex-start;">
-                        <span style="margin-left: 5px;">{{ review.title }}</span>
-                      </span> -->
             <span style="margin-left: 5px;">
               <input type="text" v-model="review.title" id="title" placeholder="제목을 입력하세요" required
                 style="width: calc(250px); height: 24px;">
@@ -241,7 +179,7 @@
       </thead>
       <tbody>
         <tr>
-          <td class ="example" style="display: flex; justify-content: space-between; align-items: center;">
+          <td class="example" style="display: flex; justify-content: space-between; align-items: center;">
             <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
               <b style="min-width: 100px;"> {{ userStore.idValue }}</b>
               <span style="margin-left: 5px;">
@@ -250,7 +188,8 @@
               </span>
             </span>
             <span style="text-align: right; padding-right: 5px;">
-              <button class="commentbtn" style="border: white; background-color: white; font-weight:bold;" @click="createReview()">submit</button>
+              <button class="commentbtn" style="border: white; background-color: white; font-weight:bold;"
+                @click="createReview()">submit</button>
             </span>
           </td>
         </tr>
@@ -367,8 +306,6 @@ const updateReviewState = (reviewId, userId) => {
     alert("권한이 없습니다");
   }
 };
-
-
 
 //리뷰 작성 기능
 
@@ -695,7 +632,5 @@ textarea {
   border: 1px solid white;
   /* 테두리를 흰색으로 설정 */
 }
-
-
 </style>
   

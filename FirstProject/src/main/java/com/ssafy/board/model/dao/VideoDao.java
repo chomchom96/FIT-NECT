@@ -38,4 +38,6 @@ public interface VideoDao {
     //조회수 증가
     public void increaseViewCnt(int videoId);
 
+	public List<Video> findBookmarkDetail(List<String> bookmark);
+
 }

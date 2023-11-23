@@ -31,6 +31,15 @@ export const useVideoStore = defineStore('video', ()=> {
     })
   }
 
+  const getVideoById = function(id) {
+    const video = ref({});
+    axios.get(`http://localhost:8080/api/video/${id}`)
+    .then((res) => {
+      video.value = res.data
+    })
+    return video;
+  }
+
 
   //영상 검색 기능
   const searchVideoList = (searchParams) => {
@@ -82,7 +91,7 @@ export const useVideoStore = defineStore('video', ()=> {
     })
   }
 
-
-  return {getVideo,submitSearchForm, searchVideoList, getVideoList, videoList, video, registVideo}
+  return {getVideo,submitSearchForm, searchVideoList, getVideoList, videoList, video, registVideo,
+  getVideoById}
 
 })
