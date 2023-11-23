@@ -6,8 +6,8 @@ CREATE TABLE user(
 	user_seq INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	user_id VARCHAR(20) UNIQUE NOT NULL,
 	user_password VARCHAR(20),
-    user_email VARCHAR(50) UNIQUE,
-    user_nickname VARCHAR(20) UNIQUE,
+    user_email VARCHAR(50),
+    user_nickname VARCHAR(20),
     is_kakao SMALLINT DEFAULT 0
 )ENGINE = InnoDB;
 

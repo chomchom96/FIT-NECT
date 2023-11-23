@@ -1,9 +1,10 @@
 <template>
   <main class="content">
-    <div class="main bg-light p-4"> <br>
-      <h3 class="mb-3" style="padding-left: 40px;"><strong>회원 정보 수정</strong></h3>
+    <div class="main bg-light p-4">
+      <br />
+      <h3 class="mb-3" style="padding-left: 40px"><strong>회원 정보 수정</strong></h3>
 
-      <div class="row" style="padding-left: 40px; margin-top:40px; margin-bottom:40px;">
+      <div class="row" style="padding-left: 40px; margin-top: 40px; margin-bottom: 40px">
         <div class="col-12 col-md-8 order-md-1">
           <div class="card card-body shadow-sm mb-4">
             <form class="needs-validation" novalidate>
@@ -14,7 +15,7 @@
                     type="text"
                     class="form-control"
                     id="userId"
-                    :value="user.id"
+                    :value="store.idValue"
                     disabled
                   />
                 </div>
@@ -31,7 +32,7 @@
                     class="form-control"
                     id="username"
                     :placeholder="placeholderText1"
-                    v-model="user.email"
+                    v-model="email"
                     required
                   />
                 </div>
@@ -44,7 +45,7 @@
                   class="form-control"
                   id="nickname"
                   :placeholder="placeholderText2"
-                  v-model="user.name"
+                  v-model="nickname"
                   required
                 />
                 <div class="invalid-feedback">Please enter your nickname.</div>
@@ -107,34 +108,23 @@ const store = useUserStore();
 
 console.log(store.idValue);
 
-const user = ref({
-  id: "",
-  password: "",
-  name: "",
-  email: "",
-});
-
-console.log(user);
-
 //사용자가 입력한 변수들
+const password = ref("");
 const email = ref("");
 const nickname = ref("");
 const oldPassword = ref("");
 const newPassword = ref("");
 
 onMounted(() => {
-  const pathName = new URL(document.location).pathname.split("/");
-  const id = pathName[pathName.length - 1];
   const API_URL = `http://localhost:8080/api/users/${store.idValue}`;
   axios({
     url: API_URL,
     method: "GET",
   })
     .then((res) => {
-      user.value.id = res.data.userId;
-      user.value.password = res.data.userPassword;
-      user.value.name = res.data.userNickname;
-      user.value.email = res.data.userEmail;
+      password.value = res.data.userPassword;
+      nickname.value = res.data.userNickname;
+      email.value = res.data.userEmail;a
       placeholderText1.value = res.data.userEmail;
       placeholderText2.value = res.data.name;
     })
@@ -143,46 +133,23 @@ onMounted(() => {
     });
 });
 
-watch(
-  () => user.value.email,
-  (newEmail) => {
-    placeholderText1.value = `${newEmail}`;
-  }
-);
 
-watch(
-  () => user.value.name,
-  (newName) => {
-    placeholderText2.value = `${newName}`;
-  }
-);
+
+
 
 const update = async () => {
-  const password = oldPassword.value;
-  const userConfirm = {
-    userId: store.idValue,
-    userPassword: oldPassword.value,
-    userEmail: store.user.userEmail,
-  };
+  if (oldPassword.value != password.value) {
+    alert("예전 비밀번호를 잘못 입력했습니다!");
+    return;
+  }
+
   const userToUpdate = {
     userId: store.idValue,
     userPassword: newPassword.value,
     userNickname: nickname.value,
     userEmail: email.value,
   };
-
-  try {
-    const existingUser = await store.getUserDetail(userConfirm.userId);
-
-    if (userConfirm.userPassword === user.value.password) {
-      await store.updateUser(userToUpdate);
-      console.log("업데이트 성공");
-    } else {
-      alert("이전 비밀번호가 불일치합니다");
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  store.updateUser(userToUpdate);
 };
 
 const deleteUser = function () {

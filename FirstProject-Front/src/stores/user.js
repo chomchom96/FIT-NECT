@@ -53,7 +53,7 @@ export const useUserStore = defineStore('user', ()=>{
     })
       .then(() => {
         alert("계정 정보 업데이트!")
-        router.push('/mypage/${user.userId}')
+        router.push('/myinfo/')
       })
       .catch((err) => {
         alert("예전 비밀번호를 잘못 입력했습니다");
@@ -204,8 +204,7 @@ export const useUserStore = defineStore('user', ()=>{
   }
 
   onMounted(() => {
-    getUserList(); 
-    getBookmarks();
+    
     checkAuthentication();
   })
 
