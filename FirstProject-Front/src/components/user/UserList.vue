@@ -1,8 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container" style="margin-top:50px;">
     <br>
-    <h2>사용자 목록</h2>
-    <h4>전체 사용자 : {{ userCnt }} 명</h4>
+    <h2 style="text-align: center;">회원 목록</h2>
+    <br>
+    <h5 style="text-align: center;">전체 회원 수 : {{ userCnt }}</h5>
+    <br>
     <div v-if="userList.length">
       <table class="user-list">
         
@@ -11,7 +13,7 @@
             <th>번호</th>
             <th>아이디</th>
             <th>이메일</th>
-            <th>사용자 이름</th>
+            <th>닉네임</th>
           </tr>
         </thead>
         <tbody>
@@ -48,9 +50,25 @@ const props = defineProps({
 </script>
 
 <style scoped>
+.user-list {
+  width: 60%; /* 표의 전체 가로길이를 조절합니다. */
+  margin: 0 auto; /* 가운데 정렬을 위해 margin을 설정합니다. */
+  border-collapse: collapse; /* 테이블 셀 경계를 병합합니다. */
+}
 
-/* .container {
- text-align: center;
-} */
+.user-list th, .user-list td {
+  border: 1px solid white; /* 테이블 셀의 테두리 스타일을 설정합니다. */
+  padding: 8px; /* 셀 내부의 여백을 설정합니다. */
+  text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
+}
 
+.user-link {
+  text-decoration: none; /* 링크의 밑줄을 제거합니다. */
+  color: #333; /* 링크 색상을 설정합니다. */
+  font-weight: bold; /* 링크 텍스트의 굵기를 설정합니다. */
+}
+
+.user-link:hover {
+  text-decoration: underline;
+}
 </style>

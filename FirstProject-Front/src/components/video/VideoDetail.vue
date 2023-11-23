@@ -20,7 +20,7 @@
         </thead>
         <tbody>
           <tr>
-            <td style="display: flex; justify-content: space-between; align-items: center;">
+            <td class ="example" style="display: flex; justify-content: space-between; align-items: center;">
               <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
                 <!-- <b style="min-width: 100px;">{{ store.video.videoPart}}</b> -->
                 <span style="margin-left: 5px;">조회수 {{ store.video.videoViewCnt }}</span>
@@ -33,7 +33,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td style="display: flex; justify-content: space-between; align-items: center;">
+            <td class ="example" style="display: flex; justify-content: space-between; align-items: center;">
               <div style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
                 <!-- <b style="min-width: 100px;">{{ store.video.videoPart}}</b> -->
                 <!-- <span style="margin-left: 5px;">{{ store.video.videoPart }}</span> -->
@@ -48,10 +48,17 @@
             </td>
           </tr>
         </tfoot>
+        
       </table>
+      <!--비디오 게시글 수정/삭제 기능-->
+  
     </li>
-  </div>
 
+  </div>
+<div>
+    <button class="btn" v-if="userStore.idValue == 'admin'" @click="updateVideo">수정</button>
+    <button class="btn" v-if="userStore.idValue == 'admin'" @click="deleteVideo">삭제</button>
+  </div>
 
   <!-- <div class="container mt-4 "> -->
   <!-- <div class="card"> -->
@@ -208,7 +215,7 @@
   </div>
 
   <!--리뷰작성칸-->
-  <div v-if="userStore.getUser">
+  <div v-if="userStore.getUser" style="margin-bottom:100px;">
     <table class="board-list">
 
 
@@ -234,16 +241,16 @@
       </thead>
       <tbody>
         <tr>
-          <td style="display: flex; justify-content: space-between; align-items: center;">
+          <td class ="example" style="display: flex; justify-content: space-between; align-items: center;">
             <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
               <b style="min-width: 100px;"> {{ userStore.idValue }}</b>
               <span style="margin-left: 5px;">
                 <input type="text" v-model="review.content" id="content" placeholder="리뷰를 작성하세요" required
-                  style="width: calc(250px); height: 24px;">
+                  style="width: calc(250px); height: 24px; color: #666; ">
               </span>
             </span>
             <span style="text-align: right; padding-right: 5px;">
-              <button class="commentbtn" @click="createReview()">등록</button>
+              <button class="commentbtn" style="border: white; background-color: white; font-weight:bold;" @click="createReview()">submit</button>
             </span>
           </td>
         </tr>
@@ -259,10 +266,10 @@
 
 
   <!--비디오 게시글 수정/삭제 기능-->
-  <div>
-    <button v-if="userStore.idValue == 'admin'" @click="updateVideo">수정</button>
-    <button v-if="userStore.idValue == 'admin'" @click="deleteVideo">삭제</button>
-  </div>
+  <!-- <div>
+    <button class="btn" v-if="userStore.idValue == 'admin'" @click="updateVideo">수정</button>
+    <button class="btn" v-if="userStore.idValue == 'admin'" @click="deleteVideo">삭제</button>
+  </div> -->
   <!-- </div> -->
   <!-- </div> -->
 </template>
@@ -592,10 +599,10 @@ const modifiedVideoPart = computed(() => {
   margin-top: 5px;
 }
 
-
-.board-list tr:hover td {
-  background-color: rgb(221, 219, 219);
+.board-list tr:hover td:not(.example) {
+  background-color: #eee;
 }
+
 
 
 .board-list th,
@@ -688,5 +695,7 @@ textarea {
   border: 1px solid white;
   /* 테두리를 흰색으로 설정 */
 }
+
+
 </style>
   

@@ -13,6 +13,7 @@ import UserSchedule from "@/components/user/UserSchedule.vue"
 import UserManageFollow from "@/components/user/UserManageFollow.vue"
 import ShowFollowUserSchedule from "@/components/user/ShowFollowUserSchedule.vue"
 import UserFollow from "@/components/user/UserFollow.vue"
+import ManageUserInfo from "@/components/user/ManageUserInfo.vue"
 
 import Video from "../views/VideoView.vue"
 import VideoList from "@/components/video/VideoList.vue"
@@ -109,6 +110,11 @@ const routes = [
         name: "ShowFollowUserSchedule",
         component: ShowFollowUserSchedule,
         props: true,  // Allow the route to receive the ID as a prop
+      },
+      {
+        path: ":id",  // Use a dynamic segment ":id" to capture the user ID
+        name: "ManageUserInfo",
+        component: ManageUserInfo,  // Allow the route to receive the ID as a prop
       }
     ],
   },

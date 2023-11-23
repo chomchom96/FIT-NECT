@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>FIT-NECT</h2>
+    <!-- <h2>FIT-NECT</h2> -->
     <RouterView />
   </div>
 </template>

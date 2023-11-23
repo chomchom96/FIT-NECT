@@ -44,7 +44,7 @@
     <br>
     <div class="search-container">
       <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">
-        <div class="col-1" style="display: inline-block;">
+        <div class="col-1" style="display: inline-block; margin-right:8px;">
             <select v-model="searchKey" class="form-select">
               <option value="boardTitle">제목</option>
               <option value="boardContent">내용</option>
@@ -52,13 +52,13 @@
               <option value="boardId">글번호</option>
             </select>
         </div>
-        <div class="col-6" >
+     
           <input v-model="searchWord" name="word" class="form-control">
-        </div>
+        
 
-        <div class="col-1" >
+        <span>
           <button type="button" class="btn btn-secondary" @click="submitSearchForm">검색</button>
-        </div>
+        </span>
 
       </form>
 
@@ -180,7 +180,7 @@ const handleRowClick = (boardId) => {
 
 
 .board-list tr:hover td {
-  background-color: rgb(249, 247, 247);
+  background-color: #eee;
 }
 
 button {
@@ -282,7 +282,7 @@ nav {
 
 
 .form-control {
-  width: 60%;
+  width: 40%;
 }
 
 .btn-search {

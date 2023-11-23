@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>원하는 트레이너를 선택하세요</h2>
+  <div class="container">
+    <h2 style="text-align: center; margin-top: 40px; margin-bottom: 40px;">당신의 트레이너를 선택하세요</h2>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div v-for="(trainer, index) in store.trainerDetailList" :key="trainer.trainerSeq" class="col">
@@ -8,7 +8,7 @@
           <img :src="trainer.trainerProfilePic" class="card-img-top" alt="Trainer Profile" />
           <div class="card-body">
             <h4 class="card-title" style="font-weight: bolder; text-align: center;">{{ trainer.trainerName }} </h4>
-            <p class="card-text">경력 : {{ trainer.trainerExperience }}</p>
+            <p class="card-text" style="text-align: center;"> {{ trainer.trainerExperience }}</p>
             <br>
             <p class="card-text" style="text-align: center;">{{ trainer.trainerExtra }}</p>
           </div>
@@ -54,7 +54,6 @@ const chooseTrainer = (trainerId) => {
 }
 
 
-
 onMounted(() => {
   store.getDetails();
   axios({
@@ -74,6 +73,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.container {
+  max-width: 70%;
+}
+
 img {
   height: auto;
 }
@@ -82,6 +86,7 @@ img {
   border: 1px solid #ddd;
   border-radius: 8px;
   transition: box-shadow 0.3s;
+  margin: 20px;
 }
 
 .card-body {

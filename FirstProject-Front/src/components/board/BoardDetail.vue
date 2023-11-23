@@ -1,8 +1,6 @@
 <template>
-  <div class="container">
+  <div class="container" style="margin-top:40px;">
     <br> <br>
-
-
     <table class="board-list">
       <colgroup>
         <col style="width: 100%" />
@@ -16,7 +14,7 @@
       <tbody>
         <tr>
           <!-- <td>{{ index + 1 }}</td> -->
-          <td style="display: flex; justify-content: space-between; align-items: center;">
+          <td class="example" style="display: flex; justify-content: space-between; align-items: center;">
             <span style="text-align: left; padding-left: 5px;">
               {{ board.userId }} | 조회수 {{ board.boardViewCnt }}
             </span>
@@ -29,7 +27,7 @@
       </tbody>
       <tbody>
         <tr>
-          <td class="content-cell" style="text-align: left;">{{ board.boardContent }}</td>
+          <td class="content-cell example" style="text-align: left;">{{ board.boardContent }}</td>
         </tr>
       </tbody>
     </table>
@@ -37,7 +35,7 @@
     <button class="btn" @click="handleModifyClick">수정</button>
     <button class="btn" @click="call_confirm()">삭제</button>
 
-
+    
     <div>
       <br>
       <h3> comment </h3>
@@ -572,6 +570,7 @@ const isHovered = (index) => {
   border: none;
   cursor: pointer;
   margin-right: 10px;
+  width: 75px;
 }
 
 .btn:hover {
@@ -591,8 +590,8 @@ const isHovered = (index) => {
 }
 
 
-.board-list tr:hover td {
-  background-color: rgb(249, 247, 247);
+.board-list tr:hover td:not(.example) {
+  background-color: #eee;
 }
 
 button {

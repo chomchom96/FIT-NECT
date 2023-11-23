@@ -1,8 +1,8 @@
 <template>
-  <div class="video-list-page">
+  <div class="video-list-page" style="margin-bottom:70px;">
     <div>
       <div class="row">
-        <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in computedVideos" :key="video.videoId">
+        <div class="card my-2 col-6 col-sm-6 col-md-4" v-for="(video, index) in computedVideos" :key="video.videoId">
 
           <div class="card-body">
             <img v-if="video.thumbnailUrl" :src="video.thumbnailUrl" class="card-img-top" alt="..." style="padding: 5px;">
@@ -20,9 +20,9 @@
         </div>
       </div>
     </div>
-    <div class="search-container">
-      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">
-        <div class="col-2">
+    <div class="search-container" >
+      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center" >
+        <div class="col-2" style="display: inline-block; margin-right:8px;">
           <select v-model="searchKey" class="form-select">
             <option value="videoId">영상번호</option>
             <option value="videoTitle">제목</option>
@@ -48,8 +48,9 @@
             <option value="종아리 운동">종아리</option>
           </select>
         </div>
-
-        <button class="btn btn-secondary" type="button" @click="submitSearchForm">검색</button>
+        <span>
+        <button type="button" class="btn btn-secondary button"  @click="submitSearchForm">검색</button>
+        </span>
       </form>
     </div>
     <div>
@@ -262,9 +263,9 @@ nav {
   pointer-events: none;
 }
 
-.form-control {
+/* .form-control {
   width: 60%;
-}
+} */
 
 .btn {
   background-color: #424242;
@@ -274,8 +275,26 @@ nav {
   margin-right: 10px;
 }
 
+.button {
+  width: 80px;
+}
 
 .btn-search {
   margin-top: -5px;
+}
+
+.row {
+  margin: 10px;
+}
+
+.card {
+  margin-top:5px;
+  background-color: #eee;
+  border: none;
+}
+
+.card-body {
+  border :1px solid lightgray;
+  background-color: white;
 }
 </style>

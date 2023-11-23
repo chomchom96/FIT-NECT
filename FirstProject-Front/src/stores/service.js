@@ -51,7 +51,7 @@ export const useServiceStore = defineStore('service', () => {
       router.push('/')
     })
     .catch((e) => {
-      if (e.response.status === 500) {
+      if (e.response.status === 400) {
         alert("이미 매칭을 신청하셨습니다!")
       }
       console.log(e)

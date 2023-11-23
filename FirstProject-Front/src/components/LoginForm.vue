@@ -42,7 +42,7 @@
   <br>
 
   <div class="socialLogin" @click="kakaoLogin()">
-    <img src="@/src/assets/kakao.png" width="33" height="33" viewBox="0 0 33 33" fill="none" />
+    <img src="@/assets/kakao.png" width="33" height="33" viewBox="0 0 33 33" fill="none" />
     <div class="font">카카오 로그인</div>
   </div>
 </template>

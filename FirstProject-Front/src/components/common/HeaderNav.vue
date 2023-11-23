@@ -29,7 +29,7 @@
         <a href="#"> COMMUNITY</a>
 
         <div class="dropdown-content">
-          <RouterLink to="/board">자유게시판</RouterLink>
+          <RouterLink to="/board">질문게시판</RouterLink>
 
           <RouterLink to="/userfollow">사용자 검색</RouterLink>
         </div>
@@ -104,7 +104,7 @@ const logout = () => {
 
 </script>
 
-<style>
+<style scoped>
 /*드롭다운 메뉴*/
 .dropdown {
   position: relative;

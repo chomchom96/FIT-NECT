@@ -151,7 +151,7 @@
 <script setup>
 </script>
 
-<style sccoped>
+<style scoped>
 img {
   height: auto;
   align-self: center;

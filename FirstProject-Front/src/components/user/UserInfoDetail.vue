@@ -253,7 +253,7 @@ const modifyDetail = () => {
     });
 };
 </script>
-<style>
+<style scoped>
 label {
   margin : 10px;
   width: max-content;

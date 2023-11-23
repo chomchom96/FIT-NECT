@@ -1,6 +1,6 @@
 <template>
   <br />
-  <h2>🛠 CONTACT 🛠 </h2>
+  <h1 style="text-align:center; margin-top:100px;"> CONTACT US </h1>
 
   <div class=contact>
     <br>
@@ -13,7 +13,7 @@
       <label for="exampleFormControlTextarea1" class="form-label">문의 내용</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="message"></textarea>
     </div>
-    <button class="btn" @click="sendEmail">전송</button>
+    <button class="btn" style="margin-top: 50px; width:100px;" @click="sendEmail">전송</button>
   </div>
 </template>
 
@@ -98,7 +98,7 @@ h4 {
   /* 호버 시 어둡게 변하는 배경 */
 }
 
-h2,
+
 h4 {
   text-align: center;
   color: #333;
