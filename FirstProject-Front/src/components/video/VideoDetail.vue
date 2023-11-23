@@ -1,5 +1,13 @@
 <template>
   <div class="card">
+    <div style="align-self: flex-end;">
+      <div v-show="isVideoBookmarked">
+        <button @click="userStore.unbookmarkVideo(route.params.id)">찜하기 해제</button>
+      </div>
+      <div v-show="!isVideoBookmarked">
+        <button @click="userStore.bookmarkVideo(route.params.id)">찜하기</button>
+      </div>
+    </div>
     <li style="margin-top: 40px; margin-bottom: 40px ;" class="comment-row">
       <table class="board-list comment-table">
         <colgroup>
@@ -31,12 +39,7 @@
             </td>
           </tr>
         </tbody>
-        <div v-show="userStore.isBookmark(route.params.id)">
-          <button @click="userStore.unbookmarkVideo(route.params.id)">💔</button>
-        </div>
-        <div v-show="!userStore.isBookmark(route.params.id)">
-          <button @click="userStore.bookmarkVideo(route.params.id)">❤</button>
-        </div>
+
         <tfoot>
           <tr>
             <td class="example" style="display: flex; justify-content: space-between; align-items: center;">
@@ -214,7 +217,7 @@
 </template>
   
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useUserStore } from '../../stores/user'
 import { useRoute, useRouter } from 'vue-router'
@@ -263,14 +266,23 @@ const getYouTubeEmbedUrl = (url) => {
   return `https://www.youtube.com/embed/${videoId}`;
 };
 
+const bookmarks = ref([]);
+
+const isVideoBookmarked = ref("false");
+
 onMounted(async () => {
   await store.getVideo(route.params.id)
   await increaseViewCnt();
   await fetchReviews(route.params.id)
-
-
+  const response = await axios.get(`http://localhost:8080/api/user/bookmark/${userStore.idValue}`);
+  bookmarks.value = response.data;
+  isVideoBookmarked.value = bookmarks.value.includes(route.params.id);
 })
 
+watch(isVideoBookmarked, (newValue) => {
+  console.log(`isVideoBookmarked changed to ${newValue}`);
+  // You can perform additional actions based on the new value if needed
+});
 
 
 async function increaseViewCnt() {

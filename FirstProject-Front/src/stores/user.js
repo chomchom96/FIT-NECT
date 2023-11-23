@@ -205,6 +205,7 @@ export const useUserStore = defineStore('user', ()=>{
 
   onMounted(() => {
     getUserList(); 
+    getBookmarks();
     checkAuthentication();
   })
 
