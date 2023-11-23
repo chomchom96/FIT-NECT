@@ -81,17 +81,8 @@ CREATE TABLE review (
 CREATE TABLE matched(
 	trainer_id VARCHAR(20) NOT NULL,
     user_id VARCHAR(20) NOT NULL,
-	PRIMARY KEY(user_id),
-    FOREIGN KEY (user_id)
-    REFERENCES user(user_id)
-    ON DELETE NO ACTION
-	ON UPDATE CASCADE,
-    FOREIGN KEY (trainer_id)
-    REFERENCES trainer(trainer_id)
-    ON DELETE NO ACTION
-	ON UPDATE CASCADE
+	PRIMARY KEY(user_id)
 )ENGINE = InnoDB;
-
 
 CREATE TABLE board(
 	board_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

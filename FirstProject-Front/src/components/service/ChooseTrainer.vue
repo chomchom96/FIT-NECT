@@ -32,11 +32,28 @@ const router = useRouter();
 
 const chooseTrainer = (trainerId) => {
   const result = confirm("이 트레이너를 선택하시겠습니까?")
-  if (result)
-    store.selectTrainer(userStore.idValue, trainerId)
+  if (result) {
+    console.log(userId + trainerId)
+    axios({
+      url: "http://localhost:8080/api/product/" + userStore.idValue + "/" + trainerId,
+      method: "POST",
+    })
+      .then(() => {
+        alert("트레이너 신청이 완료되었습니다.")
+        router.push('/')
+      })
+      .catch((e) => {
+        if (e.response.status === 400) {
+          alert("이미 매칭을 신청하셨습니다!")
+        }
+        console.log(e)
+      })
+  }
   else
     return;
 }
+
+
 
 onMounted(() => {
   store.getDetails();

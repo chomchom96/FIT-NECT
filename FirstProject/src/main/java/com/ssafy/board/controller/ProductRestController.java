@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.UserDetail;
@@ -72,9 +73,9 @@ public class ProductRestController {
 		}
 	}
 	
-	@PostMapping("/product/{userId}")
+	@PostMapping("/product/{userId}/{trainerId}")
 	@ApiOperation(value="유저가 트레이너 선택")
-	public ResponseEntity<Void> getTrainer(@RequestBody String trainerId, @PathVariable String userId){
+	public ResponseEntity<Void> getTrainer(@PathVariable String trainerId, @PathVariable String userId){
 		System.out.println(trainerId);
 //		trainerId = trainerId.substring(14);
 //		trainerId = trainerId.substring(0, trainerId.length() - 2);
