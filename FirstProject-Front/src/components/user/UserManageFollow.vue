@@ -1,6 +1,8 @@
 <template>
-    <div class="card-container">
-        <div class="card">
+    <h1 style="margin-top:50px; text-align: center;">MY FOLLOWING</h1>
+    <div class="card-container" style="margin-top : 40px;">
+        
+        <div class="card" style="width: 600px;">
             <div class="main bg-light p-4" style="text-align: right; padding-left: 5px; padding-right: 100px;">
                 <div class="col-6" v-if="store.follower.length > 0">
                     <table class="board-list">
@@ -94,6 +96,7 @@ const unFollow = (followId) => { // 내가 팔로우한 상대를 해제할 수 
     })
         .then(() => {
             alert("언팔로우");
+            location.reload(true);
         })
         .catch((err) => {
             console.log(err);
@@ -149,6 +152,7 @@ table {
 .board-list td {
     padding: 12px;
     text-align: center;
+   
 }
 
 .board-list th {

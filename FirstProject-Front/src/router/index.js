@@ -27,6 +27,8 @@ import BoardDetail from "@/components/board/BoardDetail.vue";
 
 import Service from "@/views/ServiceView.vue"
 import ChooseTrainer from "@/components/service/ChooseTrainer.vue"
+import StartService from "@/components/service/StartService.vue"
+
 import Trainer from "../views/TrainerView.vue"
 import TrainerList from "@/components/trainer/TrainerList.vue"
 import TrainerDetail from "@/components/trainer/TrainerDetail.vue"
@@ -70,6 +72,11 @@ const routes = [
         path: "trainers",
         name: "ChooseTrainer",
         component: ChooseTrainer,
+      },
+      {
+        path: "start",
+        name: "StartService",
+        component: StartService,
       }
     ],
   },
