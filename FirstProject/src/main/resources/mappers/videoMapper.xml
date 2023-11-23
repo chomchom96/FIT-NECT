@@ -1,0 +1,129 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.VideoDao">
+    <resultMap type="Video" id="videoMap">
+        <result column="video_id" property="videoId"/>
+        <result column="video_title" property="videoTitle"/>
+        <result column="video_part" property="videoPart"/>
+        <result column="video_created_at" property="videoCreatedAt"/>
+        <result column="video_channel_name" property="videoChannelName"/>
+    	<result column="video_url" property="videoUrl"/>
+    	<result column="video_view_cnt" property="videoViewCnt"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="videoMap" resultType="Video">
+        SELECT video_id, video_title, video_part, video_view_cnt, video_channel_name, video_url, DATE_FORMAT(video_created_at, "%y-%m-%d") video_created_at
+        FROM video;
+    </select>
+    
+    <select id="search" resultMap="videoMap" resultType="Video" parameterType="SearchCondition">
+    	SELECT *
+    	FROM video
+    <if test="key != 'none'">
+        WHERE
+        <choose>
+            <when test="key == 'videoId'">
+                video_id
+            </when>
+            <when test="key == 'videoTitle'">
+                video_title
+            </when>
+            <when test="key == 'videoPart'">
+                video_part
+            </when>
+            <when test="key == 'videoCreatedAt'">
+                video_created_at
+            </when>
+            <when test="key == 'videoChannelName'">
+                video_channel_name
+            </when>
+            <when test="key == 'videoUrl'">
+                video_url
+            </when>
+            <when test="key == 'videoViewCnt'">
+                video_view_cnt
+            </when>
+            <otherwise>
+                ${key}
+            </otherwise>
+        </choose>
+        LIKE concat('%', #{word}, '%');
+    </if>
+    <if test="orderBy != 'none'">
+        ORDER BY 
+        <choose>
+           <when test="key == 'videoId'">
+                video_id
+            </when>
+            <when test="key == 'videoTitle'">
+                video_title
+            </when>
+            <when test="key == 'videoPart'">
+                video_part
+            </when>
+            <when test="key == 'videoCreatedAt'">
+                video_created_at
+            </when>
+            <when test="key == 'videoChannelName'">
+                video_channel_name
+            </when>
+            <when test="key == 'videoUrl'">
+                video_url
+            </when>
+            <when test="key == 'videoViewCnt'">
+                video_view_cnt
+            </when>
+            <otherwise>
+                ${orderBy}
+            </otherwise>
+        </choose>
+        ${orderByDir};
+    </if>
+</select>
+    
+    <update id="increaseViewCnt" parameterType="int">
+    	UPDATE video
+    	SET video_view_cnt = video_view_cnt+1
+    	WHERE video_id= #{videoId};
+    </update>
+
+    <select id="selectOne" resultMap="videoMap" parameterType="int">
+        SELECT *
+        FROM video
+        WHERE video_id = #{videoId};
+    </select>
+
+    <insert id="insertVideo" parameterType="Video">
+        INSERT INTO video (video_title, video_url, video_part, video_channel_name)
+        VALUES (#{videoTitle}, #{videoUrl}, #{videoPart}, #{videoChannelName});
+    </insert>
+    
+    <delete id="deleteVideo" parameterType="int">
+        DELETE FROM video
+        WHERE video_id = #{videoId};
+    </delete>
+    
+    <update id="updateVideo" parameterType="video">
+        UPDATE video
+        SET video_title = #{videoTitle}, video_part = #{videoPart}, video_created_at = now(), video_channel_name=#{videoChannelName}
+        WHERE video_id = #{videoId};
+    </update>
+    
+    <insert id="bookmark" parameterType="VideoBookmark">
+    	INSERT INTO bookmarks
+    	VALUES (#{userId}, #{videoId});
+    </insert>
+    
+    <delete id="unbookmark" parameterType="VideoBookmark">
+    	DELETE FROM bookmarks
+    	WHERE (user_id, video_id) = (#{userId}, #{videoId});
+    </delete>
+    
+    <select id="bookmarkFind" parameterType="String">
+    	SELECT video_id videoId 
+    	FROM bookmarks
+    	WHERE user_id = #{userId};
+    </select>
+    
+</mapper>
