@@ -38,7 +38,7 @@
         <tbody>
         <tr>
             <!-- <td>{{ index + 1 }}</td> -->
-            <td style="display: flex; justify-content: space-between; align-items: center;">
+            <td style="display: flex; justify-content: space-between; align-items: center; background-color: #eee;">
               <span style="text-align: left; padding-left: 5px;">
                   {{ board.userId }} 
               </span>
@@ -138,14 +138,14 @@ text-align: center;
   margin-top: 30px;
   border-top: white;
   border-left: white;
+
 }
 
 .board-list th, .board-list td {
 padding: 10px;
-/* text-align: center; 가운데 정렬로 변경 */
-/* border-bottom: 1px solid #ddd;  */
 border-left: 1px solid white;
 border-right: 1px solid white;
+background-color: white;
 }
 
 .text-center {
@@ -167,24 +167,24 @@ margin-bottom: 10px;
 
 .btn {
 padding: 10px;
-background-color: #333; /* 무채색 배경 */
-color: #fff; /* 흰색 텍스트 */
+background-color: #333;
+color: #fff;
 border: none;
 cursor: pointer;
 margin-right: 10px;
 }
 
 .btn:hover {
-background-color: #555; /* 호버 시 어둡게 변하는 배경 */
+background-color: #555;
 }
 
 .content-cell {
-  padding: 20px; /* 내용 주변의 여백을 조절 */
-  text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */
-  white-space: pre-wrap; /* 줄 바꿈과 같은 공백 유지 */
-  font-size: 16px; /* 원하는 폰트 크기로 조절 */
-  width: 80%; /* 기본으로 내용을 80% 넓이로 설정 */
-  margin: 0; /* 좌우 여백 제거 */
+  padding: 20px; 
+  text-align: left; 
+  white-space: pre-wrap;
+  font-size: 16px;
+  width: 80%;
+  margin: 0;
   overflow-y: auto; 
   height: 200px;
 }

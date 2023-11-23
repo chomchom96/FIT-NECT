@@ -203,7 +203,6 @@ const board = ref({
 
 const updateCommentState = (commentSeq, userId) => {
   if (userId === store.idValue || store.idValue === "admin") {
-    // 수정 버튼 클릭 시 해당 댓글의 수정 상태를 true로 변경
     const index = comments.value.findIndex((item) => item.commentSeq === commentSeq && item.userId === userId);
     if (index !== -1) {
       comments.value[index].isEditing = true;
@@ -217,21 +216,10 @@ const updateCommentState = (commentSeq, userId) => {
 const createComment = async function () {
   comment.value.boardId = board.value.boardId;
   comment.value.userId = store.idValue;
-  // console.log(comment.value.boardId);
-  // console.log(board.value.boardId); 
   console.log(comment)
   console.log(comment.value.comment)
   await commentStore.createCommentPromise(comment.value);
-  // 서버에 등록 완료된 상황
-  // comments.value.push({
-  //   commentSeq: comment.value.commentSeq,
-  //   boardId: comment.value.boardId,
-  //   userId: comment.value.userId,
-  //   comment: comment.value.comment,
-  //   createdAt: comment.value.createdAt,
-  // });
 
-  // 
 
   const commentAPI_URL = `http://localhost:8080/api/comment/board/${board.value.boardId}`;
 
@@ -252,11 +240,7 @@ const createComment = async function () {
           createdAt: commentData.createdAt,
         });
       });
-      // comment.value.commentSeq = commentRes.data.commentSeq;
-      // comment.value.boardId = commentRes.data.boardId;
-      // comment.value.userId = commentRes.data.userId;
-      // comment.value.comment = commentRes.data.comment;
-      // comment.value.createdAt = commentRes.data.createdAt;
+
     })
     .catch((commentErr) => {
       console.error(commentErr);
@@ -278,21 +262,10 @@ const updateComment = async function (commentSeq, userId) {
   modifyComment.value.boardId = board.value.boardId;
   modifyComment.value.userId = store.idValue;
   console.log(commentSeq);
-  // console.log(comment.value.boardId);
-  // console.log(board.value.boardId); 
+
   console.log(comment)
   console.log(comment.value.comment)
   await commentStore.modifyCommentPromise(commentSeq, modifyComment.value.comment);
-  // 서버에 등록 완료된 상황
-  // comments.value.push({
-  //   commentSeq: comment.value.commentSeq,
-  //   boardId: comment.value.boardId,
-  //   userId: comment.value.userId,
-  //   comment: comment.value.comment,
-  //   createdAt: comment.value.createdAt,
-  // });
-
-  // 
 
   const commentAPI_URL = `http://localhost:8080/api/comment/board/${board.value.boardId}`;
 
@@ -313,11 +286,6 @@ const updateComment = async function (commentSeq, userId) {
           createdAt: commentData.createdAt,
         });
       });
-      // comment.value.commentSeq = commentRes.data.commentSeq;
-      // comment.value.boardId = commentRes.data.boardId;
-      // comment.value.userId = commentRes.data.userId;
-      // comment.value.comment = commentRes.data.comment;
-      // comment.value.createdAt = commentRes.data.createdAt;
     })
     .catch((commentErr) => {
       console.error(commentErr);
@@ -330,55 +298,10 @@ const updateComment = async function (commentSeq, userId) {
   modifyComment.value.comment = "";
 }
 
-// const removeComment = async function(commentItem) {
-//   console.log("removeComment called with commentItem:", commentItem);
-//   if (confirm("댓글을 삭제하시겠습니까?")) {
-//     try {
-//       await commentStore.deleteComment(commentItem);
-//       // 삭제에 성공하면 comments 배열에서 해당 댓글을 제거합니다.
-//       const index = comments.value.indexOf(commentItem);
-//       if (index !== -1) {
-//         comments.value.splice(index, 1);
-//       } else {
-//         alert("댓글 삭제에 실패했습니다.");
-//       }
-//     } catch (error) {
-//       console.error("댓글 삭제 중 오류:", error);
-//       alert("댓글 삭제 중 오류가 발생했습니다.");
-//     }
-//   }
-// }
-
-
-// const removeComment = function () {
-
-// if (confirm("정말로 삭제하시겠습니까?")) {
-
-//   if (comment.value.userId === store.idValue || store.idValue === "admin")
-//     emit("delete-comment", comment.value);
-
-//   else alert("권한이 없습니다")
-//   console.log(comment.value.userId)
-//   console.log(store.idValue)
-// }
-// else {
-//   return
-// }
-// }
 
 const removeComment = async function (commentSeq, userId) {
 
-  // console.log(userId)
-  // console.log(userId)
   if (userId === store.idValue || store.idValue === "admin") {
-
-
-
-    // console.log(commentSeq)
-    // console.log(comment.value.commentSeq); 
-    // console.log(comment.userId); 
-    // console.log(commentItem.value.commentSeq); 
-    // comment.value.commentSeq = commentItem.value.commentSeq;
     await commentStore.deleteCommentPromise(commentSeq);
 
 
@@ -401,11 +324,6 @@ const removeComment = async function (commentSeq, userId) {
             createdAt: commentData.createdAt,
           });
         });
-        // comment.value.commentSeq = commentRes.data.commentSeq;
-        // comment.value.boardId = commentRes.data.boardId;
-        // comment.value.userId = commentRes.data.userId;
-        // comment.value.comment = commentRes.data.comment;
-        // comment.value.createdAt = commentRes.data.createdAt;
       })
       .catch((commentErr) => {
         console.error(commentErr);
@@ -417,28 +335,6 @@ const removeComment = async function (commentSeq, userId) {
 
 }
 
-
-// const removeComment = async function(index) {
-//   // commentStore.deleteComment(); // 필요한지 확인 후 주석 처리
-
-//   if (confirm("댓글을 삭제하시겠습니까?")) {
-//     try {
-//       const response = await commentStore.deleteComment(comment.value);
-//       // 성공적으로 삭제되었을 때만 comments에서 해당 코멘트를 제거합니다.
-//       if (response.status === 200) {
-//         comments.value.splice(index, 1);
-//       } else {
-//         alert("댓글 삭제에 실패했습니다.");
-//       }
-//     } catch (error) {
-//       console.error("댓글 삭제 중 오류:", error);
-//       alert("댓글 삭제 중 오류가 발생했습니다.");
-//     }
-//   }
-// }
-
-
-
 const handleModifyClick = () => {
   if (board.value.userId === store.idValue || store.idValue === "admin") {
     router.push(`/board/modify/${board.value.boardId}`);
@@ -446,12 +342,6 @@ const handleModifyClick = () => {
     alert("권한이 없습니다")
   }
 };
-
-// const deleteBoard = () => {
-//   if (board.value.userId === store.idValue || store.idValue === "admin")
-//     emit("delete-board", board.value);
-//   else alert("권한이 없습니다")
-// };
 
 
 const call_confirm = function () {
@@ -474,8 +364,6 @@ onMounted(() => {
   const pathName = new URL(document.location).pathname.split("/");
   const id = pathName[pathName.length - 1];
   const API_URL = `http://localhost:8080/api/board/${id}`;
-
-  // const commentAPI_URL = `http://localhost:8080/api/comment/user/${userId}`;
   axios({
     url: API_URL,
     method: "GET",
@@ -506,11 +394,7 @@ onMounted(() => {
               createdAt: commentData.createdAt,
             });
           });
-          // comment.value.commentSeq = commentRes.data.commentSeq;
-          // comment.value.boardId = commentRes.data.boardId;
-          // comment.value.userId = commentRes.data.userId;
-          // comment.value.comment = commentRes.data.comment;
-          // comment.value.createdAt = commentRes.data.createdAt;
+
         })
         .catch((commentErr) => {
           console.error(commentErr);
@@ -564,9 +448,7 @@ const isHovered = (index) => {
 .btn {
   padding: 10px;
   background-color: #333;
-  /* 무채색 배경 */
   color: #fff;
-  /* 흰색 텍스트 */
   border: none;
   cursor: pointer;
   margin-right: 10px;
@@ -575,7 +457,6 @@ const isHovered = (index) => {
 
 .btn:hover {
   background-color: #555;
-  /* 호버 시 어둡게 변하는 배경 */
 }
 .container {
   text-align: center;
@@ -613,17 +494,11 @@ button {
 }
 .content-cell {
   padding: 20px;
-  /* 내용 주변의 여백을 조절 */
   text-align: left;
-  /* 텍스트를 왼쪽 정렬로 변경 */
   white-space: pre-wrap;
-  /* 줄 바꿈과 같은 공백 유지 */
   font-size: 16px;
-  /* 원하는 폰트 크기로 조절 */
   width: 80%;
-  /* 기본으로 내용을 80% 넓이로 설정 */
   margin: 0;
-  /* 좌우 여백 제거 */
   overflow-y: auto;
   height: 200px;
 }
@@ -631,9 +506,7 @@ button {
 input[type="text"],
 textarea {
   width: calc(100% - 20px);
-  /* 테두리 포함하여 꽉 차도록 너비 조절 */
   height: calc(100% - 20px);
   border: 1px solid white;
-  /* 테두리를 흰색으로 설정 */
 }
 </style>

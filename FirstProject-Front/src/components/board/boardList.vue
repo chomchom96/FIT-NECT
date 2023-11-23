@@ -101,7 +101,7 @@ const totalPages = computed(() => Math.ceil(store.board.length / itemsPerPage));
 const computedBoard = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const boards = store.board.slice(startIndex, endIndex - 1)
+  const boards = store.board.slice(startIndex, endIndex-1);
   return boards;
 })
 

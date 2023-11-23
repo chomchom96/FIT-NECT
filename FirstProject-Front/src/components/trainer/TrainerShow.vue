@@ -52,7 +52,7 @@
 
     <div class="modal fade" id="trainer1Modal" tabindex="-1" aria-labelledby="trainer1ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content text-center">
           <div class="modal-header">
             <h5 class="modal-title" id="trainer1ModalLabel">성아름</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -70,7 +70,7 @@
 
     <div class="modal fade" id="trainer2Modal" tabindex="-1" aria-labelledby="trainer2ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content text-center">
           <div class="modal-header">
             <h5 class="modal-title" id="trainer2ModalLabel">이민아</h5>
           </div>
@@ -89,7 +89,7 @@
 
     <div class="modal fade" id="trainer3Modal" tabindex="-1" aria-labelledby="trainer2ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content text-center">
           <div class="modal-header">
             <h5 class="modal-title" id="trainer3ModalLabel">김민성</h5>
           </div>
@@ -107,12 +107,12 @@
     </div>
 
     <div class="modal fade" id="trainer4Modal" tabindex="-1" aria-labelledby="trainer2ModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+      <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content text-center" >
           <div class="modal-header">
             <h5 class="modal-title" id="trainer4ModalLabel">박임박</h5>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" >
             <img src="/src/assets/trainer4.png" class="img-fluid mb-3" alt="Trainer 2">
             <p><strong> 32세 </strong> </p>
             <p><strong>강남 자바짐 5년 경력</strong></p>
@@ -127,7 +127,7 @@
 
     <div class="modal fade" id="trainer5Modal" tabindex="-1" aria-labelledby="trainer2ModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content text-center">
           <div class="modal-header">
             <h5 class="modal-title" id="trainer5ModalLabel">조박살</h5>
           </div>
@@ -185,7 +185,7 @@ box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
 }
 
 .modal-title {
-  color: #3498db; /* Set your preferred title color */
+  color: cornflowerblue; 
 }
 
 .modal-body {
@@ -204,7 +204,7 @@ box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
 }
 
 .modal-body strong {
-  color: #e74c3c; 
+  color: black;
 }
 
 .btn-close {

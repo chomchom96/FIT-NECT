@@ -2,9 +2,9 @@
   <div class="container">
     <h2 style="text-align: center; margin-top: 40px; margin-bottom: 40px;">당신의 트레이너를 선택하세요</h2>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-3 row-cols-md-3z g-4">
       <div v-for="(trainer, index) in store.trainerDetailList" :key="trainer.trainerSeq" class="col">
-        <div class="card my-2 col-6 col-sm-6 col-md-4" style="cursor: pointer" @click="chooseTrainer(trainer.trainerId)">
+        <div class="card my-2 col-3 col-sm-2 col-md-10" style="cursor: pointer" @click="chooseTrainer(trainer.trainerId)">
           <img :src="trainer.trainerProfilePic" class="card-img-top" alt="Trainer Profile" />
           <div class="card-body">
             <h4 class="card-title" style="font-weight: bolder; text-align: center;">{{ trainer.trainerName }} </h4>

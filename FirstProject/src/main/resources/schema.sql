@@ -344,4 +344,3 @@ insert into bookmarks (user_id, video_id) values ("ssafy", 1);
 -- delete from bookmarks where (user_id, video_id) = ("admin", 1);
 select * from bookmarks;
 select video_id videoId from bookmarks where user_id="admin";
-
