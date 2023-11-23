@@ -3,20 +3,25 @@
         <div class="container">
             <div>
                 <label for="userId">ID를 입력하세요</label>
-                <input type="text" v-model="searchUserId" id="userId" />
-                <button @click="searchUser">검색</button>
+                <input type="text" class="form-control" v-model="searchUserId" id="userId" />
+                <button class="btn btn-secondary" @click="searchUser">검색</button>
             </div>
 
+            <label>사용자 검색 결과</label>
+
             <div v-if="isValid">
-                <h2>사용자 검색 결과</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card" v-for="u in user" :key="u.userSeq" data-bs-toggle="modal"
-                            data-bs-target="#detailModal">
-                            <p @click="showUserDetails(u)">{{ u.userId }}</p>
-                        </div>
-                    </div>
-                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="u in user" :key="u.userSeq" data-bs-toggle="modal" data-bs-target="#detailModal">
+                            <td @click="showUserDetails(u)">{{ u.userId }}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -28,7 +33,8 @@
                                 <p>User Email: {{ selectedUser.userEmail }}</p>
                                 <p>User Nickname: {{ selectedUser.userNickname }}</p>
                                 <div v-if="isFollowing(selectedUser.userId)" @click="follow(selectedUser.userId)">팔로잉?</div>
-                                <div v-else @click="unFollow(selectedUser.userId)">팔로잉하기</div> <hr>
+                                <div v-else @click="unFollow(selectedUser.userId)">팔로잉하기</div>
+                                <hr>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                             </div>
@@ -130,8 +136,26 @@ const unFollow = (followId) => {
 </script>
 
 <style scoped>
+table {
+    width: 300px;
+}
+
+
+
+
+input {
+    width: 300px;
+}
+
+
+label {
+    font-size: medium;
+    font-weight: bold;
+}
+
 .card {
     margin: 20px;
+    width: 150px;
 }
 
 .modal {

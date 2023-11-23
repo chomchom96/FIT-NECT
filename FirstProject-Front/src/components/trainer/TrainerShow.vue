@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1 class="text-center mt-5 mb-4">TRAINERS</h1>
+      <h1 class="text-center mt-5 mb-4">OUR TRAINERS</h1>
   
       <div class="row">
         <div class="col-md-4">
@@ -73,7 +73,6 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="trainer2ModalLabel">이민아</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <img src="/src/assets/trainer2.png" class="img-fluid mb-3" alt="Trainer 2">
@@ -82,6 +81,8 @@
               <p><strong>원하는 몸, 만들어드립니다</strong></p>
               <p>자기소개글 ~~~ </p>
             </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <br>
           </div>
         </div>
       </div>
@@ -91,7 +92,6 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="trainer3ModalLabel">김민성</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <img src="/src/assets/trainer3.png" class="img-fluid mb-3" alt="Trainer 2">
@@ -100,6 +100,8 @@
               <p><strong>실생활운동을 가르쳐드립니다</strong></p>
               <p>자기소개글 ~~~ </p>
             </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <br>
           </div>
         </div>
       </div>
@@ -109,7 +111,6 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="trainer4ModalLabel">박임박</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <img src="/src/assets/trainer4.png" class="img-fluid mb-3" alt="Trainer 2">
@@ -118,6 +119,8 @@
               <p><strong>바디 프로필 전문</strong></p>
               <p>자기소개글 ~~~ </p>
             </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <br>
           </div>
         </div>
       </div>
@@ -127,7 +130,6 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="trainer5ModalLabel">조박살</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <img src="/src/assets/trainer5.png" class="img-fluid mb-3" alt="Trainer 2">
@@ -136,6 +138,8 @@
               <p><strong>요가/필라테스 전문</strong></p>
               <p>자기소개글 ~~~ </p>
             </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <br>
           </div>
         </div>
       </div>
@@ -148,7 +152,71 @@
 </script>
 
 <style sccoped>
+img {
+  height: auto;
+  align-self: center;
+  max-width: 80%;
+  padding: 20px;
+}
+
 .card {
-    margin: 20px;
+  margin : 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+  align-items: center;
+}
+
+.card-body {
+  margin: 15px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.card:hover {
+  box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
+}
+
+
+.modal-content {
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-title {
+    color: #3498db; /* Set your preferred title color */
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body img {
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.modal-body strong {
+    color: #e74c3c; 
+}
+
+.btn-close {
+    color: #333; 
+}
+
+.modal-content, .btn-close {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-close:hover {
+    color: #e74c3c; 
+    transform: scale(1.2);
 }
 </style>

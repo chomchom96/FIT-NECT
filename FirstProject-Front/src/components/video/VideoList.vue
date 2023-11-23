@@ -1,7 +1,7 @@
 <template>
   <div class="video-list-page">
     <div>
-      <div class="row" >
+      <div class="row">
         <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video, index) in computedVideos" :key="video.videoId">
 
           <div class="card-body">
@@ -20,35 +20,41 @@
         </div>
       </div>
     </div>
-    <form @submit.prevent="submitSearchForm" class="row">
-      <div class="col-2" style="display: inline-block;">
-        <select v-model="searchKey" class="form-select">
-          <option value="videoId">영상번호</option>
-          <option value="videoTitle">제목</option>
-          <option value="videoPart" selected>부위</option>
-          <option value="videoChannelName">채널명</option>
-          <option value="videoCreatedAt">등록일</option>
-        </select>
-      </div>
-      <div class="col-5" style="display: inline-block;">
-        <input v-model="searchWord" name="word" class="form-control">
-      </div>
-      <div class="col-2" style="display: inline-block;">
-        <select v-if="searchKey === 'videoPart'" v-model="selectedPart" class="form-select">
-          <option value="part1">부위 1</option>
-          <option value="part2">부위 2</option>
-          <option value="part3">부위 3</option>
-          <!-- Add more options as needed -->
-        </select>
-      </div>
+    <div class="search-container">
+      <form @submit.prevent="submitSearchForm" class="d-flex justify-content-center align-items-center">
+        <div class="col-2">
+          <select v-model="searchKey" class="form-select">
+            <option value="videoId">영상번호</option>
+            <option value="videoTitle">제목</option>
+            <option value="videoPart" selected>부위</option>
+            <option value="videoChannelName">채널명</option>
+            <option value="videoCreatedAt">등록일</option>
+          </select>
+        </div>
 
-      <div class="col-1">
-        <input type="submit" value="검색">
-      </div>
-    </form>
+        <div class="col-8" v-if="searchKey !== 'videoPart'">
+          <input v-model="searchWord" name="word" class="form-control">
+        </div>
+
+        <div class="col-6" v-if="searchKey === 'videoPart'">
+          <select v-model="selectedPart" class="form-select">
+            <option value="유산소">유산소</option>
+            <option value="어깨 운동">어깨</option>
+            <option value="등 운동">등</option>
+            <option value="가슴 운동">가슴</option>
+            <option value="윗팔 운동">윗팔</option>
+            <option value="아랫팔 운동">아랫팔</option>
+            <option value="허벅지 운동">허벅지</option>
+            <option value="종아리 운동">종아리</option>
+          </select>
+        </div>
+
+        <button class="btn btn-secondary" type="button" @click="submitSearchForm">검색</button>
+      </form>
+    </div>
     <div>
       <router-link :to="{ name: 'VideoRegist' }">
-        <button type="submit" class="btn">Regist</button>
+        <button type="submit" class="btn btn-primary">Regist</button>
       </router-link>
     </div>
     <nav aria-label="Page navigation">
@@ -74,16 +80,8 @@
 <script setup>
 import { ref, onMounted, defineProps, computed, watch } from 'vue'
 import { useVideoStore } from '@/stores/video'
-import { useUserStore } from '../../stores/user'
-import videoImage from '@/assets/coder.png';
-import { useRoute, useRouter } from 'vue-router'
-import axios from 'axios'
-
-const router = useRouter();
-const route = useRoute();
 
 const store = useVideoStore()
-const userStore = useUserStore();
 
 const itemsPerPage = 6;
 const currentPage = ref(1);
@@ -100,9 +98,15 @@ const computedVideos = computed(() => {
   return videos;
 });
 
-const totalVideos = computed(() => store.videoList.length);
-const totalPages = computed(() => Math.ceil(totalVideos.value / itemsPerPage));
-const pages = ref([]);
+const totalPages = computed(() => Math.ceil(store.videoList.length / itemsPerPage));
+console.log(totalPages)
+
+const pages = computed(() => {
+  const startPage = Math.max(1, currentPage.value - 2);
+  const endPage = Math.min(totalPages.value, startPage + 4);
+  console.log(startPage, endPage)
+  return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+})
 
 onMounted(() => {
   updatePages();
@@ -175,6 +179,7 @@ const getYouTubeThumbnail = async (videoUrl) => {
 * {
   font-family: 'Nanum Gothic', sans-serif;
 }
+
 .video-list-page {
   background-color: rgb(240, 240, 240);
   max-width: 1100px;
@@ -202,7 +207,75 @@ th {
 }
 
 a {
-  color:black;
+  color: black;
 }
 
+form {
+  display: flex;
+}
+
+.btn {
+  background-color: #424242;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+
+nav {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.pagination {
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.page-item {
+  display: inline-block;
+  margin: 5px;
+}
+
+.page-link {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.page-link:hover {
+  background-color: #eee;
+}
+
+.page-item.active .page-link {
+  color: #000;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+}
+
+.page-item.disabled .page-link {
+  pointer-events: none;
+}
+
+.form-control {
+  width: 60%;
+}
+
+.btn {
+  background-color: #424242;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+
+.btn-search {
+  margin-top: -5px;
+}
 </style>

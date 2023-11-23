@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <br>
-    <h2>글 보기</h2>
+    <br> <br>
 
 
     <table class="board-list">
@@ -30,7 +29,7 @@
       </tbody>
       <tbody>
         <tr>
-          <td class="content-cell">{{ board.boardContent }}</td>
+          <td class="content-cell" style="text-align: left;">{{ board.boardContent }}</td>
         </tr>
       </tbody>
     </table>
@@ -62,16 +61,16 @@
                       <!-- <span v-if="isHovered(index)" style="cursor: pointer; margin-left: 10px; " @click="removeComment">&times;</span> -->
                       <div v-show="isHovered(index)">
                         <span v-if="!commentItem.isEditing">
-                        <span title="수정">
-                          <button @click="() => updateCommentState(commentItem.commentSeq, commentItem.userId)"
-                            style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">🖍</button>
+                          <span title="수정">
+                            <button @click="() => updateCommentState(commentItem.commentSeq, commentItem.userId)"
+                              style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">🖍</button>
+                          </span>
                         </span>
-                      </span>
                         <span title="삭제">
                           <button @click="() => removeComment(commentItem.commentSeq, commentItem.userId)"
                             style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">✖</button>
                         </span>
-                        
+
                       </div>
                     </span>
                     <span style="text-align: right; padding-right: 5px;">
@@ -99,7 +98,8 @@
                       </span>
                     </span>
                     <span style="text-align: right; padding-right: 5px;">
-                      <button class="commentbtn" @click="updateComment(commentItem.commentSeq, commentItem.userId)">수정</button>
+                      <button class="commentbtn"
+                        @click="updateComment(commentItem.commentSeq, commentItem.userId)">수정</button>
                     </span>
                   </td>
                 </tr>
@@ -204,11 +204,15 @@ const board = ref({
 });
 
 const updateCommentState = (commentSeq, userId) => {
-  // 수정 버튼 클릭 시 해당 댓글의 수정 상태를 true로 변경
-  const index = comments.value.findIndex((item) => item.commentSeq === commentSeq && item.userId === userId);
-  if (index !== -1) {
-    comments.value[index].isEditing = true;
-    modifyComment.value.comment = comments.value[index].comment; // 기존 댓글 내용을 수정 댓글 입력 필드에 설정
+  if (userId === store.idValue || store.idValue === "admin") {
+    // 수정 버튼 클릭 시 해당 댓글의 수정 상태를 true로 변경
+    const index = comments.value.findIndex((item) => item.commentSeq === commentSeq && item.userId === userId);
+    if (index !== -1) {
+      comments.value[index].isEditing = true;
+      modifyComment.value.comment = comments.value[index].comment; // 기존 댓글 내용을 수정 댓글 입력 필드에 설정
+    }
+  } else {
+    alert("권한이 없습니다");
   }
 };
 
@@ -325,7 +329,7 @@ const updateComment = async function (commentSeq, userId) {
 
 
 
-    modifyComment.value.comment = "";
+  modifyComment.value.comment = "";
 }
 
 // const removeComment = async function(commentItem) {
@@ -574,22 +578,33 @@ const isHovered = (index) => {
   background-color: #555;
   /* 호버 시 어둡게 변하는 배경 */
 }
+.container {
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
 
 .board-list {
   width: 85%;
   border-collapse: collapse;
-  margin-top: -1px;
+  margin-top: 5px;
 }
 
-.comment-table tr:hover td {
-  background-color: rgb(231, 231, 231)
+
+.board-list tr:hover td {
+  background-color: rgb(249, 247, 247);
+}
+
+button {
+  width: max-content;
 }
 
 .board-list th,
 .board-list td {
   padding: 10px;
-  /* text-align: center; 가운데 정렬로 변경 */
-  /* border-bottom: 1px solid #ddd;  */
+  background-color: white;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
   border-left: 1px solid white;
   border-right: 1px solid white;
 }
@@ -597,7 +612,6 @@ const isHovered = (index) => {
 .board-list th {
   background-color: #f2f2f2;
 }
-
 .content-cell {
   padding: 20px;
   /* 내용 주변의 여백을 조절 */

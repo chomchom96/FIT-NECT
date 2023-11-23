@@ -35,19 +35,64 @@
           <tr>
             <td style="display: flex; justify-content: space-between; align-items: center;">
               <div style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
-
+                <!-- <b style="min-width: 100px;">{{ store.video.videoPart}}</b> -->
+                <!-- <span style="margin-left: 5px;">{{ store.video.videoPart }}</span> -->
               </div>
               <div class="youtube-video">
                 <iframe :src="getYouTubeEmbedUrl(store.video.videoUrl)" width="560" height="315" frameborder="0"
                   allowfullscreen></iframe>
               </div>
-
+              <!-- <span style="text-align: right; padding-right: 5px;">
+              <span> {{ store.video.videoCreatedAt }} </span>
+            </span> -->
             </td>
           </tr>
         </tfoot>
       </table>
     </li>
   </div>
+
+
+  <!-- <div class="container mt-4 "> -->
+  <!-- <div class="card"> -->
+  <!-- <div class="card-header">
+          <h2 class="card-title board-list">{{ store.video.videoTitle }}</h2>
+        </div> -->
+  <!-- <div class="card-body"> -->
+  <!-- <h2 class="card-title board-list">{{ store.video.videoTitle }}</h2> -->
+  <!-- <div class="details board-list"> -->
+  <!-- <p class="card-text"><strong>파트:</strong> {{ store.video.videoPart }}</p> -->
+  <!-- <div class="youtube-video">
+              <iframe :src="getYouTubeEmbedUrl(store.video.videoUrl)" width="560" height="315" frameborder="0"
+                allowfullscreen></iframe>
+            </div>
+            <p class="card-text"><strong>등록일:</strong> {{ store.video.videoCreatedAt }}</p>
+            <p class="card-text"><strong>조회수:</strong> {{ store.video.videoViewCnt }}</p>
+          </div> -->
+
+  <!-- </div> -->
+
+  <!--기존 리뷰 기능-->
+  <!-- <div>
+          <h3> Comments </h3>
+          <br />
+          <div class="details" v-for="review in reviews" :key="review.reviewId">
+            <div>
+              <div class="card-body">
+                <h3 class="card-title">{{ review.title }}</h3>
+                <p class="card-text">{{ review.userId }}</p>
+                <p class="card-text">{{ review.content }}</p>
+  
+                <button v-if="userStore.idValue === 'admin' || userStore.idValue === review.userId"
+                  @click="deleteReview(review.reviewId)">삭제</button>
+              </div>
+              <br />
+            </div>
+          </div>
+  
+        </div> -->
+
+  <!--새로운 디자인 리뷰 기능-->
   <div>
     <br>
     <h3> review </h3>
@@ -94,7 +139,20 @@
                   <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
                     <b style="min-width: 100px;">{{ review.userId }}</b>
                     <span style="margin-left: 5px;">{{ review.content }}</span>
-
+                    <!-- <span v-if="isHovered(index)" style="cursor: pointer; margin-left: 10px; " @click="removeComment">&times;</span> -->
+                    <!-- <div v-show="isHovered(index)">
+                          <span v-if="!review.isEditing">
+                          <span title="수정">
+                            <button @click="() => updateReviewState(review.reviewId, review.userId)"
+                              style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">🖍</button>
+                          </span>
+                        </span>
+                          <span title="삭제">
+                            <button @click="() => deleteReview(review.reviewId, review.userId)"
+                              style="margin-left: 10px; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 16px;">✖</button>
+                          </span>
+                          
+                        </div> -->
                   </span>
                   <span style="text-align: right; padding-right: 5px;">
                     <span> {{ review.createdAt }} </span>
@@ -115,15 +173,15 @@
                 <!-- <th>{{ review.title }}</th> -->
                 <td style="display: flex; justify-content: space-between; align-items: center;">
                   <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
-                    <b style="min-width: 100px;"> {{ userStore.idValue }}</b>
+                    <!-- <b style="min-width: 100px;"> {{ userStore.idValue }}</b> -->
                     <span style="margin-left: 5px;">
-                      <input type="text" v-model="modifyReview.content" id="content" placeholder="리뷰를 수정하세요" required
+                      <input type="text" v-model="modifyReview.title" id="title" placeholder="리뷰제목을 수정하세요" required
                         style="width: calc(250px); height: 24px;">
                     </span>
                   </span>
-                  <span style="text-align: right; padding-right: 5px;">
+                  <!-- <span style="text-align: right; padding-right: 5px;">
                     <button class="commentbtn" @click="updateReview(review.reviewId, review.userId)">수정</button>
-                  </span>
+                  </span> -->
                 </td>
               </tr>
             </thead>
@@ -133,7 +191,7 @@
                   <span style="text-align: left; padding-left: 5px; display: flex; align-items: flex-start;">
                     <b style="min-width: 100px;"> {{ userStore.idValue }}</b>
                     <span style="margin-left: 5px;">
-                      <input type="text" v-model="modifyReview.content" id="content" placeholder="리뷰를 수정하세요" required
+                      <input type="text" v-model="modifyReview.content" id="content" placeholder="리뷰내용를 수정하세요" required
                         style="width: calc(250px); height: 24px;">
                     </span>
                   </span>
@@ -160,7 +218,9 @@
       <thead>
         <tr>
           <th style="display: flex; justify-content: space-between; align-items: center;">
-
+            <!-- <span style="text-align: center; padding-left: 5px; display: flex; align-items: flex-start;">
+                        <span style="margin-left: 5px;">{{ review.title }}</span>
+                      </span> -->
             <span style="margin-left: 5px;">
               <input type="text" v-model="review.title" id="title" placeholder="제목을 입력하세요" required
                 style="width: calc(250px); height: 24px;">
@@ -195,6 +255,9 @@
     로그인한 회원만 댓글을 작성할 수 있습니다.
   </div>
 
+
+
+
   <!--비디오 게시글 수정/삭제 기능-->
   <div>
     <button v-if="userStore.idValue == 'admin'" @click="updateVideo">수정</button>
@@ -203,7 +266,7 @@
   <!-- </div> -->
   <!-- </div> -->
 </template>
-
+  
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useVideoStore } from '@/stores/video'
@@ -211,11 +274,13 @@ import { useUserStore } from '../../stores/user'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
+
 const route = useRoute();
 const router = useRouter();
 const store = useVideoStore();
 const userStore = useUserStore();
 const reviews = ref([])
+
 
 const review = ref({
   reviewId: "",
@@ -256,7 +321,11 @@ onMounted(async () => {
   await store.getVideo(route.params.id)
   await increaseViewCnt();
   await fetchReviews(route.params.id)
+
+
 })
+
+
 
 async function increaseViewCnt() {
   try {
@@ -278,33 +347,51 @@ async function fetchReviews() {
 }
 
 const updateReviewState = (reviewId, userId) => {
-  // 수정 버튼 클릭 시 해당 리뷰의 수정 상태를 true로 변경
-  const index = reviews.value.findIndex((item) => item.reviewId === reviewId && item.userId === userId);
-  if (index !== -1) {
-    reviews.value[index].isEditing = true;
-    modifyReview.value.review = reviews.value[index].review; // 기존 리뷰 내용을 수정 리뷰 입력 필드에 설정
+  console.log(userId);
+  console.log(userStore.idValue)
+  if (userId === userStore.idValue || userStore.idValue === "admin") {
+    // 수정 버튼 클릭 시 해당 리뷰의 수정 상태를 true로 변경
+    const index = reviews.value.findIndex((item) => item.reviewId === reviewId && item.userId === userId);
+    if (index !== -1) {
+      reviews.value[index].isEditing = true;
+      modifyReview.value.review = reviews.value[index].review; // 기존 리뷰 내용을 수정 리뷰 입력 필드에 설정
+    }
+  } else {
+    alert("권한이 없습니다");
   }
 };
 
+
+
 //리뷰 작성 기능
+
 const createReview = async function () {
+  if (review.value.title.trim == "" || review.value.content.trim == "") {
+    alert("내용을 모두 입력해주세요")
+    return;
+  }
+
   review.value.userId = userStore.idValue;
   review.value.videoId = store.video.videoId;
 
   await createReviewPromise(review.value);
+
   const reviewAPI_URL = `http://localhost:8080/api/review`;
 
   axios({
-    url: reviewAPI_URL,
+    url: `${reviewAPI_URL}?videoId=${store.video.videoId}`,
     method: "GET",
   })
     .then((reviewRes) => {
+
       reviews.value = [];
+
       reviewRes.data.forEach((reviewData) => {
         reviews.value.push({
           reviewId: reviewData.reviewId,
           videoId: reviewData.videoId,
           userId: reviewData.userId,
+          title: reviewData.title,
           content: reviewData.content,
           createdAt: reviewData.createdAt,
         });
@@ -315,8 +402,11 @@ const createReview = async function () {
       console.error(reviewErr);
     });
 
+  review.value.title = "";
   review.value.content = "";
+
 }
+
 
 const createReviewPromise = (review) => {
   return new Promise((resolve, reject) => {
@@ -337,6 +427,7 @@ const createReviewPromise = (review) => {
       .then(() => {
         alert("리뷰 등록 완료");
         resolve();
+        //  router.push("/video/${videoId}");
       })
       .catch((err) => {
         console.log(err);
@@ -349,15 +440,47 @@ const createReviewPromise = (review) => {
 
 //코멘트 수정
 const updateReview = async function (reviewId, userId) {
+  // console.log("프론트에서확인")
+  // console.log(userId)
   modifyReview.value.videoId = store.video.videoId;
   modifyReview.value.userId = store.idValue;
-  await modifyReviewPromise(reviewId, modifyReview.value.content);
+  // console.log(board.value.boardId); 
+
+  await modifyReviewPromise(reviewId, modifyReview.value.content, modifyReview.value.title);
+  const reviewAPI_URL = `http://localhost:8080/api/review`;
+
+  axios({
+    url: `${reviewAPI_URL}?videoId=${store.video.videoId}`,
+    method: "GET",
+  })
+    .then((reviewRes) => {
+
+      reviews.value = [];
+
+      reviewRes.data.forEach((reviewData) => {
+        reviews.value.push({
+          reviewId: reviewData.reviewId,
+          videoId: reviewData.videoId,
+          userId: reviewData.userId,
+          title: reviewData.title,
+          content: reviewData.content,
+          createdAt: reviewData.createdAt,
+        });
+      });
+
+    })
+    .catch((reviewErr) => {
+      console.error(reviewErr);
+    });
+
   modifyReview.value.content = "";
 }
 
-const modifyReviewPromise = (reviewId, newContent) => {
+const modifyReviewPromise = (reviewId, newContent, newTitle) => {
   console.log(reviewId)
   return new Promise((resolve, reject) => {
+    // console.log(comment.boardId)
+    console.log(newContent)
     const API_URL = `http://localhost:8080/api/review/${reviewId}`;
     axios({
       url: API_URL,
@@ -367,11 +490,13 @@ const modifyReviewPromise = (reviewId, newContent) => {
         videoId: review.videoId,
         userId: review.userId,
         content: newContent,
+        title: newTitle,
         createdAt: review.createdAt,
       },
     })
       .then(() => {
         resolve();
+        // router.push("/board");
       })
       .catch((err) => {
         console.log(err);
@@ -382,19 +507,27 @@ const modifyReviewPromise = (reviewId, newContent) => {
 
 };
 
-const deleteReview = async function (reviewId) {
-  try {
-    await axios.delete(`http://localhost:8080/api/review/${reviewId}`);
-    console.log('리뷰 삭제 완료!')
-    await fetchReviews();
-  } catch (error) {
-    console.log(error);
+
+const deleteReview = async function (reviewId, userId) {
+
+  if (userId === userStore.idValue || userStore.idValue === "admin") {
+
+    try {
+      await axios.delete(`http://localhost:8080/api/review/${reviewId}`);
+      console.log('리뷰 삭제 완료!')
+      await fetchReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    alert("권한이 없습니다");
   }
 };
 
 const updateVideo = async function (videoId) {
 
 }
+
 
 const deleteVideo = async function () {
   try {
@@ -422,6 +555,7 @@ const isHovered = (reviewId) => {
 
 
 const modifiedVideoPart = computed(() => {
+  // console.log(store.video);
   if (store.video.videoPart) {
     const modifiedValue = store.video.videoPart.split('(')[0].trim();
     return modifiedValue;
@@ -430,7 +564,7 @@ const modifiedVideoPart = computed(() => {
 });
 
 </script>
-
+  
 <style scoped>
 .youtube-video {
   position: relative;
@@ -506,10 +640,10 @@ const modifiedVideoPart = computed(() => {
 }
 
 /* .search-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } */
 
 
 
@@ -553,4 +687,6 @@ textarea {
   height: calc(100% - 20px);
   border: 1px solid white;
   /* 테두리를 흰색으로 설정 */
-}</style>
+}
+</style>
+  

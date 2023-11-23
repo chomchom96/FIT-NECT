@@ -7,9 +7,10 @@
         <div class="card" style="cursor: pointer" @click="chooseTrainer(trainer.trainerId)">
           <img :src="trainer.trainerProfilePic" class="card-img-top" alt="Trainer Profile" />
           <div class="card-body">
-            <h5 class="card-title">{{ trainer.trainerName }} </h5>
-            <p class="card-text">{{ trainer.trainerExperience }}</p>
-            <p class="card-text">{{ trainer.trainerExtra }}</p>
+            <h4 class="card-title" style="font-weight: bolder; text-align: center;">{{ trainer.trainerName }} </h4>
+            <p class="card-text">경력 : {{ trainer.trainerExperience }}</p>
+            <br>
+            <p class="card-text" style="text-align: center;">{{ trainer.trainerExtra }}</p>
           </div>
         </div>
       </div>
@@ -57,6 +58,22 @@ onMounted(() => {
 
 <style scoped>
 img {
-  max-width: 50%;
+  height: auto;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+}
+
+.card-body {
+  margin: 15px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.card:hover {
+  box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
 }
 </style>

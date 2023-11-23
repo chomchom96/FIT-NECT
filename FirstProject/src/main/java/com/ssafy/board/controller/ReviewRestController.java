@@ -1,5 +1,6 @@
 package com.ssafy.board.controller;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,8 @@ public class ReviewRestController {
 	
 	@PostMapping("/review")
 	@ApiOperation(value="비디오마다(videoId) 리뷰 작성")
-	public ResponseEntity<Review> write(Review review){
+	public ResponseEntity<Review> write(@RequestBody Review review){
+		System.out.println(review.toString());
 		reviewService.writeReview(review);
 		return new ResponseEntity<Review>(review ,HttpStatus.OK);
 	}

@@ -21,7 +21,7 @@
         <div class="dropdown-content">
           <RouterLink :to="{ name: 'ChooseTrainer' }"> START SERVICE </RouterLink>
 
-          <RouterLink to="/trainers/show"> OUR TRIAINERS </RouterLink>
+          <RouterLink to="/trainers/show"> OUR TRAIINERS </RouterLink>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
         <a href="#"> COMMUNITY</a>
 
         <div class="dropdown-content">
-          <RouterLink to="/board">자유게시판</RouterLink>
+          <RouterLink to="/board">질문게시판</RouterLink>
 
           <RouterLink to="/userfollow">사용자 검색</RouterLink>
         </div>

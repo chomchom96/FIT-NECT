@@ -66,8 +66,8 @@
     
 
 	<insert id="insertComment" parameterType="Comment" useGeneratedKeys="true">
-		INSERT INTO comment (comment_seq, board_id, user_id, comment, created_at )
-		VALUES (#{commentSeq}, #{boardId}, #{userId}, #{comment}, #{createdAt});
+		INSERT INTO comment (comment_seq, board_id, user_id, comment)
+		VALUES (#{commentSeq}, #{boardId}, #{userId}, #{comment});
 	</insert>
 	
 	<delete id="deleteComment" parameterType="int">
