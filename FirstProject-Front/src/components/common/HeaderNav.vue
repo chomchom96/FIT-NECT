@@ -2,7 +2,7 @@
   <header>
     <nav class="header-nav">
       <div>
-        <RouterLink to="/" class="logo">FIT-NECT</RouterLink>
+        <RouterLink to="/" class="logo" style="color:cornflowerblue;">FIT-NECT</RouterLink>
       </div>
 
       <div class="dropdown">
@@ -10,8 +10,6 @@
 
         <div class="dropdown-content">
           <RouterLink to="/about">ABOUT US</RouterLink>
-
-          <a href="#">ABOUT FI-NECT</a>
         </div>
       </div>
 

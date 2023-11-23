@@ -1,22 +1,22 @@
 <template>
   <div>
-    <h2>고객 관리 페이지</h2>
-    <table v-if="store.userManageList.length > 0">
-      <thead>
+    <h2 style="text-align: center; margin-top:70px; margin-bottom:50px;">고객 관리 페이지</h2>
+    <table class="manage" v-if="store.userManageList.length > 0">
+      <thead >
         <tr>
-          <th>User ID</th>
+          <th style=" text-align: center;">User ID</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="userId in store.userManageList" :key="userId">
-          <td>
-            <router-link :to="{ name: 'ManageUserSchedule', params: { id: userId } }">{{ userId }}</router-link>
+          <td style=" text-align: center;">
+            <router-link class="rlink" :to="{ name: 'ManageUserSchedule', params: { id: userId } }">{{ userId }}</router-link>
           </td>
         </tr>
       </tbody>
     </table>
-    <div v-else>
-      <h1 style="text-align: center; color: #555; margin-top: 20px; font-size: 1.5em;">
+    <div v-else >
+      <h1 style="text-align: center; color: #555; margin-top: 50px; font-size: 1.5em;">
         매칭을 신청한 사용자가 없습니다 😔
       </h1>
     </div>
@@ -40,11 +40,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  
 }
 
 th,
 td {
-  border: 1px solid #dddddd;
+  border: 1px solid white;
   text-align: left;
   padding: 8px;
 }
@@ -52,4 +53,23 @@ td {
 th {
   background-color: #f2f2f2;
 }
+
+.manage {
+  width: 20%;
+  margin: 0 auto;
+  /* border-collapse: collapse; . */
+  /* border: 1px black solid; */
+  /* background-color: white; */
+}
+
+.rlink {
+  text-decoration: none;
+  color: #333; 
+  font-weight: bold; 
+}
+
+.rlink:hover {
+  text-decoration: cornflowerblue wavy underline;
+}
+
 </style>

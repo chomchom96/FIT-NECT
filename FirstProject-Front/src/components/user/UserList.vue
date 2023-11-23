@@ -9,7 +9,7 @@
       <table class="user-list">
         
         <thead>
-          <tr>
+          <tr style="background-color: white;">
             <th>번호</th>
             <th>아이디</th>
             <th>이메일</th>
@@ -61,6 +61,7 @@ const props = defineProps({
   padding: 8px; /* 셀 내부의 여백을 설정합니다. */
   text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
 }
+
 
 .user-link {
   text-decoration: none; /* 링크의 밑줄을 제거합니다. */
